@@ -92,8 +92,13 @@ TOOLS: list[dict[str, Any]] = [
             "properties": {
                 "chart_type": {
                     "type": "string",
-                    "enum": ["bar", "line", "area", "pie", "metric"],
-                    "description": "The type of chart to display.",
+                    "enum": ["bar", "line", "area", "pie", "metric", "geo"],
+                    "description": (
+                        "The type of chart. Use 'geo' for geographic supply chain maps — "
+                        "pass data as array of {name, lat, lng, status, category, on_time_pct}. "
+                        "status should be 'on-time', 'delayed', or 'critical'. "
+                        "The suppliers table has lat/lng columns."
+                    ),
                 },
                 "title": {
                     "type": "string",

@@ -1,9 +1,9 @@
-supplier_id,name,country,category,lead_time_days,reliability_score,payment_terms
-SUP-001,Legnami Toscani,Italy,wood,14,0.94,Net 30
-SUP-002,Pelle di Firenze,Italy,leather,21,0.91,Net 45
-SUP-003,Tessuti Milano,Italy,fabric,10,0.88,Net 30
-SUP-004,Schiuma Veneta,Italy,foam,7,0.92,Net 15
-SUP-005,Ferramenta Napoli,Italy,hardware,5,0.96,Net 30
-SUP-006,Vetro di Murano,Italy,glass,18,0.89,Net 45
-SUP-007,Colori Romani,Italy,paint,8,0.95,Net 30
-SUP-008,Imballaggio Siciliano,Italy,packaging,4,0.97,Net 15
+supplier_id,name,country,city,lat,lng,category,lead_time_days,reliability_score,payment_terms
+SUP-001,Legnami Toscani,Italy,Siena,43.32,11.78,wood,14,0.94,Net 30
+SUP-002,Pelle di Firenze,Italy,Firenze,43.77,11.25,leather,21,0.91,Net 45
+SUP-003,Tessuti Milano,Italy,Milano,45.46,9.19,fabric,10,0.88,Net 30
+SUP-004,Schiuma Veneta,Italy,Venezia,45.44,12.33,foam,7,0.92,Net 15
+SUP-005,Ferramenta Bologna,Italy,Bologna,44.49,11.34,hardware,5,0.96,Net 30
+SUP-006,Vetro di Murano,Italy,Murano,45.46,12.35,glass,18,0.89,Net 45
+SUP-007,Colori Napoli,Italy,Napoli,40.85,14.27,paint,8,0.95,Net 30
+SUP-008,Imballaggi Roma,Italy,Roma,41.9,12.5,packaging,4,0.97,Net 15

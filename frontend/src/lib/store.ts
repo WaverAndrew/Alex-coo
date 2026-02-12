@@ -131,30 +131,60 @@ interface ActiveDashboardStore {
   replaceChart: (index: number, chart: ChartConfig) => void;
 }
 
+function persistDashboard(dashboard: DashboardContext | null) {
+  if (typeof window === "undefined") return;
+  if (dashboard) {
+    localStorage.setItem(`dashboard-${dashboard.id}`, JSON.stringify(dashboard.charts));
+  }
+}
+
+function loadPersistedCharts(id: string): ChartConfig[] | null {
+  if (typeof window === "undefined") return null;
+  const saved = localStorage.getItem(`dashboard-${id}`);
+  if (!saved) return null;
+  try { return JSON.parse(saved); } catch { return null; }
+}
+
 export const useActiveDashboardStore = create<ActiveDashboardStore>((set) => ({
   dashboard: null,
-  setDashboard: (dashboard) => set({ dashboard }),
+  setDashboard: (dashboard) => {
+    if (dashboard) {
+      const saved = loadPersistedCharts(dashboard.id);
+      if (saved && saved.length > 0) {
+        dashboard = { ...dashboard, charts: saved };
+      }
+    }
+    set({ dashboard });
+  },
   updateCharts: (charts) =>
     set((state) => {
       if (!state.dashboard) return state;
-      return { dashboard: { ...state.dashboard, charts } };
+      const updated = { ...state.dashboard, charts };
+      persistDashboard(updated);
+      return { dashboard: updated };
     }),
   addChart: (chart) =>
     set((state) => {
       if (!state.dashboard) return state;
-      return { dashboard: { ...state.dashboard, charts: [...state.dashboard.charts, chart] } };
+      const updated = { ...state.dashboard, charts: [...state.dashboard.charts, chart] };
+      persistDashboard(updated);
+      return { dashboard: updated };
     }),
   removeChart: (index) =>
     set((state) => {
       if (!state.dashboard) return state;
-      return { dashboard: { ...state.dashboard, charts: state.dashboard.charts.filter((_, i) => i !== index) } };
+      const updated = { ...state.dashboard, charts: state.dashboard.charts.filter((_, i) => i !== index) };
+      persistDashboard(updated);
+      return { dashboard: updated };
     }),
   replaceChart: (index, chart) =>
     set((state) => {
       if (!state.dashboard) return state;
       const charts = [...state.dashboard.charts];
       charts[index] = chart;
-      return { dashboard: { ...state.dashboard, charts } };
+      const updated = { ...state.dashboard, charts };
+      persistDashboard(updated);
+      return { dashboard: updated };
     }),
 }));
 

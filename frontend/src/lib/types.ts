@@ -1,6 +1,6 @@
 // Chart configuration for rendering dynamic charts
 export interface ChartConfig {
-  type: "bar" | "line" | "area" | "pie" | "metric";
+  type: "bar" | "line" | "area" | "pie" | "metric" | "geo";
   title: string;
   data: Record<string, unknown>[];
   xKey: string;

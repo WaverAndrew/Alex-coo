@@ -19,7 +19,13 @@ import {
   Legend,
 } from "recharts";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ChartConfig } from "@/lib/types";
+
+const SupplyChainMap = dynamic(
+  () => import("./SupplyChainMap").then((m) => m.SupplyChainMap),
+  { ssr: false }
+);
 
 const DEFAULT_COLORS = ["#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
 
@@ -166,6 +172,9 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
             </PieChart>
           </ResponsiveContainer>
         );
+
+      case "geo":
+        return <SupplyChainMap data={config.data} height={height} />;
 
       case "metric":
         const value = config.data[0]?.[config.yKeys[0]];

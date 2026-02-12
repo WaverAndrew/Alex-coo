@@ -217,10 +217,14 @@ suppliers, production, inventory, and daily metrics.
 
 2. recommend_chart
    Recommend a chart to include in your response. Call this AFTER you have the data.
-   - chart_type: one of "bar", "line", "area", "pie", "metric"
+   - chart_type: one of "bar", "line", "area", "pie", "metric", "geo"
    - title: short descriptive title
    - data: array of objects — each object is one data point \
 (e.g., {"month": "Jan", "revenue": 50000})
+   - For "geo" charts (supply chain maps): data should be an array of \
+{"name": "Supplier Name", "lat": 43.77, "lng": 11.25, "status": "on-time|delayed|critical", \
+"category": "wood", "on_time_pct": 94}. The suppliers table has lat and lng columns. \
+Use geo charts when the user asks about supply chain status, supplier locations, or logistics.
    - x_key: the key in each data object for the x-axis
    - y_keys: list of keys for the y-axis values (can be multiple for grouped charts)
    - colors: optional list of hex colors for each y_key (e.g., ["#3b82f6", "#ef4444"])

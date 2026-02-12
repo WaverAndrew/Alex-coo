@@ -1,0 +1,26 @@
+material_id,name,category,unit,unit_cost,supplier_id,reorder_point,reorder_qty
+MAT-001,Noce Massello (Solid Walnut),wood,m3,850.0,SUP-001,15,40
+MAT-002,Rovere Europeo (European Oak),wood,m3,720.0,SUP-001,20,50
+MAT-003,Faggio Evaporato (Steamed Beech),wood,m3,480.0,SUP-001,10,30
+MAT-004,Pannello MDF Premium,wood,sheet,45.0,SUP-001,100,250
+MAT-005,Pelle Pieno Fiore (Full Grain Leather),leather,m2,95.0,SUP-002,50,150
+MAT-006,Pelle Nabuk (Nubuck Leather),leather,m2,78.0,SUP-002,30,100
+MAT-007,Pelle Semi-Anilina,leather,m2,65.0,SUP-002,40,120
+MAT-008,Velluto di Cotone (Cotton Velvet),fabric,m2,32.0,SUP-003,80,200
+MAT-009,Lino Italiano (Italian Linen),fabric,m2,28.0,SUP-003,60,180
+MAT-010,Microfibra Resistente,fabric,m2,18.0,SUP-003,100,300
+MAT-011,Schiuma HR Alta Densita (HR Foam),foam,m3,120.0,SUP-004,25,60
+MAT-012,Memory Foam Premium,foam,m3,180.0,SUP-004,20,50
+MAT-013,Schiuma Poliuretanica Standard,foam,m3,65.0,SUP-004,30,80
+MAT-014,Cerniere Acciaio Inox (SS Hinges),hardware,piece,4.5,SUP-005,500,1500
+MAT-015,Guide Cassetto Soft-Close,hardware,pair,12.0,SUP-005,200,600
+MAT-016,Viti e Bulloni Assortiti,hardware,kg,8.0,SUP-005,50,150
+MAT-017,Piedini Regolabili (Adjustable Feet),hardware,piece,3.2,SUP-005,300,900
+MAT-018,Vetro Temperato 10mm,glass,m2,55.0,SUP-006,30,80
+MAT-019,Specchio Bisellato (Beveled Mirror),glass,m2,42.0,SUP-006,20,50
+MAT-020,Vernice Opaca Italiana (Matte Finish),paint,liter,22.0,SUP-007,80,200
+MAT-021,Finitura Lucida Poliuretanica,paint,liter,28.0,SUP-007,60,150
+MAT-022,Tinta Legno Naturale (Wood Stain),paint,liter,18.0,SUP-007,40,120
+MAT-023,Cartone Ondulato Pesante,packaging,piece,6.5,SUP-008,200,600
+MAT-024,Pluriball Protettivo (Bubble Wrap),packaging,roll,15.0,SUP-008,50,150
+MAT-025,Angolari in Polistirolo,packaging,piece,2.0,SUP-008,400,1200

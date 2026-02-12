@@ -1,0 +1,801 @@
+customer_id,name,type,channel,city,region,created_date,lifetime_value,segment
+CUST-0001,Rossi Interiors,B2B,wholesale,Milano,Lombardia,2023-07-01,3972683.05,VIP
+CUST-0002,Studio Bianchi Design,B2B,showroom_1,Latina,Lazio,2023-07-21,197405.53,VIP
+CUST-0003,Moretti & Partners,B2B,wholesale,Asti,Piemonte,2024-05-26,908430.38,VIP
+CUST-0004,Casa Elegante Design,B2B,showroom_1,Pisa,Toscana,2023-10-08,217708.98,VIP
+CUST-0005,Luca Ferrari Architettura,B2B,wholesale,Parma,Emilia-Romagna,2023-11-27,843482.79,VIP
+CUST-0006,Ricci Design Studio,B2B,showroom_2,Bergamo,Lombardia,2024-04-19,84341.44,VIP
+CUST-0007,Valentini Interior Solutions,B2B,showroom_1,Bergamo,Lombardia,2023-12-08,183051.4,VIP
+CUST-0008,Giordano Progetti,B2B,showroom_2,Lucca,Toscana,2023-07-22,145817.74,VIP
+CUST-0009,Marchetti Design Group,B2B,showroom_1,Modena,Emilia-Romagna,2024-10-17,28925.12,Regular
+CUST-0010,Conti Living Spaces,B2B,wholesale,Catania,Sicilia,2024-01-06,684312.24,Regular
+CUST-0011,De Luca Studio Creativo,B2B,showroom_1,Brescia,Lombardia,2024-05-02,37248.5,Regular
+CUST-0012,Pellegrini Design House,B2B,showroom_1,Frosinone,Lazio,2024-05-24,5423.07,Regular
+CUST-0013,Gallo Architecture & Interiors,B2B,showroom_1,Novara,Piemonte,2024-05-11,62293.72,Regular
+CUST-0014,Caruso Interior Concepts,B2B,showroom_2,Verona,Veneto,2024-03-21,20477.28,Regular
+CUST-0015,Rinaldi Design Lab,B2B,showroom_1,Rimini,Emilia-Romagna,2024-07-20,28391.21,Regular
+CUST-0016,Costa Living Design,B2B,wholesale,Napoli,Campania,2024-09-16,560223.3,Regular
+CUST-0017,Fontana Creative Studio,B2B,showroom_1,Frosinone,Lazio,2024-03-20,16482.21,Regular
+CUST-0018,Bruno & Associati,B2B,showroom_2,La Spezia,Liguria,2023-09-19,52133.55,Regular
+CUST-0019,Santoro Interior Group,B2B,showroom_2,Como,Lombardia,2024-07-24,53941.48,Regular
+CUST-0020,Vitale Design Partners,B2B,showroom_2,Como,Lombardia,2024-10-19,44410.98,Regular
+CUST-0021,Amato Studio Milano,B2B,showroom_2,Novara,Piemonte,2023-08-13,20333.98,Regular
+CUST-0022,Barbieri Progetti d'Interni,B2B,showroom_2,Sanremo,Liguria,2024-09-18,16331.03,Regular
+CUST-0023,Colombo Design Collective,B2B,wholesale,Verona,Veneto,2024-04-29,529522.05,Regular
+CUST-0024,D'Angelo Living,B2B,showroom_2,Padova,Veneto,2024-01-31,11283.7,Regular
+CUST-0025,Esposito Interior Architects,B2B,showroom_1,Salerno,Campania,2024-06-02,95814.71,Regular
+CUST-0026,Fabbri Design Works,B2B,showroom_2,Parma,Emilia-Romagna,2024-02-02,28097.32,Regular
+CUST-0027,Grassi Studio,B2B,wholesale,Messina,Sicilia,2024-04-26,713653.89,Regular
+CUST-0028,Leone Interior Innovations,B2B,showroom_1,Milano,Lombardia,2024-05-22,28914.56,Regular
+CUST-0029,Mancini Design Atelier,B2B,showroom_1,Firenze,Toscana,2023-11-13,47257.64,Regular
+CUST-0030,Neri & Bianchi Studio,B2B,wholesale,Parma,Emilia-Romagna,2023-11-16,504018.57,Regular
+CUST-0031,Grand Hotel Palazzo,B2B,showroom_1,Torino,Piemonte,2024-08-22,258998.63,VIP
+CUST-0032,Hotel Belvedere Group,B2B,wholesale,Genova,Liguria,2024-11-01,986140.76,VIP
+CUST-0033,Luxury Resorts Italia,B2B,wholesale,Catania,Sicilia,2024-01-17,768669.47,VIP
+CUST-0034,Albergo Reale Chain,B2B,showroom_1,Latina,Lazio,2023-08-02,279281.88,VIP
+CUST-0035,Villa Paradiso Hotels,B2B,showroom_1,Bologna,Emilia-Romagna,2023-10-07,349009.67,VIP
+CUST-0036,Hotel Vesuvio Collection,B2B,wholesale,Caserta,Campania,2024-10-04,492679.02,Regular
+CUST-0037,Masseria del Sud Hotels,B2B,wholesale,Brescia,Lombardia,2023-07-05,445710.05,Regular
+CUST-0038,Palazzo Ducale Hospitality,B2B,wholesale,Rimini,Emilia-Romagna,2024-08-01,584371.11,Regular
+CUST-0039,Hotel Riviera Management,B2B,wholesale,Palermo,Sicilia,2024-01-23,600553.09,Regular
+CUST-0040,Boutique Hotels Toscana,B2B,showroom_1,Padova,Veneto,2024-10-03,27250.46,Regular
+CUST-0041,Resort Costiera Group,B2B,wholesale,Taranto,Puglia,2024-02-26,577730.48,Regular
+CUST-0042,Hotel Dolce Vita,B2B,showroom_1,Taranto,Puglia,2024-10-27,1341.52,Regular
+CUST-0043,Castello Hotels & Spa,B2B,wholesale,Bologna,Emilia-Romagna,2023-12-18,723789.43,Regular
+CUST-0044,Seaside Luxury Resorts,B2B,showroom_1,Messina,Sicilia,2023-12-07,62281.08,Regular
+CUST-0045,Montagna Hotels Group,B2B,wholesale,Frosinone,Lazio,2024-02-28,592494.06,Regular
+CUST-0046,Alberghi Stellati Italia,B2B,showroom_1,Caserta,Campania,2023-07-28,70187.72,Regular
+CUST-0047,Hotel Piazza Collection,B2B,showroom_1,Napoli,Campania,2024-05-26,18841.84,Regular
+CUST-0048,Dimora Storica Hotels,B2B,wholesale,Catania,Sicilia,2024-02-16,428510.3,Regular
+CUST-0049,Borgo Antico Hospitality,B2B,wholesale,Genova,Liguria,2024-07-11,580790.84,Regular
+CUST-0050,Lake Como Hotel Group,B2B,showroom_1,Palermo,Sicilia,2024-03-15,15402.58,Regular
+CUST-0051,Matteo Romano,B2C,showroom_1,Latina,Lazio,2024-08-14,211735.41,VIP
+CUST-0052,Claudia Bianchi,B2C,online,Genova,Liguria,2024-02-19,172014.91,VIP
+CUST-0053,Simone Costa,B2C,showroom_1,Taranto,Puglia,2024-10-14,282900.49,VIP
+CUST-0054,Laura Mancini,B2C,showroom_2,Lucca,Toscana,2024-11-21,136286.92,VIP
+CUST-0055,Giuseppe Mancini,B2C,showroom_2,Torino,Piemonte,2023-10-21,100027.59,VIP
+CUST-0056,Alessandro Pellegrini,B2C,showroom_1,Bologna,Emilia-Romagna,2024-02-10,356021.32,VIP
+CUST-0057,Anna Serra,B2C,online,Bergamo,Lombardia,2023-08-22,366302.71,VIP
+CUST-0058,Elena Romano,B2C,online,Taranto,Puglia,2024-03-03,135839.83,VIP
+CUST-0059,Antonio Bruno,B2C,online,Torino,Piemonte,2024-04-19,263287.45,VIP
+CUST-0060,Laura Russo,B2C,showroom_1,Roma,Lazio,2024-11-22,243072.77,VIP
+CUST-0061,Giovanni Pellegrini,B2C,online,Roma,Lazio,2024-10-06,212229.51,VIP
+CUST-0062,Giuseppe Moretti,B2C,showroom_3,Asti,Piemonte,2024-06-10,108049.09,VIP
+CUST-0063,Anna Moretti,B2C,showroom_1,Taranto,Puglia,2024-10-31,301621.39,VIP
+CUST-0064,Luca Colombo,B2C,showroom_2,Novara,Piemonte,2024-10-15,354413.57,VIP
+CUST-0065,Antonio Serra,B2C,online,La Spezia,Liguria,2024-03-19,103604.2,VIP
+CUST-0066,Elisa Caruso,B2C,online,Bergamo,Lombardia,2024-04-29,13982.31,New
+CUST-0067,Andrea Bianchi,B2C,showroom_1,Taranto,Puglia,2023-07-09,26440.75,Regular
+CUST-0068,Anna Giordano,B2C,online,Vicenza,Veneto,2023-11-08,6432.17,New
+CUST-0069,Stefano Mariani,B2C,online,Genova,Liguria,2024-08-23,6885.96,New
+CUST-0070,Laura Serra,B2C,showroom_2,La Spezia,Liguria,2023-10-20,14582.56,Regular
+CUST-0071,Giuseppe Rinaldi,B2C,showroom_2,Messina,Sicilia,2024-06-02,15644.93,Regular
+CUST-0072,Giuseppe Giordano,B2C,showroom_1,Genova,Liguria,2025-01-30,30081.47,New
+CUST-0073,Chiara Barbieri,B2C,showroom_3,Napoli,Campania,2024-11-15,6909.54,New
+CUST-0074,Martina Rossi,B2C,online,Lucca,Toscana,2024-10-12,10349.45,New
+CUST-0075,Chiara Serra,B2C,showroom_3,Latina,Lazio,2024-04-08,4472.29,Regular
+CUST-0076,Roberto Serra,B2C,showroom_1,Genova,Liguria,2024-04-09,19211.0,Regular
+CUST-0077,Silvia Vitale,B2C,showroom_3,Asti,Piemonte,2024-11-27,18854.58,New
+CUST-0078,Martina Mancini,B2C,showroom_1,Catania,Sicilia,2023-12-05,11673.46,Regular
+CUST-0079,Roberto Romano,B2C,online,La Spezia,Liguria,2023-08-06,25187.21,Regular
+CUST-0080,Martina De Luca,B2C,online,Lecce,Puglia,2023-10-07,16372.12,Regular
+CUST-0081,Laura Vitale,B2C,online,Salerno,Campania,2023-12-08,0.0,Regular
+CUST-0082,Sofia Rinaldi,B2C,showroom_2,Lecce,Puglia,2025-01-16,27142.29,New
+CUST-0083,Giuseppe Ricci,B2C,online,Parma,Emilia-Romagna,2024-04-13,4873.3,Regular
+CUST-0084,Alessandro Ferrara,B2C,showroom_1,Bergamo,Lombardia,2023-10-12,28226.96,Regular
+CUST-0085,Giulia Fontana,B2C,showroom_3,Messina,Sicilia,2024-12-19,4940.25,New
+CUST-0086,Sofia Rinaldi,B2C,online,Parma,Emilia-Romagna,2024-12-06,16831.8,New
+CUST-0087,Elena Colombo,B2C,online,Napoli,Campania,2024-05-16,16903.54,New
+CUST-0088,Chiara Gallo,B2C,online,Bologna,Emilia-Romagna,2023-11-20,17413.89,Regular
+CUST-0089,Alessandro Santoro,B2C,showroom_1,Caserta,Campania,2023-08-20,0.0,Regular
+CUST-0090,Claudia Vitale,B2C,showroom_2,Caserta,Campania,2024-05-09,13113.3,Regular
+CUST-0091,Martina Moretti,B2C,showroom_3,Roma,Lazio,2023-08-23,19344.47,New
+CUST-0092,Andrea Rossi,B2C,online,Latina,Lazio,2023-08-22,3347.7,New
+CUST-0093,Francesca Bianchi,B2C,showroom_3,Como,Lombardia,2024-06-14,7253.7,Regular
+CUST-0094,Luca Moretti,B2C,showroom_2,Vicenza,Veneto,2024-03-25,36793.72,New
+CUST-0095,Davide Serra,B2C,showroom_3,Asti,Piemonte,2023-10-28,3438.3,Regular
+CUST-0096,Silvia Caruso,B2C,online,Rimini,Emilia-Romagna,2024-10-16,18668.08,New
+CUST-0097,Claudia Santoro,B2C,showroom_2,Firenze,Toscana,2023-08-27,28836.05,Regular
+CUST-0098,Valentina Russo,B2C,online,Taranto,Puglia,2023-10-26,25808.58,Regular
+CUST-0099,Luca Conti,B2C,online,Milano,Lombardia,2024-03-28,10059.29,Regular
+CUST-0100,Andrea Fontana,B2C,showroom_3,Messina,Sicilia,2024-03-03,11269.92,New
+CUST-0101,Elena Giordano,B2C,online,Caserta,Campania,2024-04-10,10589.46,New
+CUST-0102,Andrea Costa,B2C,online,Bari,Puglia,2024-09-25,41502.71,New
+CUST-0103,Elena Caruso,B2C,online,Salerno,Campania,2025-01-01,5496.21,New
+CUST-0104,Marco Serra,B2C,showroom_2,Bari,Puglia,2024-06-21,13879.28,Regular
+CUST-0105,Stefano Bianchi,B2C,showroom_3,Sanremo,Liguria,2023-12-27,10359.36,Regular
+CUST-0106,Elena Lombardi,B2C,online,Taranto,Puglia,2024-05-20,6030.55,New
+CUST-0107,Elisa Mariani,B2C,showroom_1,Vicenza,Veneto,2024-03-14,19251.7,New
+CUST-0108,Paola Moretti,B2C,showroom_1,Parma,Emilia-Romagna,2024-07-14,7365.6,Regular
+CUST-0109,Monica Lombardi,B2C,showroom_1,Lucca,Toscana,2025-01-27,11360.31,New
+CUST-0110,Luca Greco,B2C,online,Messina,Sicilia,2024-07-31,20176.95,Regular
+CUST-0111,Chiara Russo,B2C,online,La Spezia,Liguria,2023-09-28,5579.01,Regular
+CUST-0112,Elena Greco,B2C,showroom_3,Rimini,Emilia-Romagna,2024-08-21,14708.97,Regular
+CUST-0113,Matteo Esposito,B2C,online,Pisa,Toscana,2024-08-16,24774.43,Regular
+CUST-0114,Roberto Vitale,B2C,showroom_3,Siena,Toscana,2024-09-29,675.98,Regular
+CUST-0115,Giuseppe Giordano,B2C,online,Novara,Piemonte,2023-10-04,5875.08,Regular
+CUST-0116,Claudia Bianchi,B2C,online,Lucca,Toscana,2024-07-03,15495.88,Regular
+CUST-0117,Fabio Ferrari,B2C,showroom_1,Bari,Puglia,2024-03-29,20373.96,Regular
+CUST-0118,Laura Giordano,B2C,online,Modena,Emilia-Romagna,2024-06-06,24887.68,Regular
+CUST-0119,Anna Mancini,B2C,showroom_1,Lucca,Toscana,2024-09-17,24218.43,Regular
+CUST-0120,Francesca Marino,B2C,online,Frosinone,Lazio,2024-07-18,9456.72,Regular
+CUST-0121,Elena Costa,B2C,showroom_3,Vicenza,Veneto,2023-09-07,14505.6,New
+CUST-0122,Fabio Moretti,B2C,online,Salerno,Campania,2024-10-26,5461.69,New
+CUST-0123,Antonio Giordano,B2C,showroom_2,Verona,Veneto,2024-02-08,34845.03,Regular
+CUST-0124,Giuseppe Santoro,B2C,showroom_3,Messina,Sicilia,2024-02-20,16142.91,Regular
+CUST-0125,Valentina Gallo,B2C,showroom_2,Firenze,Toscana,2023-09-12,7745.43,New
+CUST-0126,Martina Vitale,B2C,showroom_1,Frosinone,Lazio,2023-12-21,9456.74,New
+CUST-0127,Davide Marino,B2C,showroom_1,Palermo,Sicilia,2024-01-10,27708.53,Regular
+CUST-0128,Andrea Romano,B2C,online,Asti,Piemonte,2024-11-07,12255.29,New
+CUST-0129,Marco Fontana,B2C,showroom_1,Torino,Piemonte,2024-11-22,38205.09,New
+CUST-0130,Sara Esposito,B2C,showroom_3,Roma,Lazio,2024-03-08,13804.51,Regular
+CUST-0131,Francesca Fontana,B2C,online,Palermo,Sicilia,2024-12-12,24444.8,New
+CUST-0132,Giuseppe Conti,B2C,showroom_2,Venezia,Veneto,2024-02-05,29647.18,Regular
+CUST-0133,Laura Pellegrini,B2C,showroom_1,Latina,Lazio,2024-06-25,26621.01,Regular
+CUST-0134,Sara Pellegrini,B2C,showroom_2,Modena,Emilia-Romagna,2023-10-25,12448.21,Regular
+CUST-0135,Francesca Conti,B2C,showroom_1,Taranto,Puglia,2023-12-20,11337.79,Regular
+CUST-0136,Roberto Giordano,B2C,online,Salerno,Campania,2024-01-19,15068.15,Regular
+CUST-0137,Lorenzo Ferrari,B2C,showroom_1,Asti,Piemonte,2024-12-13,20474.31,New
+CUST-0138,Sofia Costa,B2C,showroom_3,Verona,Veneto,2023-11-20,0.0,Regular
+CUST-0139,Roberto Fontana,B2C,showroom_1,Brescia,Lombardia,2024-10-13,14024.51,New
+CUST-0140,Giulia Gallo,B2C,online,Siena,Toscana,2024-06-22,9284.36,New
+CUST-0141,Silvia Barbieri,B2C,online,Latina,Lazio,2023-10-30,9603.77,New
+CUST-0142,Elena Ricci,B2C,online,Catania,Sicilia,2023-08-10,0.0,New
+CUST-0143,Paola Fontana,B2C,showroom_1,Torino,Piemonte,2024-01-17,11512.62,Regular
+CUST-0144,Laura Conti,B2C,showroom_3,Catania,Sicilia,2025-01-08,4862.84,New
+CUST-0145,Monica Romano,B2C,online,Novara,Piemonte,2024-03-12,18947.24,Regular
+CUST-0146,Fabio Russo,B2C,showroom_3,Siena,Toscana,2024-02-27,23103.75,Regular
+CUST-0147,Andrea Santoro,B2C,showroom_1,Genova,Liguria,2024-07-08,33299.72,Regular
+CUST-0148,Valentina Mancini,B2C,showroom_1,Pisa,Toscana,2024-04-07,9923.94,Regular
+CUST-0149,Paola Ferrara,B2C,showroom_3,Venezia,Veneto,2023-10-13,39974.59,Regular
+CUST-0150,Marco Barbieri,B2C,showroom_1,Roma,Lazio,2024-10-18,13444.62,New
+CUST-0151,Andrea Bianchi,B2C,online,Brescia,Lombardia,2024-09-09,21808.13,Regular
+CUST-0152,Andrea Greco,B2C,showroom_1,Siena,Toscana,2023-09-21,23974.57,Regular
+CUST-0153,Chiara Marino,B2C,showroom_1,Milano,Lombardia,2023-08-20,21196.73,Regular
+CUST-0154,Lorenzo Serra,B2C,showroom_2,Milano,Lombardia,2024-10-30,25468.37,New
+CUST-0155,Silvia Ricci,B2C,showroom_2,Rimini,Emilia-Romagna,2024-03-06,30366.41,Regular
+CUST-0156,Stefano Ferrari,B2C,online,Lucca,Toscana,2023-08-23,7814.12,Regular
+CUST-0157,Claudia Serra,B2C,online,Torino,Piemonte,2024-04-28,10206.69,Regular
+CUST-0158,Chiara Russo,B2C,online,Pisa,Toscana,2024-09-07,24679.74,New
+CUST-0159,Silvia Russo,B2C,showroom_3,Sanremo,Liguria,2024-05-30,7497.64,Regular
+CUST-0160,Alessandro Moretti,B2C,online,Genova,Liguria,2024-05-30,15065.74,Regular
+CUST-0161,Antonio Greco,B2C,showroom_1,Torino,Piemonte,2023-11-10,25544.84,New
+CUST-0162,Davide Mariani,B2C,showroom_1,Torino,Piemonte,2024-05-25,7916.12,New
+CUST-0163,Laura Mariani,B2C,online,Monza,Lombardia,2024-12-27,13666.73,New
+CUST-0164,Roberto Russo,B2C,showroom_3,Venezia,Veneto,2023-11-03,4187.26,Regular
+CUST-0165,Elisa Bruno,B2C,online,Bologna,Emilia-Romagna,2023-12-30,47684.91,Regular
+CUST-0166,Giulia Fontana,B2C,online,Vicenza,Veneto,2024-12-01,16196.86,New
+CUST-0167,Luca Esposito,B2C,online,Modena,Emilia-Romagna,2024-01-11,14199.46,Regular
+CUST-0168,Paola Vitale,B2C,showroom_2,Taranto,Puglia,2023-08-30,8833.35,Regular
+CUST-0169,Anna Barbieri,B2C,online,Monza,Lombardia,2024-10-08,7849.11,New
+CUST-0170,Davide Vitale,B2C,online,Caserta,Campania,2024-08-08,15278.0,Regular
+CUST-0171,Andrea Marino,B2C,online,Lucca,Toscana,2024-06-10,5794.3,Regular
+CUST-0172,Martina De Luca,B2C,showroom_2,Rimini,Emilia-Romagna,2023-09-11,16791.59,Regular
+CUST-0173,Valentina Rinaldi,B2C,online,Caserta,Campania,2024-02-24,22118.15,Regular
+CUST-0174,Giulia Giordano,B2C,online,Torino,Piemonte,2023-07-26,13497.53,Regular
+CUST-0175,Luca Mancini,B2C,online,La Spezia,Liguria,2024-03-09,0.0,Regular
+CUST-0176,Valentina Mariani,B2C,showroom_2,Caserta,Campania,2024-12-07,33415.31,New
+CUST-0177,Silvia Santoro,B2C,showroom_2,Verona,Veneto,2024-02-01,13735.19,Regular
+CUST-0178,Elena De Luca,B2C,showroom_3,Frosinone,Lazio,2023-07-03,17239.79,Regular
+CUST-0179,Chiara Bruno,B2C,online,Novara,Piemonte,2024-11-17,18149.57,New
+CUST-0180,Giuseppe Lombardi,B2C,showroom_1,Padova,Veneto,2024-01-08,37213.04,Regular
+CUST-0181,Andrea Pellegrini,B2C,showroom_1,Siena,Toscana,2023-08-08,48792.44,Regular
+CUST-0182,Matteo Fontana,B2C,online,Rimini,Emilia-Romagna,2023-11-03,8372.1,Regular
+CUST-0183,Martina Conti,B2C,online,Napoli,Campania,2023-07-25,15771.65,Regular
+CUST-0184,Giuseppe Marino,B2C,online,Novara,Piemonte,2023-10-19,7165.17,Regular
+CUST-0185,Stefano Russo,B2C,online,Latina,Lazio,2024-07-03,30478.59,Regular
+CUST-0186,Davide Marino,B2C,showroom_2,Roma,Lazio,2024-04-07,20968.43,Regular
+CUST-0187,Simone Ferrara,B2C,showroom_1,Roma,Lazio,2024-07-11,10236.32,Regular
+CUST-0188,Stefano Barbieri,B2C,online,Roma,Lazio,2024-11-14,836.73,New
+CUST-0189,Claudia Bruno,B2C,showroom_3,Bari,Puglia,2023-11-14,26400.14,Regular
+CUST-0190,Anna Ricci,B2C,showroom_2,Parma,Emilia-Romagna,2024-02-08,32961.44,Regular
+CUST-0191,Laura Pellegrini,B2C,showroom_3,Pisa,Toscana,2023-07-04,26870.03,Regular
+CUST-0192,Stefano Mancini,B2C,online,Bari,Puglia,2024-11-15,0.0,New
+CUST-0193,Anna Serra,B2C,showroom_2,Bergamo,Lombardia,2024-07-26,10389.94,Regular
+CUST-0194,Sara Gallo,B2C,showroom_2,Monza,Lombardia,2024-05-21,11090.36,Regular
+CUST-0195,Lorenzo Lombardi,B2C,online,Napoli,Campania,2024-02-10,21493.88,Regular
+CUST-0196,Francesca Costa,B2C,showroom_2,Milano,Lombardia,2023-09-28,7801.47,New
+CUST-0197,Francesco Bianchi,B2C,online,Pisa,Toscana,2024-11-22,2628.42,New
+CUST-0198,Sara Bruno,B2C,showroom_1,Brescia,Lombardia,2023-07-10,36541.4,Regular
+CUST-0199,Davide Gallo,B2C,online,Bergamo,Lombardia,2023-07-13,26922.12,Regular
+CUST-0200,Laura Rossi,B2C,showroom_3,Firenze,Toscana,2024-12-31,14543.12,New
+CUST-0201,Claudia Mancini,B2C,online,Monza,Lombardia,2024-05-13,2866.74,New
+CUST-0202,Sofia De Luca,B2C,showroom_2,Pisa,Toscana,2023-11-14,25669.34,New
+CUST-0203,Giuseppe Ferrari,B2C,online,Milano,Lombardia,2024-04-21,25299.88,New
+CUST-0204,Monica Ricci,B2C,showroom_2,Pisa,Toscana,2024-02-14,19113.94,New
+CUST-0205,Claudia Ferrari,B2C,showroom_1,Salerno,Campania,2023-12-12,26458.21,Regular
+CUST-0206,Paola De Luca,B2C,online,Rimini,Emilia-Romagna,2025-01-24,24734.53,New
+CUST-0207,Fabio Conti,B2C,online,Modena,Emilia-Romagna,2024-08-05,21768.59,New
+CUST-0208,Anna Vitale,B2C,showroom_3,Genova,Liguria,2023-07-23,13005.59,Regular
+CUST-0209,Marco Rinaldi,B2C,showroom_3,Torino,Piemonte,2024-02-10,17741.89,Regular
+CUST-0210,Alessandro De Luca,B2C,showroom_3,Roma,Lazio,2025-01-29,7356.15,New
+CUST-0211,Luca Greco,B2C,online,Padova,Veneto,2024-04-14,8204.94,Regular
+CUST-0212,Matteo Ferrara,B2C,showroom_1,Messina,Sicilia,2024-12-31,26081.41,New
+CUST-0213,Marco Vitale,B2C,online,Palermo,Sicilia,2024-04-14,5021.7,New
+CUST-0214,Stefano Russo,B2C,showroom_3,Siena,Toscana,2024-11-28,6654.19,New
+CUST-0215,Davide Rossi,B2C,showroom_3,Venezia,Veneto,2023-12-06,4359.9,New
+CUST-0216,Sara Mariani,B2C,online,Padova,Veneto,2023-12-04,23395.57,Regular
+CUST-0217,Monica Costa,B2C,showroom_3,Como,Lombardia,2023-11-07,28991.47,Regular
+CUST-0218,Anna Lombardi,B2C,online,Rimini,Emilia-Romagna,2024-04-08,23541.77,New
+CUST-0219,Giulia Serra,B2C,online,Siena,Toscana,2024-12-31,11735.9,New
+CUST-0220,Luca Santoro,B2C,showroom_3,Rimini,Emilia-Romagna,2024-04-27,8390.36,New
+CUST-0221,Elena Conti,B2C,online,Novara,Piemonte,2024-10-02,12821.71,New
+CUST-0222,Elisa Esposito,B2C,showroom_2,Monza,Lombardia,2023-11-04,58498.05,Regular
+CUST-0223,Silvia Caruso,B2C,showroom_1,Firenze,Toscana,2023-08-20,8541.04,Regular
+CUST-0224,Luca Marino,B2C,showroom_1,Caserta,Campania,2024-08-10,8773.87,Regular
+CUST-0225,Andrea Barbieri,B2C,online,Rimini,Emilia-Romagna,2024-08-23,14715.89,Regular
+CUST-0226,Fabio Rossi,B2C,showroom_1,Padova,Veneto,2024-09-03,24417.06,Regular
+CUST-0227,Giovanni Greco,B2C,online,Rimini,Emilia-Romagna,2025-01-25,25057.55,New
+CUST-0228,Fabio Caruso,B2C,showroom_2,Pisa,Toscana,2024-07-20,15166.62,Regular
+CUST-0229,Alessandro Ferrara,B2C,showroom_2,Torino,Piemonte,2023-12-26,16093.79,New
+CUST-0230,Fabio Colombo,B2C,showroom_1,Roma,Lazio,2024-11-12,41182.15,New
+CUST-0231,Martina Vitale,B2C,showroom_2,Caserta,Campania,2023-12-03,14090.99,Regular
+CUST-0232,Martina Colombo,B2C,showroom_1,Torino,Piemonte,2023-09-22,14219.3,Regular
+CUST-0233,Laura Fontana,B2C,online,Caserta,Campania,2024-10-18,6294.08,New
+CUST-0234,Luca Mancini,B2C,showroom_2,Frosinone,Lazio,2023-11-18,28433.11,Regular
+CUST-0235,Anna Ferrara,B2C,online,Asti,Piemonte,2024-05-13,35040.56,Regular
+CUST-0236,Martina Conti,B2C,showroom_3,Messina,Sicilia,2024-04-11,9322.24,Regular
+CUST-0237,Marco De Luca,B2C,online,Bergamo,Lombardia,2024-11-13,21014.85,New
+CUST-0238,Martina Rizzo,B2C,online,Bari,Puglia,2024-03-20,18385.01,Regular
+CUST-0239,Matteo Ferrari,B2C,showroom_3,Taranto,Puglia,2024-09-30,2352.54,Regular
+CUST-0240,Alessandro Pellegrini,B2C,showroom_3,Genova,Liguria,2023-09-25,1512.69,New
+CUST-0241,Sofia Colombo,B2C,showroom_1,Messina,Sicilia,2023-07-08,11900.86,Regular
+CUST-0242,Antonio Ferrari,B2C,online,Parma,Emilia-Romagna,2024-09-15,19219.64,New
+CUST-0243,Stefano Rinaldi,B2C,showroom_1,Brescia,Lombardia,2023-08-20,17407.65,New
+CUST-0244,Valentina Ricci,B2C,online,Sanremo,Liguria,2023-10-04,27683.34,Regular
+CUST-0245,Simone De Luca,B2C,online,Vicenza,Veneto,2024-09-24,31394.29,Regular
+CUST-0246,Stefano Barbieri,B2C,showroom_2,Verona,Veneto,2023-07-07,8256.38,Regular
+CUST-0247,Marco Santoro,B2C,online,Salerno,Campania,2023-11-24,19550.06,Regular
+CUST-0248,Anna Esposito,B2C,showroom_2,Messina,Sicilia,2023-09-20,5395.52,Regular
+CUST-0249,Valentina Bianchi,B2C,showroom_2,Napoli,Campania,2024-12-04,20440.95,New
+CUST-0250,Alessandro Ferrari,B2C,online,Bologna,Emilia-Romagna,2023-10-27,3019.58,New
+CUST-0251,Andrea Bianchi,B2C,showroom_1,Bari,Puglia,2024-02-11,47004.52,New
+CUST-0252,Giuseppe Moretti,B2C,showroom_1,Caserta,Campania,2024-06-28,49853.87,Regular
+CUST-0253,Claudia Mariani,B2C,online,Bologna,Emilia-Romagna,2023-11-05,0.0,Regular
+CUST-0254,Sofia Lombardi,B2C,showroom_1,Torino,Piemonte,2024-12-07,23971.62,New
+CUST-0255,Luca Russo,B2C,showroom_1,Modena,Emilia-Romagna,2024-06-23,34778.16,Regular
+CUST-0256,Stefano Bruno,B2C,online,Como,Lombardia,2024-09-14,6946.85,Regular
+CUST-0257,Alessandro Santoro,B2C,online,Pisa,Toscana,2023-11-23,2386.18,Regular
+CUST-0258,Davide Esposito,B2C,showroom_1,Sanremo,Liguria,2023-07-17,4557.23,Regular
+CUST-0259,Francesco Caruso,B2C,online,Lucca,Toscana,2024-06-06,15407.02,Regular
+CUST-0260,Fabio Romano,B2C,showroom_2,Palermo,Sicilia,2023-12-15,50942.82,New
+CUST-0261,Sara Rinaldi,B2C,showroom_2,Frosinone,Lazio,2024-08-04,24892.26,Regular
+CUST-0262,Silvia Serra,B2C,showroom_1,Bergamo,Lombardia,2024-06-27,8302.84,Regular
+CUST-0263,Roberto Esposito,B2C,showroom_1,Rimini,Emilia-Romagna,2023-07-29,7351.19,Regular
+CUST-0264,Luca Bruno,B2C,showroom_2,La Spezia,Liguria,2024-05-05,16302.44,Regular
+CUST-0265,Valentina Mariani,B2C,online,Caserta,Campania,2023-09-07,36683.74,Regular
+CUST-0266,Elena Esposito,B2C,showroom_3,Napoli,Campania,2024-10-09,5717.31,New
+CUST-0267,Laura Bruno,B2C,online,Torino,Piemonte,2024-11-18,12190.57,New
+CUST-0268,Giulia Russo,B2C,showroom_2,Firenze,Toscana,2023-12-01,17463.35,Regular
+CUST-0269,Giovanni Marino,B2C,showroom_1,Torino,Piemonte,2024-02-02,50209.44,Regular
+CUST-0270,Luca Greco,B2C,showroom_3,Modena,Emilia-Romagna,2023-08-08,0.0,Regular
+CUST-0271,Sofia Bianchi,B2C,showroom_2,Bari,Puglia,2023-10-10,28699.42,New
+CUST-0272,Anna Bianchi,B2C,showroom_1,Torino,Piemonte,2024-05-25,28428.73,Regular
+CUST-0273,Martina Costa,B2C,showroom_3,Lucca,Toscana,2024-05-13,2551.58,New
+CUST-0274,Roberto Mancini,B2C,online,Bologna,Emilia-Romagna,2024-10-27,20109.29,New
+CUST-0275,Elisa Romano,B2C,showroom_2,Latina,Lazio,2024-12-18,21403.56,New
+CUST-0276,Fabio Gallo,B2C,showroom_2,Padova,Veneto,2025-01-21,40194.09,New
+CUST-0277,Giovanni Conti,B2C,online,Rimini,Emilia-Romagna,2023-08-16,21672.26,Regular
+CUST-0278,Elisa Colombo,B2C,showroom_2,Torino,Piemonte,2023-09-24,19305.18,Regular
+CUST-0279,Chiara Costa,B2C,showroom_3,Frosinone,Lazio,2023-11-14,13238.93,New
+CUST-0280,Luca Rizzo,B2C,showroom_2,Bologna,Emilia-Romagna,2024-10-19,14038.54,New
+CUST-0281,Claudia Moretti,B2C,showroom_3,La Spezia,Liguria,2024-08-05,684.54,Regular
+CUST-0282,Matteo Mancini,B2C,online,Verona,Veneto,2023-12-06,10622.17,Regular
+CUST-0283,Francesca Pellegrini,B2C,showroom_1,Sanremo,Liguria,2023-11-08,40119.25,Regular
+CUST-0284,Luca Caruso,B2C,showroom_1,Bologna,Emilia-Romagna,2024-06-28,51690.29,New
+CUST-0285,Monica Fontana,B2C,showroom_2,Modena,Emilia-Romagna,2024-07-31,16745.22,Regular
+CUST-0286,Elisa Conti,B2C,showroom_3,Bergamo,Lombardia,2024-05-06,5750.29,Regular
+CUST-0287,Alessandro Serra,B2C,showroom_2,Venezia,Veneto,2023-11-18,49059.22,New
+CUST-0288,Giuseppe Ferrara,B2C,online,Messina,Sicilia,2024-10-19,8628.68,New
+CUST-0289,Roberto Gallo,B2C,online,Vicenza,Veneto,2024-09-12,23638.96,Regular
+CUST-0290,Fabio Greco,B2C,online,Bari,Puglia,2024-06-23,8434.09,Regular
+CUST-0291,Marco Serra,B2C,online,Brescia,Lombardia,2024-09-01,17829.32,New
+CUST-0292,Claudia Rizzo,B2C,showroom_2,Como,Lombardia,2023-11-23,16825.38,Regular
+CUST-0293,Fabio Giordano,B2C,showroom_1,Milano,Lombardia,2024-08-02,23193.23,Regular
+CUST-0294,Simone Esposito,B2C,showroom_2,Lucca,Toscana,2024-01-03,16452.03,Regular
+CUST-0295,Monica Bianchi,B2C,online,Roma,Lazio,2024-09-12,24281.11,New
+CUST-0296,Giulia Serra,B2C,showroom_1,Venezia,Veneto,2024-02-11,35589.81,Regular
+CUST-0297,Laura Esposito,B2C,online,Latina,Lazio,2025-01-25,7407.19,New
+CUST-0298,Roberto Lombardi,B2C,showroom_2,Siena,Toscana,2023-10-15,35578.78,Regular
+CUST-0299,Elena Marino,B2C,online,Brescia,Lombardia,2024-11-28,21672.65,New
+CUST-0300,Stefano Costa,B2C,showroom_3,Bologna,Emilia-Romagna,2024-12-02,1236.81,New
+CUST-0301,Laura Caruso,B2C,showroom_1,La Spezia,Liguria,2023-08-31,38934.85,New
+CUST-0302,Giuseppe Ferrari,B2C,showroom_1,Venezia,Veneto,2023-10-28,12917.53,Regular
+CUST-0303,Fabio Marino,B2C,showroom_2,Como,Lombardia,2024-06-21,5534.98,Regular
+CUST-0304,Giovanni Mariani,B2C,showroom_1,Brescia,Lombardia,2024-12-22,11381.57,New
+CUST-0305,Giuseppe Rinaldi,B2C,showroom_2,Sanremo,Liguria,2024-05-27,8691.13,Regular
+CUST-0306,Valentina Ricci,B2C,showroom_3,Modena,Emilia-Romagna,2024-03-17,6593.83,Regular
+CUST-0307,Alessandro Mariani,B2C,online,Padova,Veneto,2023-08-07,10139.39,Regular
+CUST-0308,Andrea Giordano,B2C,online,Rimini,Emilia-Romagna,2024-09-26,6116.45,New
+CUST-0309,Elisa Conti,B2C,online,Catania,Sicilia,2023-10-22,28758.42,Regular
+CUST-0310,Claudia Vitale,B2C,showroom_2,Brescia,Lombardia,2025-01-18,12218.57,New
+CUST-0311,Luca Ferrara,B2C,online,Venezia,Veneto,2024-04-14,7896.26,New
+CUST-0312,Anna Giordano,B2C,showroom_3,Catania,Sicilia,2024-06-17,16068.21,Regular
+CUST-0313,Elisa Marino,B2C,online,Venezia,Veneto,2024-06-27,8828.18,Regular
+CUST-0314,Roberto Greco,B2C,online,Palermo,Sicilia,2024-08-25,11024.5,Regular
+CUST-0315,Andrea Bruno,B2C,showroom_2,Lecce,Puglia,2024-12-16,38823.25,New
+CUST-0316,Davide Bruno,B2C,showroom_2,Bari,Puglia,2025-01-01,21941.23,New
+CUST-0317,Lorenzo Russo,B2C,showroom_2,Verona,Veneto,2024-12-05,38265.33,New
+CUST-0318,Sara De Luca,B2C,showroom_1,Palermo,Sicilia,2023-10-21,28572.19,Regular
+CUST-0319,Luca Russo,B2C,showroom_3,Parma,Emilia-Romagna,2024-06-29,20823.81,New
+CUST-0320,Francesco Lombardi,B2C,showroom_2,Bari,Puglia,2024-09-27,28360.69,Regular
+CUST-0321,Alessandro Pellegrini,B2C,showroom_1,Padova,Veneto,2024-02-07,11372.29,Regular
+CUST-0322,Stefano Esposito,B2C,showroom_2,Napoli,Campania,2024-10-26,26317.47,New
+CUST-0323,Lorenzo Ferrara,B2C,online,Torino,Piemonte,2024-12-05,34160.72,New
+CUST-0324,Martina Greco,B2C,showroom_2,Milano,Lombardia,2023-07-22,8220.16,New
+CUST-0325,Paola Rizzo,B2C,online,Verona,Veneto,2024-04-10,25029.95,New
+CUST-0326,Paola Ferrari,B2C,showroom_1,Lucca,Toscana,2023-07-07,6260.48,Regular
+CUST-0327,Marco Romano,B2C,showroom_2,Padova,Veneto,2024-10-01,27861.35,Regular
+CUST-0328,Elena Russo,B2C,online,Sanremo,Liguria,2024-04-10,10250.53,Regular
+CUST-0329,Giuseppe Conti,B2C,showroom_3,Padova,Veneto,2023-12-04,0.0,New
+CUST-0330,Alessandro Costa,B2C,showroom_2,Verona,Veneto,2023-09-22,12646.22,Regular
+CUST-0331,Paola Ferrari,B2C,online,Torino,Piemonte,2024-07-16,19009.88,New
+CUST-0332,Silvia Vitale,B2C,online,Salerno,Campania,2024-04-28,2344.49,Regular
+CUST-0333,Laura Romano,B2C,showroom_3,Asti,Piemonte,2024-09-25,15397.13,Regular
+CUST-0334,Marco Caruso,B2C,showroom_1,Padova,Veneto,2023-12-09,13679.39,Regular
+CUST-0335,Martina Rinaldi,B2C,showroom_2,Parma,Emilia-Romagna,2024-12-05,15772.56,New
+CUST-0336,Valentina Gallo,B2C,online,Vicenza,Veneto,2024-12-20,26415.35,New
+CUST-0337,Chiara Rinaldi,B2C,showroom_3,Torino,Piemonte,2024-05-04,5775.86,Regular
+CUST-0338,Sofia Moretti,B2C,online,Frosinone,Lazio,2024-07-21,4130.62,New
+CUST-0339,Francesca Barbieri,B2C,showroom_3,Parma,Emilia-Romagna,2024-07-12,26228.9,New
+CUST-0340,Chiara Costa,B2C,showroom_3,Modena,Emilia-Romagna,2024-01-22,37693.25,Regular
+CUST-0341,Claudia Gallo,B2C,online,Napoli,Campania,2024-12-02,28129.0,New
+CUST-0342,Elisa Rinaldi,B2C,online,Caserta,Campania,2024-11-12,21152.7,New
+CUST-0343,Alessandro Mariani,B2C,online,Latina,Lazio,2024-07-29,9384.93,Regular
+CUST-0344,Luca Barbieri,B2C,showroom_2,Novara,Piemonte,2024-05-15,14550.16,Regular
+CUST-0345,Valentina Romano,B2C,showroom_1,Taranto,Puglia,2023-07-11,28367.35,Regular
+CUST-0346,Marco Pellegrini,B2C,showroom_3,Latina,Lazio,2024-01-30,13737.77,New
+CUST-0347,Giovanni Mancini,B2C,online,Lucca,Toscana,2023-08-15,13413.46,Regular
+CUST-0348,Elisa Fontana,B2C,online,Caserta,Campania,2023-09-30,10302.18,Regular
+CUST-0349,Davide Ricci,B2C,online,Taranto,Puglia,2024-02-27,37642.05,Regular
+CUST-0350,Alessandro Rossi,B2C,showroom_2,Genova,Liguria,2023-10-24,15209.97,Regular
+CUST-0351,Matteo Russo,B2C,showroom_2,Rimini,Emilia-Romagna,2023-10-30,29238.64,Regular
+CUST-0352,Alessandro Greco,B2C,showroom_3,Pisa,Toscana,2024-05-12,10138.67,Regular
+CUST-0353,Francesco Marino,B2C,showroom_3,Roma,Lazio,2023-09-11,12797.52,Regular
+CUST-0354,Giovanni Rizzo,B2C,showroom_2,Lucca,Toscana,2024-03-20,8328.21,New
+CUST-0355,Claudia Moretti,B2C,online,Frosinone,Lazio,2024-10-01,20034.43,New
+CUST-0356,Lorenzo Romano,B2C,showroom_3,Caserta,Campania,2024-08-13,8072.02,Regular
+CUST-0357,Giovanni Pellegrini,B2C,showroom_3,Verona,Veneto,2023-07-12,21486.52,New
+CUST-0358,Sara Rinaldi,B2C,online,Asti,Piemonte,2025-01-17,12839.65,New
+CUST-0359,Lorenzo Conti,B2C,showroom_3,Latina,Lazio,2024-05-04,11229.52,New
+CUST-0360,Sofia Romano,B2C,showroom_1,Novara,Piemonte,2024-12-30,31800.36,New
+CUST-0361,Paola Ferrari,B2C,showroom_1,Catania,Sicilia,2023-08-04,37861.27,Regular
+CUST-0362,Stefano Costa,B2C,showroom_1,Genova,Liguria,2024-05-27,9078.51,Regular
+CUST-0363,Roberto Caruso,B2C,online,Parma,Emilia-Romagna,2024-08-07,16703.24,New
+CUST-0364,Silvia Gallo,B2C,showroom_2,Napoli,Campania,2023-11-29,11020.43,Regular
+CUST-0365,Anna Marino,B2C,online,Sanremo,Liguria,2024-11-23,5678.44,New
+CUST-0366,Alessandro Costa,B2C,showroom_2,Sanremo,Liguria,2024-04-20,62413.1,Regular
+CUST-0367,Anna Caruso,B2C,showroom_2,Lucca,Toscana,2024-02-22,11861.06,New
+CUST-0368,Roberto Costa,B2C,online,Genova,Liguria,2024-12-01,19361.25,New
+CUST-0369,Elisa Serra,B2C,online,Bologna,Emilia-Romagna,2024-04-23,3993.68,Regular
+CUST-0370,Chiara Russo,B2C,online,Monza,Lombardia,2025-01-03,12607.22,New
+CUST-0371,Stefano Pellegrini,B2C,showroom_1,Verona,Veneto,2024-11-15,28736.18,New
+CUST-0372,Laura Russo,B2C,showroom_3,Roma,Lazio,2023-11-22,9948.44,Regular
+CUST-0373,Fabio Pellegrini,B2C,showroom_1,Bergamo,Lombardia,2023-12-10,21100.4,Regular
+CUST-0374,Marco Ricci,B2C,showroom_3,Lucca,Toscana,2024-04-26,11517.08,Regular
+CUST-0375,Giuseppe Fontana,B2C,showroom_1,Verona,Veneto,2024-06-25,24743.66,Regular
+CUST-0376,Laura Ricci,B2C,showroom_1,Lucca,Toscana,2024-11-24,37050.5,New
+CUST-0377,Stefano Moretti,B2C,showroom_3,Catania,Sicilia,2023-10-29,13816.35,Regular
+CUST-0378,Valentina Bianchi,B2C,showroom_1,Lucca,Toscana,2023-12-12,32157.6,Regular
+CUST-0379,Simone Gallo,B2C,online,Catania,Sicilia,2024-07-01,5613.7,New
+CUST-0380,Paola Vitale,B2C,showroom_2,Napoli,Campania,2024-05-29,12882.43,Regular
+CUST-0381,Andrea Moretti,B2C,showroom_3,Rimini,Emilia-Romagna,2023-07-01,6008.93,Regular
+CUST-0382,Francesco Bianchi,B2C,showroom_1,Monza,Lombardia,2023-12-08,10530.85,Regular
+CUST-0383,Chiara Gallo,B2C,online,Napoli,Campania,2024-02-27,15346.2,Regular
+CUST-0384,Giulia Serra,B2C,showroom_2,Sanremo,Liguria,2024-02-02,8374.29,Regular
+CUST-0385,Fabio Colombo,B2C,showroom_3,Lecce,Puglia,2023-12-31,3380.21,Regular
+CUST-0386,Sofia Santoro,B2C,online,Napoli,Campania,2023-11-28,14627.75,Regular
+CUST-0387,Sara Moretti,B2C,showroom_2,Vicenza,Veneto,2024-07-09,35428.05,Regular
+CUST-0388,Marco Santoro,B2C,online,Latina,Lazio,2024-06-16,15343.43,Regular
+CUST-0389,Valentina Fontana,B2C,showroom_3,Sanremo,Liguria,2024-01-09,19022.61,Regular
+CUST-0390,Elena Bruno,B2C,showroom_2,Siena,Toscana,2024-08-17,62880.18,Regular
+CUST-0391,Martina Caruso,B2C,showroom_1,Latina,Lazio,2024-04-28,6355.05,New
+CUST-0392,Paola Ricci,B2C,showroom_3,Modena,Emilia-Romagna,2023-07-01,908.53,Regular
+CUST-0393,Elisa De Luca,B2C,showroom_2,Monza,Lombardia,2024-06-25,40194.05,Regular
+CUST-0394,Silvia Russo,B2C,showroom_1,Roma,Lazio,2025-01-25,45968.48,New
+CUST-0395,Marco Marino,B2C,showroom_1,Modena,Emilia-Romagna,2023-12-06,34697.74,Regular
+CUST-0396,Lorenzo Russo,B2C,showroom_2,Como,Lombardia,2023-07-19,22433.31,Regular
+CUST-0397,Sofia Conti,B2C,showroom_3,Bologna,Emilia-Romagna,2024-06-29,6220.51,Regular
+CUST-0398,Simone Serra,B2C,online,Frosinone,Lazio,2023-09-03,9509.3,Regular
+CUST-0399,Matteo Costa,B2C,showroom_1,Salerno,Campania,2024-10-15,27756.95,New
+CUST-0400,Martina Mancini,B2C,showroom_2,La Spezia,Liguria,2023-10-10,8028.16,Regular
+CUST-0401,Giuseppe Ricci,B2C,showroom_1,Verona,Veneto,2023-07-03,23040.44,Regular
+CUST-0402,Luca Giordano,B2C,online,Bergamo,Lombardia,2024-09-26,16743.74,Regular
+CUST-0403,Monica Caruso,B2C,showroom_1,Modena,Emilia-Romagna,2023-07-12,10414.21,Regular
+CUST-0404,Elisa Bianchi,B2C,online,Padova,Veneto,2024-04-25,19910.87,Regular
+CUST-0405,Giulia Giordano,B2C,online,Bologna,Emilia-Romagna,2024-05-21,20504.45,Regular
+CUST-0406,Francesca Ferrara,B2C,showroom_3,Salerno,Campania,2024-08-10,21937.91,Regular
+CUST-0407,Elisa Costa,B2C,showroom_3,Padova,Veneto,2023-08-20,4027.67,New
+CUST-0408,Roberto Conti,B2C,online,Caserta,Campania,2024-05-29,17518.11,New
+CUST-0409,Elisa Barbieri,B2C,showroom_3,Palermo,Sicilia,2023-12-03,7762.46,New
+CUST-0410,Elisa Greco,B2C,showroom_1,Bari,Puglia,2023-07-02,26516.63,Regular
+CUST-0411,Lorenzo Caruso,B2C,showroom_3,Modena,Emilia-Romagna,2024-06-14,23388.46,Regular
+CUST-0412,Francesca Greco,B2C,showroom_3,Venezia,Veneto,2023-12-06,17218.74,Regular
+CUST-0413,Simone Mancini,B2C,online,Napoli,Campania,2024-09-24,4711.88,Regular
+CUST-0414,Stefano Rossi,B2C,showroom_1,Venezia,Veneto,2023-10-26,17816.63,Regular
+CUST-0415,Silvia Marino,B2C,showroom_2,Rimini,Emilia-Romagna,2024-12-02,3911.95,New
+CUST-0416,Simone Caruso,B2C,online,Latina,Lazio,2023-11-29,8865.88,Regular
+CUST-0417,Elena Ferrara,B2C,online,Como,Lombardia,2023-08-19,38216.38,Regular
+CUST-0418,Lorenzo Pellegrini,B2C,showroom_3,Siena,Toscana,2023-11-23,8283.53,New
+CUST-0419,Davide Rossi,B2C,showroom_3,Monza,Lombardia,2025-01-11,4028.06,New
+CUST-0420,Francesca Russo,B2C,online,Genova,Liguria,2024-09-04,5402.93,Regular
+CUST-0421,Giuseppe Pellegrini,B2C,showroom_3,Frosinone,Lazio,2023-12-07,9069.06,Regular
+CUST-0422,Giovanni De Luca,B2C,showroom_1,Venezia,Veneto,2024-11-20,2706.21,New
+CUST-0423,Claudia Rinaldi,B2C,showroom_3,Bergamo,Lombardia,2024-05-15,4099.41,Regular
+CUST-0424,Roberto Rizzo,B2C,online,Brescia,Lombardia,2025-01-04,17232.84,New
+CUST-0425,Monica Colombo,B2C,online,Pisa,Toscana,2024-04-05,8698.26,Regular
+CUST-0426,Anna Esposito,B2C,showroom_2,Rimini,Emilia-Romagna,2023-10-10,17339.15,New
+CUST-0427,Matteo Conti,B2C,online,Genova,Liguria,2023-09-11,15327.86,Regular
+CUST-0428,Paola Romano,B2C,online,Como,Lombardia,2025-01-11,9285.49,New
+CUST-0429,Alessandro Pellegrini,B2C,showroom_3,Monza,Lombardia,2024-08-31,2130.01,New
+CUST-0430,Roberto Ricci,B2C,showroom_3,Latina,Lazio,2025-01-12,25587.76,New
+CUST-0431,Stefano Gallo,B2C,online,Brescia,Lombardia,2024-06-06,10930.84,Regular
+CUST-0432,Antonio Gallo,B2C,showroom_3,Bergamo,Lombardia,2024-01-25,26572.04,Regular
+CUST-0433,Antonio Serra,B2C,online,Latina,Lazio,2024-09-14,32908.47,Regular
+CUST-0434,Sara Vitale,B2C,showroom_1,Lecce,Puglia,2024-04-28,43196.23,Regular
+CUST-0435,Elisa Greco,B2C,online,Bari,Puglia,2023-08-24,9827.03,New
+CUST-0436,Martina Giordano,B2C,online,Lucca,Toscana,2024-11-26,10811.07,New
+CUST-0437,Sara Santoro,B2C,showroom_2,Catania,Sicilia,2023-10-12,9526.48,Regular
+CUST-0438,Laura Ricci,B2C,online,Milano,Lombardia,2024-04-11,11781.64,New
+CUST-0439,Francesco Fontana,B2C,showroom_1,Novara,Piemonte,2024-09-28,22679.19,Regular
+CUST-0440,Elisa Gallo,B2C,online,Sanremo,Liguria,2024-11-20,18420.87,New
+CUST-0441,Lorenzo Rossi,B2C,showroom_1,Bologna,Emilia-Romagna,2023-10-22,9769.55,Regular
+CUST-0442,Giovanni Barbieri,B2C,showroom_3,Bergamo,Lombardia,2024-09-21,0.0,Regular
+CUST-0443,Laura Serra,B2C,showroom_2,Bologna,Emilia-Romagna,2024-01-12,31178.59,Regular
+CUST-0444,Francesco Ferrari,B2C,showroom_2,Caserta,Campania,2023-11-20,35015.4,New
+CUST-0445,Andrea Moretti,B2C,showroom_1,Lucca,Toscana,2024-02-24,26823.9,Regular
+CUST-0446,Francesco Rizzo,B2C,online,La Spezia,Liguria,2023-12-05,25986.08,Regular
+CUST-0447,Claudia De Luca,B2C,online,Roma,Lazio,2023-09-05,38529.61,Regular
+CUST-0448,Laura De Luca,B2C,online,Firenze,Toscana,2024-08-02,5125.95,Regular
+CUST-0449,Alessandro Ferrara,B2C,online,Bergamo,Lombardia,2024-10-08,13318.54,New
+CUST-0450,Laura Rizzo,B2C,showroom_2,Siena,Toscana,2024-12-18,37386.2,New
+CUST-0451,Fabio Vitale,B2C,showroom_3,Genova,Liguria,2023-12-11,7470.92,Regular
+CUST-0452,Marco De Luca,B2C,showroom_1,Vicenza,Veneto,2024-02-23,36857.0,New
+CUST-0453,Giuseppe Ferrari,B2C,showroom_1,Roma,Lazio,2023-07-25,11488.01,Regular
+CUST-0454,Alessandro Ricci,B2C,online,Salerno,Campania,2024-12-18,15401.86,New
+CUST-0455,Sara Pellegrini,B2C,online,Lucca,Toscana,2023-11-05,12318.83,New
+CUST-0456,Sara De Luca,B2C,online,Napoli,Campania,2024-09-19,12343.5,New
+CUST-0457,Monica Bruno,B2C,showroom_3,Bergamo,Lombardia,2023-08-29,10133.55,Regular
+CUST-0458,Anna Bianchi,B2C,showroom_2,Asti,Piemonte,2024-06-09,0.0,Regular
+CUST-0459,Giulia Rizzo,B2C,showroom_3,Lecce,Puglia,2023-08-25,9668.66,Regular
+CUST-0460,Antonio Lombardi,B2C,showroom_1,Firenze,Toscana,2023-10-07,36483.97,Regular
+CUST-0461,Silvia Serra,B2C,online,Frosinone,Lazio,2023-09-18,7478.61,New
+CUST-0462,Marco Esposito,B2C,showroom_1,Como,Lombardia,2025-01-02,22691.87,New
+CUST-0463,Andrea Colombo,B2C,online,Messina,Sicilia,2024-08-23,10531.32,Regular
+CUST-0464,Matteo Rizzo,B2C,showroom_3,La Spezia,Liguria,2024-11-30,4259.84,New
+CUST-0465,Silvia Fontana,B2C,online,Verona,Veneto,2024-09-27,34617.03,Regular
+CUST-0466,Stefano Bianchi,B2C,showroom_3,Bergamo,Lombardia,2025-01-24,1897.67,New
+CUST-0467,Roberto Fontana,B2C,showroom_2,Padova,Veneto,2024-10-13,19516.35,New
+CUST-0468,Simone Colombo,B2C,showroom_1,Monza,Lombardia,2023-09-03,26511.86,Regular
+CUST-0469,Elena Rizzo,B2C,online,Salerno,Campania,2024-06-02,25337.07,Regular
+CUST-0470,Lorenzo Mancini,B2C,online,La Spezia,Liguria,2024-11-08,25896.16,New
+CUST-0471,Giulia Barbieri,B2C,online,Rimini,Emilia-Romagna,2024-11-21,18025.63,New
+CUST-0472,Alessandro Moretti,B2C,showroom_1,Novara,Piemonte,2024-02-12,15140.91,Regular
+CUST-0473,Laura Vitale,B2C,online,Salerno,Campania,2025-01-04,22173.72,New
+CUST-0474,Martina Marino,B2C,showroom_1,Torino,Piemonte,2023-10-28,45575.44,Regular
+CUST-0475,Marco Russo,B2C,showroom_2,Messina,Sicilia,2023-10-05,11938.44,Regular
+CUST-0476,Elena Pellegrini,B2C,showroom_3,Salerno,Campania,2024-04-09,5553.75,Regular
+CUST-0477,Alessandro Ricci,B2C,showroom_1,Caserta,Campania,2024-01-16,18144.75,Regular
+CUST-0478,Martina Pellegrini,B2C,showroom_3,Bologna,Emilia-Romagna,2023-12-20,24190.57,Regular
+CUST-0479,Francesca Rossi,B2C,online,Bologna,Emilia-Romagna,2023-10-09,14867.83,Regular
+CUST-0480,Luca Rinaldi,B2C,showroom_1,Bologna,Emilia-Romagna,2023-08-12,30884.78,Regular
+CUST-0481,Anna Mariani,B2C,showroom_1,La Spezia,Liguria,2023-07-17,40534.56,New
+CUST-0482,Roberto Ricci,B2C,online,Lecce,Puglia,2024-06-30,28411.86,Regular
+CUST-0483,Laura Costa,B2C,showroom_3,Asti,Piemonte,2024-07-25,6174.24,New
+CUST-0484,Anna Bruno,B2C,online,Monza,Lombardia,2024-06-14,12614.1,New
+CUST-0485,Luca Greco,B2C,online,Taranto,Puglia,2024-07-02,4539.39,Regular
+CUST-0486,Luca Ricci,B2C,showroom_2,Modena,Emilia-Romagna,2024-05-24,36354.31,Regular
+CUST-0487,Sofia Ferrari,B2C,showroom_1,Como,Lombardia,2023-12-16,29769.4,Regular
+CUST-0488,Antonio Serra,B2C,online,Siena,Toscana,2023-11-26,21799.02,New
+CUST-0489,Paola Ricci,B2C,online,Bergamo,Lombardia,2024-07-08,56427.48,Regular
+CUST-0490,Elisa Pellegrini,B2C,showroom_2,Sanremo,Liguria,2024-12-04,53876.67,New
+CUST-0491,Valentina Mancini,B2C,showroom_1,Novara,Piemonte,2023-12-30,4194.3,Regular
+CUST-0492,Luca Ferrara,B2C,showroom_2,Verona,Veneto,2023-11-01,9219.49,Regular
+CUST-0493,Sofia Fontana,B2C,online,Bari,Puglia,2023-12-19,22200.03,Regular
+CUST-0494,Chiara Mancini,B2C,online,Salerno,Campania,2023-10-30,18993.72,Regular
+CUST-0495,Antonio Colombo,B2C,showroom_3,Lucca,Toscana,2024-02-18,4640.59,Regular
+CUST-0496,Roberto Conti,B2C,online,Salerno,Campania,2024-04-27,15183.17,Regular
+CUST-0497,Antonio Gallo,B2C,online,Taranto,Puglia,2024-01-19,5866.35,Regular
+CUST-0498,Stefano Bruno,B2C,online,Modena,Emilia-Romagna,2024-12-15,19467.55,New
+CUST-0499,Monica Conti,B2C,online,Novara,Piemonte,2024-12-22,21846.57,New
+CUST-0500,Valentina Moretti,B2C,showroom_3,Palermo,Sicilia,2025-01-12,0.0,New
+CUST-0501,Antonio Mariani,B2C,showroom_3,Venezia,Veneto,2024-04-03,6124.73,Regular
+CUST-0502,Monica Rossi,B2C,showroom_3,Brescia,Lombardia,2023-07-19,0.0,Regular
+CUST-0503,Claudia Colombo,B2C,showroom_1,Modena,Emilia-Romagna,2023-11-05,26200.15,Regular
+CUST-0504,Luca Greco,B2C,online,Vicenza,Veneto,2023-11-06,23107.28,Regular
+CUST-0505,Giuseppe Rossi,B2C,showroom_3,Como,Lombardia,2023-10-12,6120.69,New
+CUST-0506,Davide Russo,B2C,showroom_1,Modena,Emilia-Romagna,2023-07-10,45560.59,New
+CUST-0507,Chiara Colombo,B2C,showroom_1,Palermo,Sicilia,2023-09-04,19190.07,New
+CUST-0508,Sara Marino,B2C,showroom_2,Caserta,Campania,2024-02-19,34210.01,Regular
+CUST-0509,Stefano Gallo,B2C,showroom_1,Torino,Piemonte,2023-07-14,48735.16,Regular
+CUST-0510,Roberto Rinaldi,B2C,online,Napoli,Campania,2023-09-08,18341.29,Regular
+CUST-0511,Andrea Caruso,B2C,online,Como,Lombardia,2024-07-15,10857.73,New
+CUST-0512,Davide Mariani,B2C,showroom_1,La Spezia,Liguria,2023-12-01,23163.13,Regular
+CUST-0513,Roberto Fontana,B2C,showroom_2,Salerno,Campania,2024-01-18,3853.6,Regular
+CUST-0514,Lorenzo Pellegrini,B2C,online,Napoli,Campania,2024-03-29,30856.68,Regular
+CUST-0515,Chiara Ferrari,B2C,showroom_2,Parma,Emilia-Romagna,2024-05-31,23839.54,Regular
+CUST-0516,Laura Esposito,B2C,showroom_2,Parma,Emilia-Romagna,2023-12-09,17038.34,Regular
+CUST-0517,Anna Pellegrini,B2C,online,Asti,Piemonte,2024-05-14,24084.16,Regular
+CUST-0518,Stefano Mariani,B2C,showroom_2,Lucca,Toscana,2024-12-23,17666.84,New
+CUST-0519,Francesco Barbieri,B2C,online,Lecce,Puglia,2023-07-19,18739.33,Regular
+CUST-0520,Lorenzo Serra,B2C,showroom_3,Genova,Liguria,2023-11-23,11914.06,New
+CUST-0521,Martina Ferrara,B2C,showroom_3,Catania,Sicilia,2024-04-28,15928.15,Regular
+CUST-0522,Silvia Fontana,B2C,online,Genova,Liguria,2024-08-04,11583.26,New
+CUST-0523,Laura Giordano,B2C,online,Palermo,Sicilia,2024-08-02,7513.19,Regular
+CUST-0524,Chiara Pellegrini,B2C,showroom_2,Pisa,Toscana,2023-11-14,56061.63,New
+CUST-0525,Andrea Rinaldi,B2C,showroom_3,Siena,Toscana,2023-08-19,9053.36,Regular
+CUST-0526,Giulia Mancini,B2C,online,Bari,Puglia,2024-03-10,8631.86,Regular
+CUST-0527,Francesco Mancini,B2C,showroom_3,Asti,Piemonte,2024-08-29,3387.86,Regular
+CUST-0528,Elena Lombardi,B2C,online,Monza,Lombardia,2024-06-13,10359.56,New
+CUST-0529,Martina Barbieri,B2C,online,Siena,Toscana,2024-03-17,13433.86,Regular
+CUST-0530,Elena Esposito,B2C,online,La Spezia,Liguria,2024-05-08,21734.9,Regular
+CUST-0531,Giovanni Fontana,B2C,online,Lecce,Puglia,2024-12-29,17659.48,New
+CUST-0532,Claudia Mariani,B2C,online,Bari,Puglia,2024-06-06,32991.84,Regular
+CUST-0533,Giuseppe Santoro,B2C,showroom_2,Catania,Sicilia,2024-03-26,15736.36,New
+CUST-0534,Elisa Fontana,B2C,showroom_2,Lecce,Puglia,2024-01-21,9414.19,New
+CUST-0535,Giovanni Conti,B2C,showroom_3,Napoli,Campania,2024-03-06,2770.11,Regular
+CUST-0536,Roberto Esposito,B2C,online,Genova,Liguria,2024-11-30,20349.6,New
+CUST-0537,Valentina Rizzo,B2C,online,Taranto,Puglia,2024-01-19,10060.49,New
+CUST-0538,Valentina Giordano,B2C,showroom_2,Frosinone,Lazio,2024-08-29,40105.38,New
+CUST-0539,Simone De Luca,B2C,showroom_1,Salerno,Campania,2023-09-20,38929.68,Regular
+CUST-0540,Antonio Caruso,B2C,showroom_3,Parma,Emilia-Romagna,2024-04-30,0.0,Regular
+CUST-0541,Fabio Barbieri,B2C,showroom_1,Lucca,Toscana,2024-09-17,30282.56,Regular
+CUST-0542,Sofia Barbieri,B2C,showroom_1,Como,Lombardia,2024-11-01,19242.57,New
+CUST-0543,Matteo Fontana,B2C,online,Genova,Liguria,2025-01-23,25924.72,New
+CUST-0544,Alessandro Pellegrini,B2C,showroom_1,Caserta,Campania,2023-12-24,34472.88,Regular
+CUST-0545,Francesco De Luca,B2C,showroom_2,Roma,Lazio,2025-01-27,27165.58,New
+CUST-0546,Roberto Bianchi,B2C,online,Bergamo,Lombardia,2023-07-22,1388.12,Regular
+CUST-0547,Alessandro Greco,B2C,online,Sanremo,Liguria,2023-11-21,18363.71,Regular
+CUST-0548,Monica Colombo,B2C,online,Caserta,Campania,2024-06-08,0.0,New
+CUST-0549,Paola Greco,B2C,showroom_3,La Spezia,Liguria,2024-02-28,9289.64,Regular
+CUST-0550,Matteo Barbieri,B2C,showroom_3,Napoli,Campania,2023-12-01,1200.68,New
+CUST-0551,Chiara Moretti,B2C,online,Caserta,Campania,2024-07-10,47407.75,Regular
+CUST-0552,Stefano Moretti,B2C,showroom_1,Catania,Sicilia,2024-07-15,21234.85,New
+CUST-0553,Elena Pellegrini,B2C,showroom_2,Rimini,Emilia-Romagna,2024-09-19,25086.62,Regular
+CUST-0554,Simone Serra,B2C,showroom_1,Brescia,Lombardia,2023-08-13,17101.02,Regular
+CUST-0555,Laura Ferrari,B2C,showroom_1,Roma,Lazio,2024-09-08,8206.57,Regular
+CUST-0556,Sofia Bruno,B2C,showroom_3,Asti,Piemonte,2024-05-02,0.0,New
+CUST-0557,Francesca Greco,B2C,online,Latina,Lazio,2024-11-19,15521.89,New
+CUST-0558,Giovanni Esposito,B2C,showroom_3,Salerno,Campania,2023-09-10,3324.74,Regular
+CUST-0559,Valentina Costa,B2C,online,Novara,Piemonte,2025-01-04,19409.07,New
+CUST-0560,Laura Romano,B2C,showroom_3,Lucca,Toscana,2024-07-20,12979.49,Regular
+CUST-0561,Giuseppe Ferrara,B2C,showroom_1,Genova,Liguria,2024-02-05,25297.03,Regular
+CUST-0562,Luca Bianchi,B2C,online,Taranto,Puglia,2024-03-16,19890.75,Regular
+CUST-0563,Chiara Fontana,B2C,showroom_1,Asti,Piemonte,2024-12-25,28310.92,New
+CUST-0564,Francesca Bruno,B2C,showroom_3,Vicenza,Veneto,2023-11-06,11526.75,Regular
+CUST-0565,Antonio Barbieri,B2C,showroom_2,Salerno,Campania,2024-03-25,40995.72,New
+CUST-0566,Silvia Romano,B2C,showroom_3,Lecce,Puglia,2025-01-21,6604.17,New
+CUST-0567,Andrea Rinaldi,B2C,online,Brescia,Lombardia,2024-06-17,38897.24,Regular
+CUST-0568,Laura Russo,B2C,online,Rimini,Emilia-Romagna,2024-07-16,20042.15,Regular
+CUST-0569,Giuseppe Vitale,B2C,showroom_1,Catania,Sicilia,2024-10-19,23104.57,New
+CUST-0570,Laura Romano,B2C,online,Roma,Lazio,2024-01-27,25844.86,New
+CUST-0571,Fabio Bruno,B2C,online,Bergamo,Lombardia,2024-06-28,21283.96,Regular
+CUST-0572,Roberto Mariani,B2C,online,Sanremo,Liguria,2023-11-08,10632.11,New
+CUST-0573,Claudia Caruso,B2C,online,Salerno,Campania,2023-12-03,14617.15,Regular
+CUST-0574,Claudia Rossi,B2C,showroom_1,Salerno,Campania,2024-12-27,27834.44,New
+CUST-0575,Anna Costa,B2C,showroom_3,Novara,Piemonte,2024-05-09,21710.39,Regular
+CUST-0576,Antonio Giordano,B2C,online,Caserta,Campania,2024-03-29,18658.55,New
+CUST-0577,Giulia Serra,B2C,online,Padova,Veneto,2024-04-14,30687.73,Regular
+CUST-0578,Elisa Russo,B2C,online,Bergamo,Lombardia,2024-10-25,53201.11,New
+CUST-0579,Valentina Colombo,B2C,online,Roma,Lazio,2024-01-17,10338.02,New
+CUST-0580,Marco Ricci,B2C,showroom_3,Bologna,Emilia-Romagna,2024-01-07,4586.83,New
+CUST-0581,Elena Rinaldi,B2C,showroom_1,Padova,Veneto,2024-01-07,15073.97,Regular
+CUST-0582,Fabio Barbieri,B2C,showroom_1,Verona,Veneto,2024-10-02,49863.95,Regular
+CUST-0583,Giovanni Ferrari,B2C,showroom_2,Venezia,Veneto,2024-01-23,24667.19,Regular
+CUST-0584,Marco Romano,B2C,showroom_3,Palermo,Sicilia,2024-08-10,14278.99,Regular
+CUST-0585,Alessandro Mariani,B2C,online,Verona,Veneto,2024-11-12,0.0,New
+CUST-0586,Giuseppe Lombardi,B2C,online,Bari,Puglia,2024-11-18,14618.62,New
+CUST-0587,Martina Rinaldi,B2C,showroom_2,Parma,Emilia-Romagna,2024-03-26,14272.32,Regular
+CUST-0588,Antonio Fontana,B2C,showroom_3,Asti,Piemonte,2024-08-29,26209.69,Regular
+CUST-0589,Silvia Moretti,B2C,showroom_1,Frosinone,Lazio,2023-09-01,65012.61,Regular
+CUST-0590,Silvia Santoro,B2C,online,Asti,Piemonte,2024-08-01,17047.93,Regular
+CUST-0591,Monica Esposito,B2C,showroom_1,Torino,Piemonte,2024-04-11,16996.07,New
+CUST-0592,Marco Mariani,B2C,showroom_1,Modena,Emilia-Romagna,2024-01-19,29744.85,Regular
+CUST-0593,Giovanni Ferrara,B2C,showroom_1,Verona,Veneto,2024-02-07,23818.05,New
+CUST-0594,Paola Esposito,B2C,showroom_1,Catania,Sicilia,2024-11-25,35540.68,New
+CUST-0595,Monica De Luca,B2C,showroom_3,Caserta,Campania,2023-11-04,19223.45,Regular
+CUST-0596,Elisa Vitale,B2C,showroom_3,Bari,Puglia,2024-03-24,8949.6,Regular
+CUST-0597,Chiara Rizzo,B2C,online,Salerno,Campania,2024-05-20,6216.8,Regular
+CUST-0598,Giuseppe Gallo,B2C,showroom_1,Genova,Liguria,2024-01-17,45207.58,Regular
+CUST-0599,Lorenzo Ferrari,B2C,showroom_1,Torino,Piemonte,2024-10-24,29039.67,New
+CUST-0600,Luca Conti,B2C,online,Bologna,Emilia-Romagna,2024-09-03,22820.74,Regular
+CUST-0601,Francesca De Luca,B2C,online,Padova,Veneto,2023-07-26,9946.39,Regular
+CUST-0602,Stefano Ricci,B2C,online,Salerno,Campania,2024-12-31,25097.4,New
+CUST-0603,Fabio Vitale,B2C,online,Como,Lombardia,2024-09-27,16799.13,New
+CUST-0604,Lorenzo Fontana,B2C,online,Lucca,Toscana,2025-01-29,9033.46,New
+CUST-0605,Francesca Russo,B2C,showroom_3,Parma,Emilia-Romagna,2023-12-09,11963.43,Regular
+CUST-0606,Giovanni Rossi,B2C,showroom_2,Latina,Lazio,2023-09-25,8814.8,Regular
+CUST-0607,Stefano Rinaldi,B2C,online,Novara,Piemonte,2025-01-23,8140.72,New
+CUST-0608,Francesco Caruso,B2C,online,Palermo,Sicilia,2024-10-09,37835.94,New
+CUST-0609,Davide Rossi,B2C,online,Messina,Sicilia,2024-08-27,9674.2,Regular
+CUST-0610,Elisa Conti,B2C,showroom_2,Napoli,Campania,2023-08-18,4145.19,Regular
+CUST-0611,Claudia Ricci,B2C,online,Napoli,Campania,2024-06-05,17458.44,Regular
+CUST-0612,Claudia Greco,B2C,online,Firenze,Toscana,2024-06-08,26880.4,Regular
+CUST-0613,Giovanni Mancini,B2C,showroom_1,Parma,Emilia-Romagna,2025-01-21,39625.41,New
+CUST-0614,Matteo Conti,B2C,showroom_3,Pisa,Toscana,2024-11-05,20567.53,New
+CUST-0615,Giulia Conti,B2C,online,Milano,Lombardia,2023-12-15,36993.14,Regular
+CUST-0616,Francesca Ricci,B2C,online,Latina,Lazio,2023-10-17,28317.76,Regular
+CUST-0617,Elisa Rossi,B2C,online,Rimini,Emilia-Romagna,2023-10-11,30030.43,Regular
+CUST-0618,Andrea Ricci,B2C,showroom_3,Modena,Emilia-Romagna,2023-12-21,3479.84,Regular
+CUST-0619,Sara Costa,B2C,online,Bologna,Emilia-Romagna,2024-05-19,12901.82,Regular
+CUST-0620,Lorenzo Rizzo,B2C,online,Asti,Piemonte,2024-08-15,16664.04,Regular
+CUST-0621,Marco Gallo,B2C,showroom_3,Padova,Veneto,2023-08-10,27009.12,Regular
+CUST-0622,Monica Marino,B2C,showroom_3,Siena,Toscana,2024-09-22,14843.77,Regular
+CUST-0623,Sara Greco,B2C,showroom_3,Verona,Veneto,2024-01-26,8627.22,Regular
+CUST-0624,Giovanni Rinaldi,B2C,showroom_2,Catania,Sicilia,2023-09-22,17919.58,Regular
+CUST-0625,Roberto Russo,B2C,online,Messina,Sicilia,2024-07-21,40423.21,New
+CUST-0626,Alessandro Mancini,B2C,showroom_3,Lucca,Toscana,2024-08-22,11847.28,Regular
+CUST-0627,Antonio Conti,B2C,online,Padova,Veneto,2024-06-21,37033.67,Regular
+CUST-0628,Martina Rinaldi,B2C,showroom_1,Bologna,Emilia-Romagna,2024-08-11,14682.81,Regular
+CUST-0629,Silvia Barbieri,B2C,showroom_3,Novara,Piemonte,2024-08-23,26489.24,Regular
+CUST-0630,Antonio Marino,B2C,online,Bari,Puglia,2024-01-04,0.0,Regular
+CUST-0631,Giuseppe Ferrari,B2C,showroom_3,Catania,Sicilia,2023-12-19,4513.94,Regular
+CUST-0632,Antonio Ricci,B2C,showroom_2,Pisa,Toscana,2025-01-10,12771.0,New
+CUST-0633,Paola Rinaldi,B2C,online,Genova,Liguria,2024-04-15,26183.47,Regular
+CUST-0634,Matteo Esposito,B2C,showroom_3,Milano,Lombardia,2024-01-09,17048.86,New
+CUST-0635,Anna Vitale,B2C,showroom_2,Siena,Toscana,2024-09-16,10812.03,New
+CUST-0636,Giuseppe Bruno,B2C,online,Lecce,Puglia,2024-10-17,46837.31,New
+CUST-0637,Giulia Mancini,B2C,showroom_2,Monza,Lombardia,2024-07-26,23585.45,New
+CUST-0638,Laura Mariani,B2C,showroom_1,Lucca,Toscana,2024-10-28,32187.22,New
+CUST-0639,Lorenzo Mancini,B2C,showroom_3,Monza,Lombardia,2024-07-10,9506.88,Regular
+CUST-0640,Giulia Conti,B2C,showroom_2,Como,Lombardia,2023-12-02,37221.17,Regular
+CUST-0641,Giulia Ferrara,B2C,showroom_3,Roma,Lazio,2023-11-02,9003.6,Regular
+CUST-0642,Claudia Greco,B2C,showroom_2,La Spezia,Liguria,2023-09-25,28811.52,New
+CUST-0643,Sofia Pellegrini,B2C,online,Firenze,Toscana,2024-07-03,24637.75,Regular
+CUST-0644,Paola Costa,B2C,online,Torino,Piemonte,2023-10-17,42263.01,New
+CUST-0645,Stefano Esposito,B2C,showroom_1,Monza,Lombardia,2023-12-12,24028.75,Regular
+CUST-0646,Sara Russo,B2C,showroom_3,Caserta,Campania,2024-07-13,4774.45,Regular
+CUST-0647,Davide Russo,B2C,showroom_3,Taranto,Puglia,2023-10-17,16093.31,Regular
+CUST-0648,Martina Barbieri,B2C,showroom_3,Salerno,Campania,2024-04-25,0.0,Regular
+CUST-0649,Lorenzo Lombardi,B2C,online,Milano,Lombardia,2024-04-05,15791.94,Regular
+CUST-0650,Sara Costa,B2C,online,Sanremo,Liguria,2023-11-16,17222.32,Regular
+CUST-0651,Monica Mancini,B2C,showroom_2,La Spezia,Liguria,2023-10-12,25451.82,Regular
+CUST-0652,Simone Caruso,B2C,showroom_3,Asti,Piemonte,2023-12-12,3901.72,Regular
+CUST-0653,Luca Pellegrini,B2C,showroom_2,Monza,Lombardia,2023-12-11,4342.67,Regular
+CUST-0654,Paola Barbieri,B2C,online,Sanremo,Liguria,2024-03-23,29590.48,Regular
+CUST-0655,Valentina Gallo,B2C,online,Salerno,Campania,2024-07-29,9207.16,Regular
+CUST-0656,Martina Mariani,B2C,showroom_2,Napoli,Campania,2025-01-08,14103.24,New
+CUST-0657,Francesca Romano,B2C,showroom_2,Torino,Piemonte,2023-11-24,10425.86,New
+CUST-0658,Francesca Gallo,B2C,showroom_2,Taranto,Puglia,2024-02-13,39028.85,Regular
+CUST-0659,Marco Serra,B2C,showroom_3,Parma,Emilia-Romagna,2024-08-10,13916.95,Regular
+CUST-0660,Fabio Lombardi,B2C,online,Torino,Piemonte,2023-09-20,18423.51,Regular
+CUST-0661,Valentina Costa,B2C,showroom_3,Como,Lombardia,2024-06-29,16042.49,New
+CUST-0662,Giovanni Ricci,B2C,showroom_1,Torino,Piemonte,2024-06-01,22899.23,Regular
+CUST-0663,Luca Lombardi,B2C,online,Brescia,Lombardia,2024-09-15,27333.05,Regular
+CUST-0664,Valentina De Luca,B2C,online,Lecce,Puglia,2023-10-22,17505.52,Regular
+CUST-0665,Monica Fontana,B2C,showroom_2,Brescia,Lombardia,2025-01-16,14691.61,New
+CUST-0666,Davide Serra,B2C,showroom_2,Salerno,Campania,2024-01-20,22628.27,Regular
+CUST-0667,Simone Ferrari,B2C,showroom_2,Bari,Puglia,2023-08-26,2428.57,Regular
+CUST-0668,Giuseppe Lombardi,B2C,online,Latina,Lazio,2023-10-21,12714.12,Regular
+CUST-0669,Claudia Colombo,B2C,online,Brescia,Lombardia,2023-09-03,2751.46,Regular
+CUST-0670,Andrea Rossi,B2C,online,Padova,Veneto,2024-12-30,23656.33,New
+CUST-0671,Luca Ricci,B2C,online,Monza,Lombardia,2024-01-04,6073.77,Regular
+CUST-0672,Marco Esposito,B2C,showroom_3,La Spezia,Liguria,2024-01-10,11317.98,New
+CUST-0673,Antonio Marino,B2C,online,Sanremo,Liguria,2024-07-18,0.0,Regular
+CUST-0674,Francesco Bruno,B2C,showroom_1,La Spezia,Liguria,2024-01-04,53222.13,Regular
+CUST-0675,Alessandro Conti,B2C,showroom_2,Asti,Piemonte,2023-10-31,27611.36,New
+CUST-0676,Alessandro Ricci,B2C,showroom_2,Torino,Piemonte,2024-07-09,8441.65,Regular
+CUST-0677,Silvia Giordano,B2C,showroom_2,Bergamo,Lombardia,2024-09-22,34015.68,Regular
+CUST-0678,Simone Costa,B2C,showroom_2,Lecce,Puglia,2024-11-19,18265.25,New
+CUST-0679,Matteo Ferrari,B2C,showroom_2,Latina,Lazio,2024-01-31,13770.08,New
+CUST-0680,Claudia Santoro,B2C,showroom_1,Palermo,Sicilia,2024-02-16,15545.15,Regular
+CUST-0681,Marco Mancini,B2C,online,Bari,Puglia,2024-09-09,5007.74,Regular
+CUST-0682,Anna Barbieri,B2C,showroom_1,Asti,Piemonte,2024-05-08,4377.47,Regular
+CUST-0683,Martina Santoro,B2C,online,Bologna,Emilia-Romagna,2024-12-25,33137.08,New
+CUST-0684,Davide Greco,B2C,online,Latina,Lazio,2025-01-16,26664.81,New
+CUST-0685,Laura Rizzo,B2C,online,Verona,Veneto,2023-12-25,13236.09,Regular
+CUST-0686,Laura Barbieri,B2C,showroom_2,Parma,Emilia-Romagna,2023-07-22,40530.1,Regular
+CUST-0687,Lorenzo Conti,B2C,online,Bologna,Emilia-Romagna,2024-10-08,22468.06,New
+CUST-0688,Antonio De Luca,B2C,showroom_3,Sanremo,Liguria,2024-06-18,6750.72,Regular
+CUST-0689,Francesca Mancini,B2C,showroom_1,Padova,Veneto,2024-09-13,28665.33,Regular
+CUST-0690,Monica Caruso,B2C,showroom_2,Novara,Piemonte,2023-10-04,15468.5,Regular
+CUST-0691,Martina Santoro,B2C,online,Parma,Emilia-Romagna,2024-07-24,0.0,New
+CUST-0692,Fabio Vitale,B2C,showroom_3,Catania,Sicilia,2025-01-27,19752.78,New
+CUST-0693,Anna Marino,B2C,online,Palermo,Sicilia,2024-08-31,8415.07,New
+CUST-0694,Sofia Costa,B2C,showroom_1,Venezia,Veneto,2023-09-21,28939.09,Regular
+CUST-0695,Elisa Mariani,B2C,showroom_1,Lucca,Toscana,2024-08-24,21169.12,Regular
+CUST-0696,Antonio Caruso,B2C,showroom_3,Messina,Sicilia,2023-12-22,17846.13,Regular
+CUST-0697,Roberto Bruno,B2C,showroom_1,Venezia,Veneto,2023-10-09,16595.13,New
+CUST-0698,Francesca Bruno,B2C,showroom_1,Torino,Piemonte,2024-09-24,24197.34,Regular
+CUST-0699,Giovanni Barbieri,B2C,showroom_2,Napoli,Campania,2024-04-18,20658.11,Regular
+CUST-0700,Andrea Fontana,B2C,showroom_3,Catania,Sicilia,2025-01-03,9842.42,New
+CUST-0701,Valentina Giordano,B2C,online,Novara,Piemonte,2024-02-12,0.0,Regular
+CUST-0702,Silvia Colombo,B2C,showroom_1,Venezia,Veneto,2024-01-26,19740.65,Regular
+CUST-0703,Lorenzo Russo,B2C,online,Vicenza,Veneto,2024-05-24,32684.62,Regular
+CUST-0704,Stefano Mariani,B2C,showroom_1,Caserta,Campania,2023-10-08,50751.32,Regular
+CUST-0705,Sara Conti,B2C,online,Sanremo,Liguria,2024-03-19,23254.01,Regular
+CUST-0706,Giuseppe Pellegrini,B2C,online,Roma,Lazio,2023-11-26,7192.2,New
+CUST-0707,Stefano Fontana,B2C,online,Milano,Lombardia,2024-06-20,14748.96,New
+CUST-0708,Giulia Ferrari,B2C,showroom_1,Venezia,Veneto,2024-05-08,39165.74,Regular
+CUST-0709,Stefano Greco,B2C,online,Siena,Toscana,2025-01-08,9166.32,New
+CUST-0710,Andrea Romano,B2C,showroom_2,Parma,Emilia-Romagna,2024-08-01,27633.05,Regular
+CUST-0711,Fabio Ferrari,B2C,online,Torino,Piemonte,2023-12-29,23874.47,New
+CUST-0712,Monica Bruno,B2C,online,Modena,Emilia-Romagna,2024-07-12,11631.2,Regular
+CUST-0713,Francesco Rossi,B2C,online,Napoli,Campania,2023-10-27,20120.71,New
+CUST-0714,Valentina Mancini,B2C,online,Catania,Sicilia,2024-11-13,14981.09,New
+CUST-0715,Davide Ferrara,B2C,online,Bari,Puglia,2024-08-24,12469.64,Regular
+CUST-0716,Roberto Rinaldi,B2C,showroom_2,Genova,Liguria,2023-08-24,11775.36,Regular
+CUST-0717,Laura Rinaldi,B2C,showroom_3,Lucca,Toscana,2024-12-09,11188.83,New
+CUST-0718,Roberto Esposito,B2C,showroom_3,Venezia,Veneto,2024-02-13,8372.53,Regular
+CUST-0719,Giovanni Bruno,B2C,showroom_3,Latina,Lazio,2024-02-10,14993.25,Regular
+CUST-0720,Simone Ricci,B2C,online,Caserta,Campania,2023-08-28,13345.73,New
+CUST-0721,Giuseppe Vitale,B2C,online,Messina,Sicilia,2024-02-11,22372.84,Regular
+CUST-0722,Valentina Pellegrini,B2C,online,Bologna,Emilia-Romagna,2024-02-03,724.41,Regular
+CUST-0723,Luca Marino,B2C,showroom_3,Monza,Lombardia,2024-09-06,26250.09,Regular
+CUST-0724,Silvia Fontana,B2C,showroom_2,Torino,Piemonte,2025-01-21,33616.56,New
+CUST-0725,Francesca Colombo,B2C,showroom_2,Rimini,Emilia-Romagna,2023-07-25,39197.4,Regular
+CUST-0726,Sara Lombardi,B2C,online,Pisa,Toscana,2024-10-03,11023.72,New
+CUST-0727,Luca Esposito,B2C,showroom_3,Lecce,Puglia,2024-08-15,15515.79,Regular
+CUST-0728,Marco Mancini,B2C,online,Parma,Emilia-Romagna,2024-09-10,5169.9,Regular
+CUST-0729,Valentina Marino,B2C,online,Rimini,Emilia-Romagna,2023-07-05,30000.11,New
+CUST-0730,Giovanni Bruno,B2C,showroom_3,Genova,Liguria,2024-08-25,8899.53,Regular
+CUST-0731,Valentina Vitale,B2C,online,Salerno,Campania,2025-01-08,17341.08,New
+CUST-0732,Francesco Romano,B2C,showroom_2,Caserta,Campania,2024-09-18,22101.77,Regular
+CUST-0733,Davide De Luca,B2C,showroom_2,Venezia,Veneto,2024-02-08,24294.15,Regular
+CUST-0734,Claudia Romano,B2C,online,Messina,Sicilia,2024-12-01,14332.4,New
+CUST-0735,Sara Bruno,B2C,online,Genova,Liguria,2024-05-26,29851.75,Regular
+CUST-0736,Giulia Pellegrini,B2C,online,Roma,Lazio,2024-03-28,20158.13,Regular
+CUST-0737,Silvia Giordano,B2C,showroom_1,Rimini,Emilia-Romagna,2024-09-18,31413.91,New
+CUST-0738,Giulia Bianchi,B2C,showroom_3,Modena,Emilia-Romagna,2024-03-30,0.0,Regular
+CUST-0739,Antonio Romano,B2C,showroom_2,Novara,Piemonte,2023-12-01,17486.26,New
+CUST-0740,Francesca Lombardi,B2C,online,Messina,Sicilia,2025-01-21,20646.69,New
+CUST-0741,Alessandro Mancini,B2C,showroom_2,Vicenza,Veneto,2024-09-22,30797.29,Regular
+CUST-0742,Luca Conti,B2C,online,Latina,Lazio,2024-10-20,20164.76,New
+CUST-0743,Valentina Serra,B2C,showroom_1,Milano,Lombardia,2024-08-30,33570.86,Regular
+CUST-0744,Laura Mariani,B2C,showroom_2,Caserta,Campania,2023-10-01,36894.36,New
+CUST-0745,Giovanni Bianchi,B2C,online,Siena,Toscana,2024-12-29,22677.44,New
+CUST-0746,Silvia Pellegrini,B2C,online,Salerno,Campania,2023-12-17,8689.15,New
+CUST-0747,Alessandro Santoro,B2C,showroom_1,Latina,Lazio,2023-12-02,9021.12,Regular
+CUST-0748,Giuseppe Gallo,B2C,showroom_2,Venezia,Veneto,2023-12-20,15196.98,New
+CUST-0749,Giovanni Fontana,B2C,showroom_3,Palermo,Sicilia,2024-12-27,0.0,New
+CUST-0750,Marco Rinaldi,B2C,showroom_1,Messina,Sicilia,2024-05-22,15326.74,Regular
+CUST-0751,Laura Moretti,B2C,showroom_3,Bari,Puglia,2024-06-23,11614.27,Regular
+CUST-0752,Chiara Mancini,B2C,showroom_1,Novara,Piemonte,2023-10-24,44964.12,New
+CUST-0753,Roberto Ferrara,B2C,showroom_1,Novara,Piemonte,2024-05-19,16383.42,Regular
+CUST-0754,Marco Caruso,B2C,online,Rimini,Emilia-Romagna,2024-08-07,4904.67,Regular
+CUST-0755,Davide Ferrara,B2C,showroom_1,Pisa,Toscana,2023-08-10,23086.92,Regular
+CUST-0756,Elena Rossi,B2C,showroom_2,Torino,Piemonte,2024-04-03,31302.58,New
+CUST-0757,Sara Marino,B2C,online,Messina,Sicilia,2025-01-30,0.0,New
+CUST-0758,Giulia Mariani,B2C,online,Salerno,Campania,2023-10-07,34715.15,Regular
+CUST-0759,Anna Lombardi,B2C,showroom_2,Frosinone,Lazio,2024-04-28,18665.55,New
+CUST-0760,Andrea Barbieri,B2C,showroom_3,Verona,Veneto,2023-11-09,12771.34,Regular
+CUST-0761,Laura Costa,B2C,showroom_3,Messina,Sicilia,2025-01-03,14575.3,New
+CUST-0762,Elisa Colombo,B2C,showroom_1,Catania,Sicilia,2024-11-05,38347.45,New
+CUST-0763,Paola Esposito,B2C,showroom_1,Padova,Veneto,2024-08-24,23173.9,Regular
+CUST-0764,Valentina Mariani,B2C,showroom_3,Palermo,Sicilia,2023-08-09,3735.05,Regular
+CUST-0765,Lorenzo Russo,B2C,showroom_2,Messina,Sicilia,2024-12-17,47168.1,New
+CUST-0766,Lorenzo Ferrari,B2C,online,Sanremo,Liguria,2024-09-05,9914.79,New
+CUST-0767,Laura Santoro,B2C,online,Monza,Lombardia,2024-03-10,6628.61,Regular
+CUST-0768,Giovanni Rinaldi,B2C,showroom_1,Roma,Lazio,2024-06-21,25740.1,Regular
+CUST-0769,Luca Colombo,B2C,online,Salerno,Campania,2024-05-12,0.0,Regular
+CUST-0770,Anna Fontana,B2C,showroom_3,Como,Lombardia,2023-08-07,16428.46,Regular
+CUST-0771,Lorenzo Costa,B2C,showroom_2,Monza,Lombardia,2024-06-07,56810.72,Regular
+CUST-0772,Claudia Serra,B2C,showroom_3,Modena,Emilia-Romagna,2023-10-20,0.0,Regular
+CUST-0773,Chiara Rinaldi,B2C,online,Vicenza,Veneto,2024-11-15,42137.34,New
+CUST-0774,Roberto Fontana,B2C,showroom_3,Salerno,Campania,2024-03-28,10013.99,Regular
+CUST-0775,Davide Greco,B2C,showroom_2,Taranto,Puglia,2024-09-15,53469.09,Regular
+CUST-0776,Claudia Marino,B2C,showroom_2,Torino,Piemonte,2024-10-22,14672.59,New
+CUST-0777,Stefano Rinaldi,B2C,online,Torino,Piemonte,2025-01-10,17304.57,New
+CUST-0778,Valentina Rinaldi,B2C,showroom_1,Salerno,Campania,2023-10-10,17746.41,Regular
+CUST-0779,Fabio Lombardi,B2C,showroom_2,Torino,Piemonte,2024-10-31,62229.46,New
+CUST-0780,Luca Costa,B2C,showroom_3,Taranto,Puglia,2024-08-26,15027.98,Regular
+CUST-0781,Marco Costa,B2C,online,Bologna,Emilia-Romagna,2024-07-12,23260.44,Regular
+CUST-0782,Fabio Mancini,B2C,showroom_1,Sanremo,Liguria,2024-10-19,32719.22,New
+CUST-0783,Sara Romano,B2C,online,Roma,Lazio,2024-06-04,51194.3,Regular
+CUST-0784,Giuseppe Mancini,B2C,showroom_1,Lucca,Toscana,2023-12-22,47558.04,Regular
+CUST-0785,Marco Mancini,B2C,online,Brescia,Lombardia,2024-10-16,7038.21,New
+CUST-0786,Lorenzo Rizzo,B2C,online,Asti,Piemonte,2023-08-12,10468.59,Regular
+CUST-0787,Luca De Luca,B2C,showroom_2,Genova,Liguria,2024-03-26,21653.48,Regular
+CUST-0788,Antonio Esposito,B2C,online,Parma,Emilia-Romagna,2024-05-10,22423.9,Regular
+CUST-0789,Francesco Rinaldi,B2C,showroom_3,Genova,Liguria,2023-12-15,0.0,Regular
+CUST-0790,Marco Bianchi,B2C,online,Palermo,Sicilia,2024-05-31,10431.96,New
+CUST-0791,Sara Giordano,B2C,showroom_2,La Spezia,Liguria,2025-01-05,22282.71,New
+CUST-0792,Fabio Moretti,B2C,online,Lecce,Puglia,2024-09-24,10506.85,Regular
+CUST-0793,Alessandro Mariani,B2C,online,Caserta,Campania,2024-05-08,19246.43,New
+CUST-0794,Matteo De Luca,B2C,showroom_2,Brescia,Lombardia,2023-12-26,11875.19,New
+CUST-0795,Elisa Ricci,B2C,online,Genova,Liguria,2023-10-21,5617.21,Regular
+CUST-0796,Roberto Bruno,B2C,online,Monza,Lombardia,2024-04-08,16889.61,Regular
+CUST-0797,Francesco Rossi,B2C,online,Monza,Lombardia,2025-01-19,3423.88,New
+CUST-0798,Chiara Bianchi,B2C,showroom_2,Genova,Liguria,2024-05-13,10326.04,New
+CUST-0799,Giovanni Lombardi,B2C,showroom_3,Caserta,Campania,2024-01-13,752.26,Regular
+CUST-0800,Claudia Costa,B2C,online,Como,Lombardia,2024-04-14,10280.33,New

@@ -1,0 +1,23 @@
+[project]
+name = "sme-bi-backend"
+version = "0.1.0"
+description = "SME BI 'Alex' COO Agent - Backend"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "anthropic",
+    "duckdb",
+    "sqlmodel",
+    "pandas",
+    "numpy",
+    "faker",
+    "python-dotenv",
+    "pydantic-settings",
+    "websockets",
+    "python-multipart",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"

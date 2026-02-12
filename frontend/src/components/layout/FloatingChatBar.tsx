@@ -52,13 +52,8 @@ export function FloatingChatBar() {
   const { clearThoughts, setProcessing } = useThoughtStore();
   const sessionId = useChatStore((s) => s.sessionId);
 
-  if (pathname === "/chat" || pathname === "/onboarding") return null;
-
   const onDashboard = !!activeDashboard;
-  const suggestions = onDashboard ? DASHBOARD_SUGGESTIONS : GENERAL_SUGGESTIONS;
-  const placeholder = onDashboard
-    ? `Edit "${activeDashboard.title}"...`
-    : "Ask Alex anything...";
+  const hidden = pathname === "/chat" || pathname === "/onboarding";
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -121,12 +116,18 @@ export function FloatingChatBar() {
     [input, isLoading, onDashboard, activeDashboard, sessionId, router, clearThoughts, setProcessing, updateCharts, addChart]
   );
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Enter") { e.preventDefault(); handleSend(); }
     if (e.key === "Escape") setOpen(false);
-  };
+  }, [handleSend]);
 
-  // Get the latest thoughts for the live processing display
+  // Don't render on chat/onboarding pages
+  if (hidden) return null;
+
+  const suggestions = onDashboard ? DASHBOARD_SUGGESTIONS : GENERAL_SUGGESTIONS;
+  const placeholder = onDashboard
+    ? `Edit "${activeDashboard?.title}"...`
+    : "Ask Alex anything...";
   const activeThoughts = isLoading ? thoughts.slice(-6) : [];
 
   return (

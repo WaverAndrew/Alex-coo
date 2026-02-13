@@ -61,6 +61,20 @@ export function FloatingChatBar() {
     }
   }, [messages, thoughts]);
 
+  // Listen for edit-chart events from dashboard chart buttons
+  useEffect(() => {
+    function handleEditChart(e: Event) {
+      const detail = (e as CustomEvent).detail;
+      if (detail) {
+        setOpen(true);
+        setInput(`Change the "${detail.title}" chart — `);
+        setTimeout(() => inputRef.current?.focus(), 200);
+      }
+    }
+    window.addEventListener("edit-chart", handleEditChart);
+    return () => window.removeEventListener("edit-chart", handleEditChart);
+  }, []);
+
   const handleSend = useCallback(
     async (text?: string) => {
       const msg = (text || input).trim();

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
-import { ArrowLeft, Pin, PinOff, Trash2 } from "lucide-react";
+import { ArrowLeft, Pin, PinOff, Trash2, Pencil, X } from "lucide-react";
 import { connectThoughtStream } from "@/lib/websocket";
 import { useActiveDashboardStore, useDashboardStore } from "@/lib/store";
 import type { ChartConfig } from "@/lib/types";
@@ -172,6 +172,7 @@ export default function DashboardViewerPage() {
   // Active dashboard store — source of truth for live charts
   const activeDashboard = useActiveDashboardStore((s) => s.dashboard);
   const setActiveDashboard = useActiveDashboardStore((s) => s.setDashboard);
+  const removeChart = useActiveDashboardStore((s) => s.removeChart);
 
   useEffect(() => {
     setMounted(true);
@@ -259,7 +260,7 @@ export default function DashboardViewerPage() {
               {liveCharts.map((chart, idx) => (
                 <motion.div
                   key={`${chart.title}-${idx}`}
-                  className={liveCharts.length === 1 || (idx === 0 && liveCharts.length === 3) ? "lg:col-span-2" : ""}
+                  className={`relative group ${liveCharts.length === 1 || (idx === 0 && liveCharts.length === 3) ? "lg:col-span-2" : ""}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
@@ -267,6 +268,29 @@ export default function DashboardViewerPage() {
                   layout
                 >
                   <ChartRenderer config={chart} height={320} />
+                  {/* Per-chart actions on hover */}
+                  <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => {
+                        // Open the floating chat bar with an edit request for this chart
+                        const event = new CustomEvent("edit-chart", {
+                          detail: { index: idx, title: chart.title, type: chart.type },
+                        });
+                        window.dispatchEvent(event);
+                      }}
+                      className="w-7 h-7 rounded-lg bg-background/90 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-background transition-colors shadow-sm"
+                      title={`Edit "${chart.title}"`}
+                    >
+                      <Pencil className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={() => removeChart(idx)}
+                      className="w-7 h-7 rounded-lg bg-background/90 border border-border flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-background transition-colors shadow-sm"
+                      title="Remove chart"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>

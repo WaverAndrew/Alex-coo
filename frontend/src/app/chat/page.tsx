@@ -25,7 +25,9 @@ function ChatContent() {
   const createDashboard = useDashboardStore((s) => s.createDashboard);
   const scrollRef = useRef<HTMLDivElement>(null);
   const initialSent = useRef(false);
+  const abortRef = useRef(false);
   const [mounted, setMounted] = useState(false);
+  const [editValue, setEditValue] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -39,7 +41,6 @@ function ChatContent() {
     }
   }, [messages]);
 
-  // When arriving with ?q=, start a fresh session and send the question
   useEffect(() => {
     if (mounted) {
       const q = searchParams.get("q");
@@ -53,9 +54,20 @@ function ChatContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted]);
 
+  const handleStop = useCallback(() => {
+    abortRef.current = true;
+    setLoading(false);
+    setProcessing(false);
+  }, [setLoading, setProcessing]);
+
+  const handleEdit = useCallback((content: string) => {
+    setEditValue(content);
+  }, []);
+
   const handleSend = useCallback(
     async (message: string) => {
       if (isLoading) return;
+      abortRef.current = false;
 
       const userMessage: ChatMessage = {
         id: `user-${Date.now()}`,
@@ -72,17 +84,14 @@ function ChatContent() {
       try {
         const response = await sendChatMessage(message, sessionId);
 
+        if (abortRef.current) return; // stopped
+
         const charts: ChartConfig[] | undefined =
           response.charts && response.charts.length > 0 ? response.charts : undefined;
 
-        // If Alex created a dashboard, save it
         if (response.intent === "dashboard" && charts && charts.length > 0) {
           const title = message.replace(/^(create|build|make)\s+(a\s+)?dashboard\s*(of|for|about)?\s*/i, "").trim() || "Dashboard";
-          createDashboard(
-            title.charAt(0).toUpperCase() + title.slice(1),
-            response.reply || "",
-            charts,
-          );
+          createDashboard(title.charAt(0).toUpperCase() + title.slice(1), response.reply || "", charts);
         }
 
         const assistantMessage: ChatMessage = {
@@ -93,21 +102,24 @@ function ChatContent() {
           timestamp: new Date(),
         };
 
-        addMessage(assistantMessage);
+        if (!abortRef.current) addMessage(assistantMessage);
       } catch {
-        const errorMessage: ChatMessage = {
-          id: `error-${Date.now()}`,
-          role: "assistant",
-          content: "Sorry, I hit a snag processing that. Could you rephrase?",
-          timestamp: new Date(),
-        };
-        addMessage(errorMessage);
+        if (!abortRef.current) {
+          addMessage({
+            id: `error-${Date.now()}`,
+            role: "assistant",
+            content: "Sorry, I hit a snag processing that. Could you rephrase?",
+            timestamp: new Date(),
+          });
+        }
       } finally {
-        setLoading(false);
-        setProcessing(false);
+        if (!abortRef.current) {
+          setLoading(false);
+          setProcessing(false);
+        }
       }
     },
-    [isLoading, sessionId, addMessage, setLoading, clearThoughts, setProcessing]
+    [isLoading, sessionId, addMessage, setLoading, clearThoughts, setProcessing, createDashboard]
   );
 
   if (!mounted) return null;
@@ -117,7 +129,7 @@ function ChatContent() {
       <Sidebar />
 
       {/* History sidebar */}
-      <div className="w-56 border-r border-border bg-muted/20 flex flex-col shrink-0 hidden md:flex">
+      <div className="w-56 border-r border-border bg-muted/20 flex-col shrink-0 hidden md:flex">
         <div className="px-3 py-3 border-b border-border flex items-center justify-between">
           <span className="text-xs font-semibold text-foreground uppercase tracking-wider">History</span>
           <button
@@ -129,7 +141,6 @@ function ChatContent() {
           </button>
         </div>
         <div className="flex-1 overflow-y-auto py-1">
-          {/* Current conversation */}
           {messages.length > 0 && (
             <div className="px-2 mb-1">
               <div className="px-2 py-2 rounded-lg bg-muted text-xs font-medium text-foreground truncate">
@@ -138,7 +149,6 @@ function ChatContent() {
             </div>
           )}
 
-          {/* Past conversations */}
           {history
             .filter((c) => c.id !== sessionId)
             .map((convo) => (
@@ -197,14 +207,24 @@ function ChatContent() {
             )}
             <AnimatePresence mode="popLayout">
               {messages.map((msg) => (
-                <MessageBubble key={msg.id} message={msg} />
+                <MessageBubble
+                  key={msg.id}
+                  message={msg}
+                  onEdit={msg.role === "user" ? handleEdit : undefined}
+                />
               ))}
               {isLoading && <TypingIndicator />}
             </AnimatePresence>
           </div>
 
           {/* Input */}
-          <ChatInput onSend={handleSend} isLoading={isLoading} />
+          <ChatInput
+            onSend={handleSend}
+            onStop={handleStop}
+            isLoading={isLoading}
+            editValue={editValue}
+            onEditClear={() => setEditValue(null)}
+          />
         </div>
 
         {/* Thinking Panel */}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Brain, LayoutDashboard, FileSearch, Check } from "lucide-react";
+import { Brain, LayoutDashboard, FileSearch, Check, Pencil } from "lucide-react";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { Markdown } from "@/components/chat/Markdown";
 import { useDashboardStore, useDeepDiveStore } from "@/lib/store";
@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 
 interface MessageBubbleProps {
   message: ChatMessage;
+  onEdit?: (content: string) => void;
 }
 
-export function MessageBubble({ message }: MessageBubbleProps) {
+export function MessageBubble({ message, onEdit }: MessageBubbleProps) {
   const isUser = message.role === "user";
   const hasCharts = !isUser && message.charts && message.charts.length > 0;
   const isLongResponse = !isUser && message.content.length > 300;
@@ -23,14 +24,12 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   const [savedDive, setSavedDive] = useState(false);
 
   function extractTitle(): string {
-    // Find the first meaningful line — skip empty lines and short ones
     const lines = message.content.split("\n").filter((l) => l.trim().length > 5);
     const firstLine = (lines[0] || "Analysis")
-      .replace(/^#+\s*/, "")   // remove markdown headings
-      .replace(/\*\*/g, "")     // remove bold markers
-      .replace(/^(here'?s?|let me|take a look|ok,?\s*)/i, "") // remove filler starts
+      .replace(/^#+\s*/, "")
+      .replace(/\*\*/g, "")
+      .replace(/^(here'?s?|let me|take a look|ok,?\s*)/i, "")
       .trim();
-    // Truncate at first sentence or 60 chars
     const dotIdx = firstLine.indexOf(".");
     if (dotIdx > 10 && dotIdx < 60) return firstLine.slice(0, dotIdx + 1);
     return firstLine.slice(0, 60) + (firstLine.length > 60 ? "..." : "");
@@ -49,7 +48,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
   return (
     <motion.div
-      className={cn("flex gap-3 max-w-full", isUser ? "justify-end" : "justify-start")}
+      className={cn("flex gap-3 max-w-full group/msg", isUser ? "justify-end" : "justify-start")}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
@@ -60,6 +59,17 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             <Brain className="w-3.5 h-3.5 text-background" />
           </div>
         </div>
+      )}
+
+      {/* Edit button for user messages — appears on left on hover */}
+      {isUser && onEdit && (
+        <button
+          onClick={() => onEdit(message.content)}
+          className="opacity-0 group-hover/msg:opacity-100 self-center w-6 h-6 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+          title="Edit and resend"
+        >
+          <Pencil className="w-3 h-3" />
+        </button>
       )}
 
       <div
@@ -82,7 +92,6 @@ export function MessageBubble({ message }: MessageBubbleProps) {
               <ChartRenderer key={idx} config={chart} height={220} />
             ))}
 
-            {/* Save buttons */}
             <div className="pt-2 flex justify-end gap-2 flex-wrap">
               {savedDash ? (
                 <span className="inline-flex items-center gap-1 text-[11px] text-success font-medium">
@@ -114,7 +123,6 @@ export function MessageBubble({ message }: MessageBubbleProps) {
           </div>
         )}
 
-        {/* Save as Deep Dive for long text-only responses (no charts) */}
         {isLongResponse && !hasCharts && (
           <div className="pt-2 flex justify-end">
             {savedDive ? (

@@ -16,6 +16,42 @@ import {
   getCompanyProfile as fetchCompanyProfileAPI,
 } from "./api";
 
+// ---------- Chat History ----------
+
+interface SavedConversation {
+  id: string;
+  title: string;
+  messages: ChatMessage[];
+  updatedAt: string;
+}
+
+function loadHistory(): SavedConversation[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem("chat-history");
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return parsed.map((c: Record<string, unknown>) => ({
+      ...c,
+      messages: ((c.messages as Record<string, unknown>[]) || []).map((m: Record<string, unknown>) => ({
+        ...m,
+        timestamp: new Date(m.timestamp as string),
+      })),
+    }));
+  } catch { return []; }
+}
+
+function saveHistory(convos: SavedConversation[]) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("chat-history", JSON.stringify(convos.slice(0, 30)));
+}
+
+function titleFromMessages(msgs: ChatMessage[]): string {
+  const first = msgs.find((m) => m.role === "user");
+  if (!first) return "New conversation";
+  return first.content.slice(0, 50) + (first.content.length > 50 ? "..." : "");
+}
+
 // ---------- Chat Store ----------
 
 interface ChatStore {
@@ -26,21 +62,79 @@ interface ChatStore {
   setLoading: (loading: boolean) => void;
   sessionId: string;
   setSessionId: (id: string) => void;
+  // History
+  history: SavedConversation[];
+  loadConversation: (id: string) => void;
+  saveCurrentToHistory: () => void;
+  deleteConversation: (id: string) => void;
+  startNewConversation: () => void;
 }
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 }
 
-export const useChatStore = create<ChatStore>((set) => ({
+export const useChatStore = create<ChatStore>((set, get) => ({
   messages: [],
-  addMessage: (message) =>
-    set((state) => ({ messages: [...state.messages, message] })),
+  addMessage: (message) => {
+    set((state) => ({ messages: [...state.messages, message] }));
+    // Auto-save after each assistant message
+    if (message.role === "assistant") {
+      setTimeout(() => get().saveCurrentToHistory(), 100);
+    }
+  },
   clearMessages: () => set({ messages: [] }),
   isLoading: false,
   setLoading: (loading) => set({ isLoading: loading }),
   sessionId: generateId(),
   setSessionId: (id) => set({ sessionId: id }),
+
+  history: typeof window !== "undefined" ? loadHistory() : [],
+
+  saveCurrentToHistory: () => {
+    const { messages, sessionId, history } = get();
+    if (messages.length === 0) return;
+    const existing = history.findIndex((c) => c.id === sessionId);
+    const convo: SavedConversation = {
+      id: sessionId,
+      title: titleFromMessages(messages),
+      messages,
+      updatedAt: new Date().toISOString(),
+    };
+    let updated: SavedConversation[];
+    if (existing >= 0) {
+      updated = [...history];
+      updated[existing] = convo;
+    } else {
+      updated = [convo, ...history];
+    }
+    updated.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    saveHistory(updated);
+    set({ history: updated });
+  },
+
+  loadConversation: (id) => {
+    const { history, saveCurrentToHistory, messages } = get();
+    // Save current first if it has messages
+    if (messages.length > 0) saveCurrentToHistory();
+    const convo = history.find((c) => c.id === id);
+    if (convo) {
+      set({ messages: convo.messages, sessionId: convo.id });
+    }
+  },
+
+  deleteConversation: (id) => {
+    const { history } = get();
+    const updated = history.filter((c) => c.id !== id);
+    saveHistory(updated);
+    set({ history: updated });
+  },
+
+  startNewConversation: () => {
+    const { saveCurrentToHistory, messages } = get();
+    if (messages.length > 0) saveCurrentToHistory();
+    set({ messages: [], sessionId: generateId() });
+  },
 }));
 
 // ---------- Thought Store ----------

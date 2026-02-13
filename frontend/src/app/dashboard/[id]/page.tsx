@@ -164,7 +164,9 @@ export default function DashboardViewerPage() {
   const id = params.id as string;
   const demoDashboard = DEMO_DASHBOARDS[id];
   const savedDashboards = useDashboardStore((s) => s.dashboards);
+  const deleteDashboard = useDashboardStore((s) => s.deleteDashboard);
   const savedDashboard = savedDashboards.find((d) => d.id === id);
+  const isDeletable = !!savedDashboard; // only saved (non-demo) dashboards can be deleted
 
   // Resolve: saved dashboard from store, or demo dashboard
   const sourceDashboard = savedDashboard || demoDashboard;
@@ -247,10 +249,15 @@ export default function DashboardViewerPage() {
                 {pinned ? <PinOff className="w-3.5 h-3.5" /> : <Pin className="w-3.5 h-3.5" />}
                 {pinned ? "Unpin" : "Pin"}
               </button>
-              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-destructive/80 hover:text-destructive bg-destructive/5 hover:bg-destructive/10 border border-destructive/20 transition-colors">
-                <Trash2 className="w-3.5 h-3.5" />
-                Delete
-              </button>
+              {isDeletable && (
+                <button
+                  onClick={() => { deleteDashboard(id); router.push("/dashboard"); }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-destructive/80 hover:text-destructive bg-destructive/5 hover:bg-destructive/10 border border-destructive/20 transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete
+                </button>
+              )}
             </div>
           </motion.div>
 

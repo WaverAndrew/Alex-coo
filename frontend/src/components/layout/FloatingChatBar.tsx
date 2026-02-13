@@ -146,18 +146,7 @@ export function FloatingChatBar() {
 
   return (
     <>
-      {/* Backdrop */}
-      <AnimatePresence>
-        {open && onDashboard && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-black/5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      {/* No backdrop — dashboard stays fully interactive behind the panel */}
 
       {/* Right panel (dashboard mode) */}
       <AnimatePresence>
@@ -324,18 +313,18 @@ export function FloatingChatBar() {
         </div>
       )}
 
-      {/* Dashboard pill */}
+      {/* Dashboard: collapsed side tab on right edge */}
       {onDashboard && !open && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
-          <motion.button
-            onClick={() => { setOpen(true); setTimeout(() => inputRef.current?.focus(), 200); }}
-            className="flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-2.5 shadow-lg shadow-black/10 hover:shadow-xl transition-all"
-            initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-            whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">Edit this dashboard</span>
-          </motion.button>
-        </div>
+        <motion.button
+          onClick={() => { setOpen(true); setTimeout(() => inputRef.current?.focus(), 200); }}
+          className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex items-center gap-1.5 bg-foreground text-background pl-3 pr-2 py-3 rounded-l-xl shadow-lg shadow-black/10 hover:pr-3 transition-all"
+          initial={{ x: 10, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          whileHover={{ x: -2 }}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span className="text-xs font-medium whitespace-nowrap">Alex</span>
+        </motion.button>
       )}
     </>
   );

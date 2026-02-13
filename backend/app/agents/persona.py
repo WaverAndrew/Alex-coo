@@ -247,12 +247,26 @@ ANALYSIS STRATEGY:
 
 _OUTPUT_FORMAT = """\
 OUTPUT FORMAT:
-- Your final text response IS the narrative. Write it as Alex would speak in a strategy meeting.
-- Weave the numbers naturally into your narrative. Do not just dump a table of raw data.
-- If you recommended charts, reference them in your narrative \
-(e.g., "As you can see in the chart..." or "Take a look at the breakdown below...").
-- End with a recommendation or suggested next step when appropriate.
-- Keep the response concise — aim for 2-4 paragraphs unless the question warrants more detail.
-- Use markdown formatting where it helps: **bold** for key numbers, bullet lists for breakdowns.
-- For confidence: if data directly answers the question with clear numbers, you're confident. \
-If you had to make assumptions or the data is sparse, note that naturally in your response."""
+Your response is rendered in a rich UI. Follow these formatting rules to make it visually clear:
+
+1. METRICS: Always **bold** key numbers and metrics. Put EUR amounts, percentages, and counts \
+in **bold** so they stand out as highlighted pills. Example: **EUR 4.29M**, **48%**, **33% on-time**.
+
+2. STRUCTURE: Break your response into short, focused paragraphs. Each paragraph = one idea. \
+Don't write walls of text.
+
+3. CALLOUTS: The UI auto-detects certain patterns and renders them as colored callout cards:
+   - Start a line with "Bottom line:" or "Key insight:" for a blue insight callout
+   - Lines with risk/warning language + "should"/"need" become amber warning cards
+   - Lines starting with "We should" / "I'd recommend" / "Consider" become purple action cards
+   - Lines with positive language (growing, strong, healthy) become green cards
+
+4. CHARTS: Reference charts naturally. If you recommended a chart, mention it briefly.
+
+5. RECOMMENDATIONS: End with clear next steps. Use bullet points for action items.
+
+6. TONE: Speak like a sharp COO in a strategy meeting. Concise, opinionated, number-driven. \
+2-4 paragraphs max unless the question warrants more.
+
+7. CONFIDENCE: If data directly answers the question, you're confident. If you made assumptions, \
+note it naturally."""

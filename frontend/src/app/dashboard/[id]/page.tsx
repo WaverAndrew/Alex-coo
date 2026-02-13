@@ -21,8 +21,8 @@ interface DemoDashboard {
 }
 
 const DEMO_DASHBOARDS: Record<string, DemoDashboard> = {
-  "1": {
-    id: "1",
+  "demo-1": {
+    id: "demo-1",
     title: "Revenue Overview",
     description: "Monthly revenue trends, channel breakdown, and top products",
     pinned: true,
@@ -77,8 +77,8 @@ const DEMO_DASHBOARDS: Record<string, DemoDashboard> = {
       },
     ],
   },
-  "2": {
-    id: "2",
+  "demo-2": {
+    id: "demo-2",
     title: "Showroom Comparison",
     description: "Performance metrics across all three showrooms",
     pinned: false,
@@ -121,8 +121,8 @@ const DEMO_DASHBOARDS: Record<string, DemoDashboard> = {
       },
     ],
   },
-  "3": {
-    id: "3",
+  "demo-3": {
+    id: "demo-3",
     title: "Customer Insights",
     description: "Customer segmentation, VIP concentration, and retention",
     pinned: true,

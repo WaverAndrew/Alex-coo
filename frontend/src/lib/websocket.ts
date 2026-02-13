@@ -161,6 +161,8 @@ export function sendChatMessage(
             responseData = {
               reply: data.reply,
               charts: data.charts || [],
+              dashboard_update: data.dashboard_update || undefined,
+              intent: data.intent || undefined,
               session_id: data.session_id || sessionId,
             };
             useThoughtStore.getState().setProcessing(false);

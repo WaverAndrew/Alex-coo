@@ -142,10 +142,13 @@ function ChatContent() {
           {history
             .filter((c) => c.id !== sessionId)
             .map((convo) => (
-              <div key={convo.id} className="px-2 mb-0.5 group">
-                <button
+              <div key={convo.id} className="px-2 mb-0.5 group flex items-start">
+                <div
+                  role="button"
+                  tabIndex={0}
                   onClick={() => { loadConversation(convo.id); clearThoughts(); }}
-                  className="w-full text-left px-2 py-2 rounded-lg hover:bg-muted/60 transition-colors flex items-start gap-2"
+                  onKeyDown={(e) => { if (e.key === "Enter") { loadConversation(convo.id); clearThoughts(); } }}
+                  className="flex-1 min-w-0 px-2 py-2 rounded-lg hover:bg-muted/60 transition-colors cursor-pointer flex items-start gap-2"
                 >
                   <MessageSquare className="w-3 h-3 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -155,12 +158,12 @@ function ChatContent() {
                       {new Date(convo.updatedAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); deleteConversation(convo.id); }}
-                    className="opacity-0 group-hover:opacity-100 w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-destructive transition-all flex-shrink-0"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                </div>
+                <button
+                  onClick={() => deleteConversation(convo.id)}
+                  className="opacity-0 group-hover:opacity-100 w-5 h-5 mt-2 flex items-center justify-center text-muted-foreground hover:text-destructive transition-all flex-shrink-0"
+                >
+                  <Trash2 className="w-3 h-3" />
                 </button>
               </div>
             ))}

@@ -2,13 +2,13 @@
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileSearch, Clock, TrendingDown, Users, Send, Brain, Loader2 } from "lucide-react";
+import { FileSearch, Clock, TrendingDown, Users, Send, Brain, Loader2, Trash2, Sparkles } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { Markdown } from "@/components/chat/Markdown";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { connectThoughtStream, sendChatMessage } from "@/lib/websocket";
-import { useChatStore, useThoughtStore } from "@/lib/store";
+import { useChatStore, useThoughtStore, useDeepDiveStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import type { ChartConfig } from "@/lib/types";
 
@@ -330,9 +330,82 @@ function FollowUpThread({ dive }: { dive: DeepDive }) {
   );
 }
 
+function DiveCard({ dive, isExpanded, onToggle, onDelete }: {
+  dive: DeepDive;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onDelete?: () => void;
+}) {
+  const Icon = dive.icon || FileSearch;
+  return (
+    <motion.div
+      className="glass rounded-xl overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      layout
+    >
+      <div className="flex items-start group">
+        <button
+          onClick={onToggle}
+          className="flex-1 text-left px-5 py-4 flex items-start gap-4 hover:bg-muted/30 transition-colors"
+        >
+          <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
+            <Icon className="w-4 h-4 text-foreground" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-foreground mb-1">{dive.title}</h3>
+            <p className="text-xs text-muted-foreground line-clamp-2">{dive.summary}</p>
+          </div>
+          <span className="text-[10px] text-muted-foreground/60 flex-shrink-0">
+            <Clock className="w-3 h-3 inline mr-1" />
+            {new Date(dive.createdAt).toLocaleDateString()}
+          </span>
+        </button>
+        {onDelete && (
+          <button
+            onClick={onDelete}
+            className="opacity-0 group-hover:opacity-100 p-3 text-muted-foreground hover:text-destructive transition-all"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 pb-5 border-t border-border">
+              {dive.charts.length > 0 && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 mb-5">
+                  {dive.charts.map((chart, ci) => (
+                    <ChartRenderer key={ci} config={chart} height={240} />
+                  ))}
+                </div>
+              )}
+              <div className="bg-muted/20 rounded-lg p-5 border border-border">
+                <Markdown content={dive.fullContent} />
+              </div>
+              <FollowUpThread dive={dive} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function DeepDivesPage() {
   const [mounted, setMounted] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const savedDives = useDeepDiveStore((s) => s.dives);
+  const deleteDeepDive = useDeepDiveStore((s) => s.deleteDeepDive);
 
   useEffect(() => {
     setMounted(true);
@@ -357,74 +430,47 @@ export default function DeepDivesPage() {
               <h1 className="text-xl font-bold text-foreground">Deep Dives</h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              In-depth analyses with data-backed recommendations. Click to expand, then ask follow-ups.
+              In-depth analyses with data-backed recommendations. Click to expand, ask follow-ups.
             </p>
           </motion.div>
 
-          <div className="space-y-4">
-            {DEMO_DEEP_DIVES.map((dive, idx) => {
-              const isExpanded = expandedId === dive.id;
-              const Icon = dive.icon;
+          {/* Saved from chat */}
+          {savedDives.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3" /> From Alex
+              </h2>
+              <div className="space-y-3">
+                {savedDives.map((dive) => (
+                  <DiveCard
+                    key={dive.id}
+                    dive={{ ...dive, icon: FileSearch, followUpSuggestions: ["Tell me more about this", "What should we do next?", "How does this compare historically?"] }}
+                    isExpanded={expandedId === dive.id}
+                    onToggle={() => setExpandedId(expandedId === dive.id ? null : dive.id)}
+                    onDelete={() => deleteDeepDive(dive.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
-              return (
-                <motion.div
+          {/* Demo deep dives */}
+          <div>
+            {savedDives.length > 0 && (
+              <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                Sample Analyses
+              </h2>
+            )}
+            <div className="space-y-3">
+              {DEMO_DEEP_DIVES.map((dive) => (
+                <DiveCard
                   key={dive.id}
-                  className="glass rounded-xl overflow-hidden"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: idx * 0.08 }}
-                  layout
-                >
-                  <button
-                    onClick={() => setExpandedId(isExpanded ? null : dive.id)}
-                    className="w-full text-left px-5 py-4 flex items-start gap-4 hover:bg-muted/30 transition-colors"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Icon className="w-4 h-4 text-foreground" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-semibold text-foreground mb-1">{dive.title}</h3>
-                      <p className="text-xs text-muted-foreground line-clamp-2">{dive.summary}</p>
-                    </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-[10px] text-muted-foreground/60">
-                        <Clock className="w-3 h-3 inline mr-1" />
-                        {new Date(dive.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </button>
-
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 pb-5 border-t border-border">
-                          {/* Charts */}
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 mb-5">
-                            {dive.charts.map((chart, ci) => (
-                              <ChartRenderer key={ci} config={chart} height={240} />
-                            ))}
-                          </div>
-
-                          {/* Full analysis */}
-                          <div className="bg-muted/20 rounded-lg p-5 border border-border">
-                            <Markdown content={dive.fullContent} />
-                          </div>
-
-                          {/* Follow-up thread */}
-                          <FollowUpThread dive={dive} />
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
+                  dive={dive}
+                  isExpanded={expandedId === dive.id}
+                  onToggle={() => setExpandedId(expandedId === dive.id ? null : dive.id)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </main>

@@ -212,6 +212,71 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
   },
 }));
 
+// ---------- Deep Dive Store ----------
+
+interface SavedDeepDive {
+  id: string;
+  title: string;
+  summary: string;
+  fullContent: string;
+  charts: ChartConfig[];
+  createdAt: string;
+}
+
+function loadDeepDives(): SavedDeepDive[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem("saved-deep-dives");
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function persistDeepDives(dives: SavedDeepDive[]) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("saved-deep-dives", JSON.stringify(dives));
+}
+
+interface DeepDiveStore {
+  dives: SavedDeepDive[];
+  createDeepDive: (title: string, content: string, charts: ChartConfig[]) => SavedDeepDive;
+  deleteDeepDive: (id: string) => void;
+}
+
+export const useDeepDiveStore = create<DeepDiveStore>((set, get) => ({
+  dives: typeof window !== "undefined" ? loadDeepDives() : [],
+
+  createDeepDive: (title, content, charts) => {
+    const summary = content
+      .split("\n")
+      .filter((l) => l.trim().length > 0)
+      .slice(0, 2)
+      .join(" ")
+      .replace(/\*\*/g, "")
+      .replace(/[#\-*]/g, "")
+      .trim()
+      .slice(0, 200);
+
+    const dive: SavedDeepDive = {
+      id: `dive-${Date.now()}`,
+      title,
+      summary,
+      fullContent: content,
+      charts,
+      createdAt: new Date().toISOString(),
+    };
+    const updated = [dive, ...get().dives];
+    persistDeepDives(updated);
+    set({ dives: updated });
+    return dive;
+  },
+
+  deleteDeepDive: (id) => {
+    const updated = get().dives.filter((d) => d.id !== id);
+    persistDeepDives(updated);
+    set({ dives: updated });
+  },
+}));
+
 // ---------- Focus Store ----------
 
 interface FocusStore {

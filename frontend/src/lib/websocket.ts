@@ -109,6 +109,7 @@ interface WSChatResponse {
     charts?: ChartConfig[];
     index?: number;
   };
+  intent?: string;
   session_id: string;
 }
 

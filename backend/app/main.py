@@ -257,6 +257,7 @@ async def ws_chat(ws: WebSocket):
             "reply": result.get("content", ""),
             "charts": result.get("chart_configs", []),
             "dashboard_update": result.get("dashboard_update"),
+            "intent": result.get("intent", "analysis"),
             "session_id": session_id,
         }
         await ws.send_text(json.dumps(response_payload))

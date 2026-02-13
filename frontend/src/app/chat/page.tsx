@@ -10,10 +10,10 @@ import { MessageBubble } from "@/components/chat/MessageBubble";
 import { ChatInput } from "@/components/chat/ChatInput";
 import { TypingIndicator } from "@/components/chat/TypingIndicator";
 import { ThinkingPanel } from "@/components/interpretability/ThinkingPanel";
-import { useChatStore, useThoughtStore } from "@/lib/store";
+import { useChatStore, useThoughtStore, useDashboardStore } from "@/lib/store";
 import { sendChatMessage, connectThoughtStream } from "@/lib/websocket";
 import { cn } from "@/lib/utils";
-import type { ChatMessage } from "@/lib/types";
+import type { ChatMessage, ChartConfig } from "@/lib/types";
 
 function ChatContent() {
   const searchParams = useSearchParams();
@@ -22,6 +22,7 @@ function ChatContent() {
     history, loadConversation, deleteConversation, startNewConversation,
   } = useChatStore();
   const { clearThoughts, setProcessing } = useThoughtStore();
+  const createDashboard = useDashboardStore((s) => s.createDashboard);
   const scrollRef = useRef<HTMLDivElement>(null);
   const initialSent = useRef(false);
   const [mounted, setMounted] = useState(false);
@@ -71,11 +72,24 @@ function ChatContent() {
       try {
         const response = await sendChatMessage(message, sessionId);
 
+        const charts: ChartConfig[] | undefined =
+          response.charts && response.charts.length > 0 ? response.charts : undefined;
+
+        // If Alex created a dashboard, save it
+        if (response.intent === "dashboard" && charts && charts.length > 0) {
+          const title = message.replace(/^(create|build|make)\s+(a\s+)?dashboard\s*(of|for|about)?\s*/i, "").trim() || "Dashboard";
+          createDashboard(
+            title.charAt(0).toUpperCase() + title.slice(1),
+            response.reply || "",
+            charts,
+          );
+        }
+
         const assistantMessage: ChatMessage = {
           id: `assistant-${Date.now()}`,
           role: "assistant",
           content: response.reply || "",
-          charts: response.charts,
+          charts,
           timestamp: new Date(),
         };
 

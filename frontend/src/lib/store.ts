@@ -158,31 +158,57 @@ export const useThoughtStore = create<ThoughtStore>((set) => ({
 
 // ---------- Dashboard Store ----------
 
-interface DashboardStore {
-  dashboards: Dashboard[];
-  pinnedDashboards: Dashboard[];
-  isLoading: boolean;
-  error: string | null;
-  fetchDashboards: () => Promise<void>;
+function loadSavedDashboards(): Dashboard[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem("saved-dashboards");
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
 }
 
-export const useDashboardStore = create<DashboardStore>((set) => ({
-  dashboards: [],
-  pinnedDashboards: [],
-  isLoading: false,
-  error: null,
-  fetchDashboards: async () => {
-    set({ isLoading: true, error: null });
-    try {
-      const dashboards = await fetchDashboardsAPI();
-      const pinned = dashboards.filter((d) => d.pinned);
-      set({ dashboards, pinnedDashboards: pinned, isLoading: false });
-    } catch (err) {
-      set({
-        error: err instanceof Error ? err.message : "Failed to fetch dashboards",
-        isLoading: false,
-      });
-    }
+function persistDashboards(dashboards: Dashboard[]) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("saved-dashboards", JSON.stringify(dashboards));
+}
+
+interface DashboardStore {
+  dashboards: Dashboard[];
+  createDashboard: (title: string, description: string, charts: ChartConfig[]) => Dashboard;
+  deleteDashboard: (id: string) => void;
+  togglePin: (id: string) => void;
+}
+
+export const useDashboardStore = create<DashboardStore>((set, get) => ({
+  dashboards: typeof window !== "undefined" ? loadSavedDashboards() : [],
+
+  createDashboard: (title, description, charts) => {
+    const newDash: Dashboard = {
+      id: `dash-${Date.now()}`,
+      title,
+      description: description.slice(0, 200),
+      charts,
+      pinned: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    const updated = [newDash, ...get().dashboards];
+    persistDashboards(updated);
+    set({ dashboards: updated });
+    return newDash;
+  },
+
+  deleteDashboard: (id) => {
+    const updated = get().dashboards.filter((d) => d.id !== id);
+    persistDashboards(updated);
+    set({ dashboards: updated });
+  },
+
+  togglePin: (id) => {
+    const updated = get().dashboards.map((d) =>
+      d.id === id ? { ...d, pinned: !d.pinned } : d
+    );
+    persistDashboards(updated);
+    set({ dashboards: updated });
   },
 }));
 

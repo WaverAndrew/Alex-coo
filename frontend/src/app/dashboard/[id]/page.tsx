@@ -8,7 +8,7 @@ import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { ArrowLeft, Pin, PinOff, Trash2 } from "lucide-react";
 import { connectThoughtStream } from "@/lib/websocket";
-import { useActiveDashboardStore } from "@/lib/store";
+import { useActiveDashboardStore, useDashboardStore } from "@/lib/store";
 import type { ChartConfig } from "@/lib/types";
 import Link from "next/link";
 
@@ -163,6 +163,11 @@ export default function DashboardViewerPage() {
   const [pinned, setPinned] = useState(false);
   const id = params.id as string;
   const demoDashboard = DEMO_DASHBOARDS[id];
+  const savedDashboards = useDashboardStore((s) => s.dashboards);
+  const savedDashboard = savedDashboards.find((d) => d.id === id);
+
+  // Resolve: saved dashboard from store, or demo dashboard
+  const sourceDashboard = savedDashboard || demoDashboard;
 
   // Active dashboard store — source of truth for live charts
   const activeDashboard = useActiveDashboardStore((s) => s.dashboard);
@@ -172,17 +177,15 @@ export default function DashboardViewerPage() {
     setMounted(true);
     const disconnect = connectThoughtStream();
 
-    // Load demo dashboard into active store
-    if (demoDashboard) {
-      setPinned(demoDashboard.pinned);
+    if (sourceDashboard) {
+      setPinned(sourceDashboard.pinned);
       setActiveDashboard({
-        id: demoDashboard.id,
-        title: demoDashboard.title,
-        charts: demoDashboard.charts,
+        id: sourceDashboard.id,
+        title: sourceDashboard.title,
+        charts: sourceDashboard.charts,
       });
     }
 
-    // Clean up on unmount — clear active dashboard
     return () => {
       disconnect();
       setActiveDashboard(null);
@@ -191,7 +194,7 @@ export default function DashboardViewerPage() {
 
   if (!mounted) return null;
 
-  if (!demoDashboard) {
+  if (!sourceDashboard) {
     return (
       <div className="flex h-screen overflow-hidden">
         <Sidebar />
@@ -208,7 +211,7 @@ export default function DashboardViewerPage() {
   }
 
   // Use live charts from store (agent can update these), fallback to demo
-  const liveCharts = activeDashboard?.charts ?? demoDashboard.charts;
+  const liveCharts = activeDashboard?.charts ?? sourceDashboard.charts;
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -231,8 +234,8 @@ export default function DashboardViewerPage() {
                 Back
               </button>
               <div>
-                <h1 className="text-xl font-bold text-foreground">{demoDashboard.title}</h1>
-                <p className="text-sm text-muted-foreground">{demoDashboard.description}</p>
+                <h1 className="text-xl font-bold text-foreground">{sourceDashboard.title}</h1>
+                <p className="text-sm text-muted-foreground">{sourceDashboard.description}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">

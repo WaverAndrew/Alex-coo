@@ -237,7 +237,6 @@ async def ws_chat(ws: WebSocket):
                     await self._target.send_text(json.dumps(thought_payload))
                 except Exception:
                     pass
-                await self._global.broadcast(event)
 
         chat_broadcaster = WSChatBroadcaster(ws, app.state.broadcaster)
 

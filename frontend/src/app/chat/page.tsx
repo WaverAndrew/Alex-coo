@@ -33,12 +33,19 @@ function ChatContent() {
     }
   }, [messages]);
 
+  // When arriving with ?q=, start a fresh session and send the question
   useEffect(() => {
     if (mounted) {
       const q = searchParams.get("q");
-      if (q && !initialSent.current && messages.length === 0) {
+      if (q && !initialSent.current) {
         initialSent.current = true;
-        handleSend(q);
+        // Clear previous conversation and start fresh
+        const { clearMessages, setSessionId } = useChatStore.getState();
+        clearMessages();
+        setSessionId(`${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
+        clearThoughts();
+        // Small delay to let state settle before sending
+        setTimeout(() => handleSend(q), 50);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

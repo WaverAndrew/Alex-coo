@@ -187,7 +187,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         )}
       >
         {isUser ? (
-          <p className="text-sm text-foreground">{message.content}</p>
+          <p className="text-sm text-background">{message.content}</p>
         ) : (
           <Markdown content={message.content} />
         )}
@@ -203,7 +203,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         <p
           className={cn(
             "text-[10px] mt-2",
-            isUser ? "text-muted-foreground text-right" : "text-muted-foreground"
+            isUser ? "text-background/60 text-right" : "text-muted-foreground"
           )}
         >
           {message.timestamp.toLocaleTimeString([], {

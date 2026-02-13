@@ -1,14 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileSearch, Clock, TrendingDown, Users, ShoppingCart } from "lucide-react";
+import { FileSearch, Clock, TrendingDown, Users, Send, Brain, Loader2 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { Markdown } from "@/components/chat/Markdown";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
-import { connectThoughtStream } from "@/lib/websocket";
+import { connectThoughtStream, sendChatMessage } from "@/lib/websocket";
+import { useChatStore, useThoughtStore } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import type { ChartConfig } from "@/lib/types";
+
+interface FollowUp {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  charts?: ChartConfig[];
+}
 
 interface DeepDive {
   id: string;
@@ -18,6 +27,7 @@ interface DeepDive {
   charts: ChartConfig[];
   createdAt: string;
   icon: React.ComponentType<{ className?: string }>;
+  followUpSuggestions: string[];
 }
 
 const DEMO_DEEP_DIVES: DeepDive[] = [
@@ -31,7 +41,7 @@ const DEMO_DEEP_DIVES: DeepDive[] = [
 
 **Showroom 2** pulls **EUR 3.58M** and would lose **EUR 38,539** per 1% discount increase (a **1.08% revenue impact**). They're already at 6.98% discount rate — higher than Showroom 1 — so piling on more discounts here gets expensive fast.
 
-**Showroom 3** is the outlier. They're at **11.78% average discount** — more than double Showroom 1 — and generating only **EUR 1.61M**. A 1% discount bump costs them **EUR 18,276**, which is **1.14% of their revenue**. The high discount rate tells me they're either in a more competitive market or struggling with conversion.
+**Showroom 3** is the outlier. They're at **11.78% average discount** — more than double Showroom 1 — and generating only **EUR 1.61M**. A 1% discount bump costs them **EUR 18,276**, which is **1.14% of their revenue**.
 
 **Bottom line:** Across all three showrooms, a 1% blanket discount increase would cost us roughly **EUR 103K in total annual revenue**. Showroom 3 is already over-discounting — we need to look at pricing strategy and product mix there, not more promotions.`,
     charts: [
@@ -39,9 +49,9 @@ const DEMO_DEEP_DIVES: DeepDive[] = [
         type: "bar",
         title: "Revenue Impact per 1% Discount Increase",
         data: [
-          { showroom: "Showroom 1", impact: 46129, discount_rate: 4.96 },
-          { showroom: "Showroom 2", impact: 38539, discount_rate: 6.98 },
-          { showroom: "Showroom 3", impact: 18276, discount_rate: 11.78 },
+          { showroom: "Showroom 1", impact: 46129 },
+          { showroom: "Showroom 2", impact: 38539 },
+          { showroom: "Showroom 3", impact: 18276 },
         ],
         xKey: "showroom",
         yKeys: ["impact"],
@@ -62,6 +72,11 @@ const DEMO_DEEP_DIVES: DeepDive[] = [
     ],
     createdAt: "2025-01-31",
     icon: TrendingDown,
+    followUpSuggestions: [
+      "What products are most discounted at Showroom 3?",
+      "Run a regression of discount vs conversion rate",
+      "What would happen if we cap Showroom 3 discounts at 8%?",
+    ],
   },
   {
     id: "2",
@@ -71,7 +86,7 @@ const DEMO_DEEP_DIVES: DeepDive[] = [
 
 Before the hike, we were running at a healthy **42% gross margin** on sofas. Post-hike, that's dropped to **28%**. That's a 14 percentage point swing on our highest-volume product category.
 
-The impact flows through every sofa we make — the Roma Sofa, Milano Sofa, Venezia Sofa, and Toscana Sofa all use foam as a primary material. We're looking at roughly **EUR 180K in lost margin** over the last quarter alone.
+The impact flows through every sofa we make. We're looking at roughly **EUR 180K in lost margin** over the last quarter alone.
 
 **Recommended actions:**
 - Negotiate a volume commitment with Tessuti Milano for a 5-8% discount
@@ -98,6 +113,11 @@ The impact flows through every sofa we make — the Roma Sofa, Milano Sofa, Vene
     ],
     createdAt: "2025-01-28",
     icon: TrendingDown,
+    followUpSuggestions: [
+      "Which sofa models are hit hardest?",
+      "How much foam does each sofa use?",
+      "What's our price elasticity on sofas?",
+    ],
   },
   {
     id: "3",
@@ -128,8 +148,187 @@ If we lose Rossi Interiors, we're looking at a **EUR 1.2M annual revenue gap** t
     ],
     createdAt: "2025-01-25",
     icon: Users,
+    followUpSuggestions: [
+      "Show Rossi Interiors' full order history",
+      "Which other VIP customers are at risk?",
+      "What's our customer acquisition cost for B2B?",
+    ],
   },
 ];
+
+function FollowUpThread({ dive }: { dive: DeepDive }) {
+  const [followUps, setFollowUps] = useState<FollowUp[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const sessionId = useChatStore((s) => s.sessionId);
+  const { clearThoughts, setProcessing } = useThoughtStore();
+  const thoughts = useThoughtStore((s) => s.thoughts);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [followUps, thoughts]);
+
+  const handleSend = useCallback(
+    async (text?: string) => {
+      const msg = (text || input).trim();
+      if (!msg || loading) return;
+      setInput("");
+
+      setFollowUps((prev) => [...prev, { id: `u-${Date.now()}`, role: "user", content: msg }]);
+      setLoading(true);
+      clearThoughts();
+      setProcessing(true);
+
+      // Send with context about this deep dive
+      const contextMessage = `${msg}\n\n[CONTEXT: This is a follow-up to the deep dive "${dive.title}". Summary: ${dive.summary}]`;
+
+      try {
+        const response = await sendChatMessage(contextMessage, sessionId);
+        const charts: ChartConfig[] = (response.charts || []).map((c) => ({
+          type: c.type as ChartConfig["type"],
+          title: c.title,
+          data: c.data as Record<string, unknown>[],
+          xKey: c.xKey,
+          yKeys: c.yKeys,
+          colors: c.colors,
+        }));
+
+        setFollowUps((prev) => [
+          ...prev,
+          {
+            id: `a-${Date.now()}`,
+            role: "assistant",
+            content: response.reply || "",
+            charts: charts.length > 0 ? charts : undefined,
+          },
+        ]);
+      } catch {
+        setFollowUps((prev) => [
+          ...prev,
+          { id: `e-${Date.now()}`, role: "assistant", content: "Something went wrong. Try again?" },
+        ]);
+      } finally {
+        setLoading(false);
+        setProcessing(false);
+      }
+    },
+    [input, loading, sessionId, dive, clearThoughts, setProcessing]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleSend();
+      }
+    },
+    [handleSend]
+  );
+
+  const activeThoughts = loading ? thoughts.slice(-4) : [];
+
+  return (
+    <div className="border-t border-border mt-4 pt-4">
+      {/* Follow-up thread */}
+      {followUps.length > 0 && (
+        <div ref={scrollRef} className="space-y-3 mb-4 max-h-[400px] overflow-y-auto">
+          {followUps.map((fu) => (
+            <div key={fu.id} className={cn("flex", fu.role === "user" ? "justify-end" : "justify-start gap-2")}>
+              {fu.role === "assistant" && (
+                <div className="w-6 h-6 rounded-md bg-foreground flex items-center justify-center mt-0.5 flex-shrink-0">
+                  <Brain className="w-3 h-3 text-background" />
+                </div>
+              )}
+              <div className={cn(
+                "max-w-[85%] rounded-xl px-3 py-2",
+                fu.role === "user" ? "bg-foreground text-background text-sm" : "bg-muted/30"
+              )}>
+                {fu.role === "assistant" ? (
+                  <>
+                    <Markdown content={fu.content} className="text-sm" />
+                    {fu.charts && fu.charts.length > 0 && (
+                      <div className="mt-3 space-y-3">
+                        {fu.charts.map((chart, ci) => (
+                          <ChartRenderer key={ci} config={chart} height={220} />
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  fu.content
+                )}
+              </div>
+            </div>
+          ))}
+
+          {/* Live processing steps */}
+          {loading && (
+            <div className="space-y-1 pl-8">
+              {activeThoughts.map((t, i) => (
+                <motion.p
+                  key={`t-${i}`}
+                  className="text-xs text-muted-foreground"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  {t.content}
+                </motion.p>
+              ))}
+              <div className="flex items-center gap-2">
+                <Loader2 className="w-3.5 h-3.5 text-muted-foreground animate-spin" />
+                <span className="text-xs text-muted-foreground">Analyzing...</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Suggestion chips */}
+      {followUps.length === 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          <span className="text-xs text-muted-foreground mr-1">Follow up:</span>
+          {dive.followUpSuggestions.map((s) => (
+            <button
+              key={s}
+              onClick={() => handleSend(s)}
+              disabled={loading}
+              className="px-2.5 py-1 rounded-full text-[11px] text-muted-foreground hover:text-foreground bg-muted/50 hover:bg-muted border border-border/50 transition-all disabled:opacity-50"
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Input */}
+      <div className="flex items-center gap-2">
+        <input
+          ref={inputRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={`Ask a follow-up about ${dive.title.toLowerCase()}...`}
+          disabled={loading}
+          className="flex-1 text-sm bg-muted/30 rounded-lg px-3 py-2 outline-none text-foreground placeholder:text-muted-foreground/50 border border-border focus:border-foreground/20 disabled:opacity-50 transition-colors"
+        />
+        <button
+          onClick={() => handleSend()}
+          disabled={!input.trim() || loading}
+          className={cn(
+            "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all",
+            input.trim() && !loading ? "bg-foreground text-background" : "text-muted-foreground/30"
+          )}
+        >
+          <Send className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function DeepDivesPage() {
   const [mounted, setMounted] = useState(false);
@@ -158,7 +357,7 @@ export default function DeepDivesPage() {
               <h1 className="text-xl font-bold text-foreground">Deep Dives</h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              In-depth analyses with regression and data-backed recommendations
+              In-depth analyses with data-backed recommendations. Click to expand, then ask follow-ups.
             </p>
           </motion.div>
 
@@ -176,7 +375,6 @@ export default function DeepDivesPage() {
                   transition={{ duration: 0.3, delay: idx * 0.08 }}
                   layout
                 >
-                  {/* Header — always visible */}
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : dive.id)}
                     className="w-full text-left px-5 py-4 flex items-start gap-4 hover:bg-muted/30 transition-colors"
@@ -196,7 +394,6 @@ export default function DeepDivesPage() {
                     </div>
                   </button>
 
-                  {/* Expanded content */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -218,6 +415,9 @@ export default function DeepDivesPage() {
                           <div className="bg-muted/20 rounded-lg p-5 border border-border">
                             <Markdown content={dive.fullContent} />
                           </div>
+
+                          {/* Follow-up thread */}
+                          <FollowUpThread dive={dive} />
                         </div>
                       </motion.div>
                     )}

@@ -28,7 +28,8 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: Alex COO Agent for Bella Casa Furniture\n\nFull-stack AI business intelligence platform:\n- Backend: FastAPI + DuckDB + Claude tool-use agent pipeline\n- Frontend: Next.js 16 + Tailwind + Recharts + Framer Motion\n- 12 synthetic CSV tables with 5 embedded business stories\n- Context-aware dashboard editing via right-side chat panel\n- Pages: Hub, Chat, Dashboards, Deep Dives, Alerts\n- Light minimal theme with colorful charts\n\nCo-Authored-By: Claude Opus 4.6 \\(1M context\\) <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(fewer hooks than expected\" on the chat page.\n\nCo-Authored-By: Claude Opus 4.6 \\(1M context\\) <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(fewer hooks than expected\" on the chat page.\n\nCo-Authored-By: Claude Opus 4.6 \\(1M context\\) <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)"
     ]
   }
 }

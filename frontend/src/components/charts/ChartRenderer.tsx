@@ -38,6 +38,15 @@ const TOOLTIP_STYLE = {
   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function formatTooltipValue(value: any) {
+  const n = typeof value === "string" ? parseFloat(value) : Number(value);
+  if (isNaN(n)) return String(value ?? "");
+  if (Math.abs(n) >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
+  if (Math.abs(n) >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return n.toLocaleString();
+}
+
 interface ChartRendererProps {
   config: ChartConfig;
   height?: number;
@@ -49,6 +58,14 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
     () => config.colors || DEFAULT_COLORS,
     [config.colors]
   );
+
+  const formatTick = (v: number | string) => {
+    const n = typeof v === "string" ? parseFloat(v) : v;
+    if (isNaN(n)) return String(v);
+    if (Math.abs(n) >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+    if (Math.abs(n) >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
+    return String(n);
+  };
 
   const commonAxisProps = {
     stroke: "#94a3b8",
@@ -71,8 +88,8 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
             <BarChart data={config.data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid {...gridProps} />
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
-              <YAxis {...commonAxisProps} />
-              <Tooltip contentStyle={TOOLTIP_STYLE} cursor={{ fill: "rgba(0, 0, 0, 0.03)" }} />
+              <YAxis {...commonAxisProps} tickFormatter={formatTick} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} cursor={{ fill: "rgba(0, 0, 0, 0.03)" }} />
               <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
               {config.yKeys.map((key, idx) => (
                 <Bar
@@ -94,8 +111,8 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
             <LineChart data={config.data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid {...gridProps} />
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
-              <YAxis {...commonAxisProps} />
-              <Tooltip contentStyle={TOOLTIP_STYLE} />
+              <YAxis {...commonAxisProps} tickFormatter={formatTick} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
               <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
               {config.yKeys.map((key, idx) => (
                 <Line
@@ -128,8 +145,8 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
               </defs>
               <CartesianGrid {...gridProps} />
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
-              <YAxis {...commonAxisProps} />
-              <Tooltip contentStyle={TOOLTIP_STYLE} />
+              <YAxis {...commonAxisProps} tickFormatter={formatTick} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
               <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
               {config.yKeys.map((key, idx) => (
                 <Area
@@ -167,7 +184,7 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
                   <Cell key={`cell-${idx}`} fill={colors[idx % colors.length]} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={TOOLTIP_STYLE} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
               <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
             </PieChart>
           </ResponsiveContainer>

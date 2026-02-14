@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MetricCard } from "@/components/charts/MetricCard";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
-import { Brain, Sparkles, ArrowRight } from "lucide-react";
+import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
+import { AlertTriangle, TrendingUp, TrendingDown, ArrowRight, ChevronRight, Users } from "lucide-react";
 import Link from "next/link";
 import type { MetricSummary, ChartConfig } from "@/lib/types";
 import { connectThoughtStream } from "@/lib/websocket";
@@ -69,14 +70,54 @@ const REVENUE_CHART: ChartConfig = {
   ],
   xKey: "month",
   yKeys: ["revenue"],
-  colors: ["#3b82f6"],
+  colors: ["#2563eb"],
 };
 
 const INSIGHTS = [
-  { id: "1", text: "Sofa margins have dropped to 28% from 42% - foam costs from Tessuti Milano are up 18% since October.", severity: "warning" as const },
-  { id: "2", text: "Online channel now at 36% of revenue - up from 15% before the website relaunch. Strong momentum.", severity: "info" as const },
-  { id: "3", text: "Rossi Interiors hasn't ordered since November. They're 12% of our revenue - worth a check-in.", severity: "warning" as const },
-  { id: "4", text: "Showroom 3 continues to underperform: highest discounts (12% avg) and lowest customer ratings (3.4).", severity: "warning" as const },
+  {
+    id: "1",
+    title: "Sofa margins dropping fast",
+    text: "Down from 42% to 28% — foam costs from Tessuti Milano up 18% since October",
+    severity: "critical" as const,
+    icon: TrendingDown,
+    color: "text-red-600",
+    bg: "bg-red-50",
+    border: "border-red-200",
+    action: "Analyze sofa margins in detail",
+  },
+  {
+    id: "2",
+    title: "Rossi Interiors gone quiet",
+    text: "Our top customer (12% of revenue) hasn't ordered since November — 67 days silence",
+    severity: "critical" as const,
+    icon: Users,
+    color: "text-red-600",
+    bg: "bg-red-50",
+    border: "border-red-200",
+    action: "Show Rossi Interiors order history",
+  },
+  {
+    id: "3",
+    title: "Online channel surging",
+    text: "Now at 36% of revenue, up from 15% pre-relaunch. Strong organic growth",
+    severity: "positive" as const,
+    icon: TrendingUp,
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
+    border: "border-emerald-200",
+    action: "Break down online channel performance",
+  },
+  {
+    id: "4",
+    title: "Showroom 3 needs attention",
+    text: "Highest discounts (12% avg), lowest ratings (3.4/5), weakest revenue",
+    severity: "warning" as const,
+    icon: AlertTriangle,
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+    border: "border-amber-200",
+    action: "Compare all three showrooms",
+  },
 ];
 
 function getGreeting(): string {
@@ -98,98 +139,117 @@ export default function HubPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 py-8">
-          {/* Greeting */}
-          <motion.div
-            className="mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-2xl font-bold text-foreground">
-              {getGreeting()}
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Here&apos;s what&apos;s happening at <span className="text-foreground font-medium">Bella Casa Furniture</span>
-            </p>
-          </motion.div>
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
 
-          {/* Metric Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {DEMO_METRICS.map((metric, idx) => (
-              <MetricCard
-                key={metric.label}
-                label={metric.label}
-                value={metric.value}
-                format={metric.format}
-                trend={metric.trend}
-                trendPercent={metric.trendPercent}
-                sparklineData={metric.sparklineData}
-                unit={metric.unit}
-                delay={idx * 150}
-              />
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
+        {/* Hero greeting */}
+        <motion.div
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">
+            {getGreeting()}
+          </h1>
+          <p className="text-muted-foreground mt-1.5 text-lg">
+            Bella Casa Furniture
+          </p>
+        </motion.div>
+
+        {/* Metric Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          {DEMO_METRICS.map((metric, idx) => (
+            <MetricCard
+              key={metric.label}
+              label={metric.label}
+              value={metric.value}
+              format={metric.format}
+              trend={metric.trend}
+              trendPercent={metric.trendPercent}
+              sparklineData={metric.sparklineData}
+              unit={metric.unit}
+              delay={idx * 100}
+            />
+          ))}
+        </div>
+
+        {/* Insights — prominent cards grid */}
+        <motion.div
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+            What Alex is watching
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {INSIGHTS.map((insight, idx) => {
+              const Icon = insight.icon;
+              return (
+                <motion.div
+                  key={insight.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 + idx * 0.08 }}
+                >
+                  <Link href={`/chat?q=${encodeURIComponent(insight.action)}`}>
+                    <div className={`group rounded-xl border p-4 cursor-pointer transition-all duration-200 hover:shadow-md ${insight.bg} ${insight.border}`}>
+                      <div className="flex items-start gap-3">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${insight.bg}`}>
+                          <Icon className={`w-4 h-4 ${insight.color}`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-semibold text-foreground mb-0.5">{insight.title}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{insight.text}</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Revenue chart */}
+        <motion.div
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+        >
+          <ChartRenderer config={REVENUE_CHART} height={300} />
+        </motion.div>
+
+        {/* Quick ask */}
+        <motion.div
+          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.8 }}
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Quick questions</h2>
+            <Link href="/chat" className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors ml-auto">
+              Open chat <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {["How are margins trending?", "Compare our showrooms", "Who are our top customers?", "Show the seasonal pattern in beds", "Supply chain status"].map((q) => (
+              <Link
+                key={q}
+                href={`/chat?q=${encodeURIComponent(q)}`}
+                className="px-3.5 py-2 rounded-full text-xs text-muted-foreground hover:text-foreground bg-background border border-border hover:border-foreground/20 hover:shadow-sm transition-all duration-200"
+              >
+                {q}
+              </Link>
             ))}
           </div>
-
-          {/* Chart + Insights */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <div className="lg:col-span-2">
-              <ChartRenderer config={REVENUE_CHART} height={280} />
-            </div>
-            <div className="glass rounded-xl p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <Brain className="w-4 h-4 text-foreground" />
-                <h3 className="text-sm font-medium text-foreground">Alex&apos;s Insights</h3>
-              </div>
-              <div className="space-y-3">
-                {INSIGHTS.map((insight, idx) => (
-                  <motion.div
-                    key={insight.id}
-                    className="flex gap-3 p-3 rounded-lg bg-muted/30 border border-border"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.5 + idx * 0.1 }}
-                  >
-                    <div className={`flex-shrink-0 w-1 rounded-full ${insight.severity === "warning" ? "bg-warning" : "bg-primary"}`} />
-                    <p className="text-xs text-foreground/80 leading-relaxed">{insight.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Actions */}
-          <motion.div
-            className="glass rounded-xl p-5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.8 }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-foreground" />
-                <h3 className="text-sm font-medium text-foreground">Ask Alex</h3>
-              </div>
-              <Link
-                href="/chat"
-                className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
-              >
-                Open chat <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {["How are margins trending?", "Compare our showrooms", "Who are our top customers?", "Show the seasonal pattern in beds"].map((q) => (
-                <Link
-                  key={q}
-                  href={`/chat?q=${encodeURIComponent(q)}`}
-                  className="px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 border border-border transition-all duration-200"
-                >
-                  {q}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

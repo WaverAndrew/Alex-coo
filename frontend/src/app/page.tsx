@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { MetricCard } from "@/components/charts/MetricCard";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { Brain, Sparkles, ArrowRight } from "lucide-react";
@@ -100,10 +98,8 @@ export default function HubPage() {
   if (!mounted) return null;
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-8">
           {/* Greeting */}
           <motion.div
             className="mb-8"
@@ -194,9 +190,7 @@ export default function HubPage() {
               ))}
             </div>
           </motion.div>
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

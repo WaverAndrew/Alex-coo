@@ -4,8 +4,6 @@ import { useEffect, useRef, useCallback, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Trash2, Clock, MessageSquare } from "lucide-react";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { MessageBubble } from "@/components/chat/MessageBubble";
 import { ChatInput } from "@/components/chat/ChatInput";
 import { TypingIndicator } from "@/components/chat/TypingIndicator";
@@ -125,9 +123,7 @@ function ChatContent() {
   if (!mounted) return null;
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-
+    <div className="h-[calc(100vh-4rem)] flex overflow-hidden">
       {/* History sidebar */}
       <div className="w-56 border-r border-border bg-muted/20 flex-col shrink-0 hidden md:flex">
         <div className="px-3 py-3 border-b border-border flex items-center justify-between">
@@ -232,7 +228,6 @@ function ChatContent() {
           <ThinkingPanel />
         </div>
       </div>
-      <AgentStatusBar />
     </div>
   );
 }

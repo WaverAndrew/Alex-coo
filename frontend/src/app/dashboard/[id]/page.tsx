@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { ArrowLeft, Pin, PinOff, Trash2, Pencil, X } from "lucide-react";
 import { connectThoughtStream } from "@/lib/websocket";
@@ -199,16 +197,13 @@ export default function DashboardViewerPage() {
 
   if (!sourceDashboard) {
     return (
-      <div className="flex h-screen overflow-hidden">
-        <Sidebar />
-        <main className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-lg font-semibold text-foreground mb-2">Dashboard not found</h2>
-            <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground underline">
-              Back to dashboards
-            </Link>
-          </div>
-        </main>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-lg font-semibold text-foreground mb-2">Dashboard not found</h2>
+          <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground underline">
+            Back to dashboards
+          </Link>
+        </div>
       </div>
     );
   }
@@ -217,10 +212,8 @@ export default function DashboardViewerPage() {
   const liveCharts = activeDashboard?.charts ?? sourceDashboard.charts;
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto pb-24">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-8 pb-24">
           {/* Toolbar */}
           <motion.div
             className="flex items-center justify-between mb-6"
@@ -308,9 +301,7 @@ export default function DashboardViewerPage() {
               <p className="text-sm">No charts yet. Use the bar below to ask Alex to add some.</p>
             </div>
           )}
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

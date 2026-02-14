@@ -61,7 +61,7 @@ export function FloatingChatBar() {
     }
   }, [messages, thoughts]);
 
-  // Listen for edit-chart events from dashboard chart buttons
+  // Listen for edit-chart and toggle-alex events
   useEffect(() => {
     function handleEditChart(e: Event) {
       const detail = (e as CustomEvent).detail;
@@ -71,8 +71,18 @@ export function FloatingChatBar() {
         setTimeout(() => inputRef.current?.focus(), 200);
       }
     }
+    function handleToggleAlex() {
+      setOpen((prev) => {
+        if (!prev) setTimeout(() => inputRef.current?.focus(), 200);
+        return !prev;
+      });
+    }
     window.addEventListener("edit-chart", handleEditChart);
-    return () => window.removeEventListener("edit-chart", handleEditChart);
+    window.addEventListener("toggle-alex", handleToggleAlex);
+    return () => {
+      window.removeEventListener("edit-chart", handleEditChart);
+      window.removeEventListener("toggle-alex", handleToggleAlex);
+    };
   }, []);
 
   const handleSend = useCallback(

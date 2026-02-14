@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { BarChart3, Pin, Plus, ChevronRight, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { connectThoughtStream } from "@/lib/websocket";
@@ -68,10 +66,8 @@ export default function DashboardListPage() {
   const allDashboards = [...savedDashboards, ...DEMO_DASHBOARDS];
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto pb-24">
-        <div className="max-w-5xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-5xl mx-auto px-6 py-8">
           <motion.div
             className="flex items-center justify-between mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -181,9 +177,7 @@ export default function DashboardListPage() {
               ))}
             </div>
           </div>
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

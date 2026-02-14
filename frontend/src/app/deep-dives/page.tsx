@@ -3,8 +3,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileSearch, Clock, TrendingDown, Users, Send, Brain, Loader2, Trash2, Sparkles } from "lucide-react";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { Markdown } from "@/components/chat/Markdown";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { connectThoughtStream, sendChatMessage } from "@/lib/websocket";
@@ -416,10 +414,8 @@ export default function DeepDivesPage() {
   if (!mounted) return null;
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto pb-24">
-        <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-4xl mx-auto px-6 py-8">
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -472,9 +468,7 @@ export default function DeepDivesPage() {
               ))}
             </div>
           </div>
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

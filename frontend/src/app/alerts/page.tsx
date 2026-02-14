@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, AlertTriangle, TrendingDown, Users, ShoppingCart, ArrowRight, ChevronRight, Clock } from "lucide-react";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { connectThoughtStream } from "@/lib/websocket";
 import { cn } from "@/lib/utils";
 
@@ -150,10 +148,8 @@ export default function AlertsPage() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto pb-24">
-        <div className="max-w-3xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-3xl mx-auto px-6 py-8">
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -203,9 +199,7 @@ export default function AlertsPage() {
               </div>
             </div>
           )}
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

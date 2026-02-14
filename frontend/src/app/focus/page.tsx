@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { AgentStatusBar } from "@/components/layout/AgentStatusBar";
 import { SparklineChart } from "@/components/charts/SparklineChart";
 import {
   Target,
@@ -153,10 +151,8 @@ export default function FocusPage() {
   ].filter((g) => g.items.length > 0);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-6 py-8">
+    <div className="min-h-screen">
+      <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Header */}
           <motion.div
             className="flex items-center justify-between mb-8"
@@ -240,9 +236,7 @@ export default function FocusPage() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </div>
-      </main>
-      <AgentStatusBar />
+      </div>
     </div>
   );
 }

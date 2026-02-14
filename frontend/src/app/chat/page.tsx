@@ -3,15 +3,66 @@
 import { useEffect, useRef, useCallback, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, Clock, MessageSquare } from "lucide-react";
+import { Plus, Trash2, Clock, MessageSquare, History, X, Brain, Database, Lightbulb, BarChart3 } from "lucide-react";
 import { MessageBubble } from "@/components/chat/MessageBubble";
 import { ChatInput } from "@/components/chat/ChatInput";
-import { TypingIndicator } from "@/components/chat/TypingIndicator";
-import { ThinkingPanel } from "@/components/interpretability/ThinkingPanel";
+import { Markdown } from "@/components/chat/Markdown";
 import { useChatStore, useThoughtStore, useDashboardStore } from "@/lib/store";
 import { sendChatMessage, connectThoughtStream } from "@/lib/websocket";
 import { cn } from "@/lib/utils";
-import type { ChatMessage, ChartConfig } from "@/lib/types";
+import type { ChatMessage, ChartConfig, ThoughtEvent } from "@/lib/types";
+
+const THOUGHT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  thinking: Brain,
+  executing_sql: Database,
+  found_insight: Lightbulb,
+  generating_chart: BarChart3,
+};
+
+// Inline thinking steps — replaces the permanent side panel
+function InlineThinking() {
+  const thoughts = useThoughtStore((s) => s.thoughts);
+  const isProcessing = useThoughtStore((s) => s.isProcessing);
+  if (!isProcessing && thoughts.length === 0) return null;
+
+  const recent = thoughts.slice(-5);
+
+  return (
+    <motion.div
+      className="max-w-2xl mx-auto mb-3"
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+    >
+      <div className="rounded-xl bg-muted/30 border border-border/50 px-4 py-3 space-y-1.5">
+        {recent.map((t: ThoughtEvent, i: number) => {
+          const Icon = THOUGHT_ICONS[t.type] || Brain;
+          return (
+            <motion.div
+              key={`t-${i}`}
+              className="flex items-start gap-2 text-xs text-muted-foreground"
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <Icon className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+              <span className="leading-relaxed">{t.content}</span>
+            </motion.div>
+          );
+        })}
+        {isProcessing && (
+          <div className="flex items-center gap-1.5 pt-0.5">
+            {[0, 1, 2].map((i) => (
+              <motion.div key={i} className="w-1 h-1 rounded-full bg-muted-foreground"
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }} />
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
 
 function ChatContent() {
   const searchParams = useSearchParams();
@@ -26,6 +77,7 @@ function ChatContent() {
   const abortRef = useRef(false);
   const [mounted, setMounted] = useState(false);
   const [editValue, setEditValue] = useState<string | null>(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -67,22 +119,14 @@ function ChatContent() {
       if (isLoading) return;
       abortRef.current = false;
 
-      const userMessage: ChatMessage = {
-        id: `user-${Date.now()}`,
-        role: "user",
-        content: message,
-        timestamp: new Date(),
-      };
-
-      addMessage(userMessage);
+      addMessage({ id: `user-${Date.now()}`, role: "user", content: message, timestamp: new Date() });
       setLoading(true);
       clearThoughts();
       setProcessing(true);
 
       try {
         const response = await sendChatMessage(message, sessionId);
-
-        if (abortRef.current) return; // stopped
+        if (abortRef.current) return;
 
         const charts: ChartConfig[] | undefined =
           response.charts && response.charts.length > 0 ? response.charts : undefined;
@@ -92,29 +136,15 @@ function ChatContent() {
           createDashboard(title.charAt(0).toUpperCase() + title.slice(1), response.reply || "", charts);
         }
 
-        const assistantMessage: ChatMessage = {
-          id: `assistant-${Date.now()}`,
-          role: "assistant",
-          content: response.reply || "",
-          charts,
-          timestamp: new Date(),
-        };
-
-        if (!abortRef.current) addMessage(assistantMessage);
+        if (!abortRef.current) {
+          addMessage({ id: `assistant-${Date.now()}`, role: "assistant", content: response.reply || "", charts, timestamp: new Date() });
+        }
       } catch {
         if (!abortRef.current) {
-          addMessage({
-            id: `error-${Date.now()}`,
-            role: "assistant",
-            content: "Sorry, I hit a snag processing that. Could you rephrase?",
-            timestamp: new Date(),
-          });
+          addMessage({ id: `error-${Date.now()}`, role: "assistant", content: "Sorry, I hit a snag. Could you rephrase?", timestamp: new Date() });
         }
       } finally {
-        if (!abortRef.current) {
-          setLoading(false);
-          setProcessing(false);
-        }
+        if (!abortRef.current) { setLoading(false); setProcessing(false); }
       }
     },
     [isLoading, sessionId, addMessage, setLoading, clearThoughts, setProcessing, createDashboard]
@@ -122,85 +152,96 @@ function ChatContent() {
 
   if (!mounted) return null;
 
+  const pastConvos = history.filter((c) => c.id !== sessionId);
+
   return (
-    <div className="h-[calc(100vh-4rem)] flex overflow-hidden">
-      {/* History sidebar */}
-      <div className="w-56 border-r border-border bg-muted/20 flex-col shrink-0 hidden md:flex">
-        <div className="px-3 py-3 border-b border-border flex items-center justify-between">
-          <span className="text-xs font-semibold text-foreground uppercase tracking-wider">History</span>
-          <button
-            onClick={() => { startNewConversation(); clearThoughts(); }}
-            className="w-6 h-6 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-            title="New conversation"
-          >
-            <Plus className="w-3.5 h-3.5" />
-          </button>
-        </div>
-        <div className="flex-1 overflow-y-auto py-1">
-          {messages.length > 0 && (
-            <div className="px-2 mb-1">
-              <div className="px-2 py-2 rounded-lg bg-muted text-xs font-medium text-foreground truncate">
-                {messages.find((m) => m.role === "user")?.content.slice(0, 40) || "Current"}
-              </div>
-            </div>
-          )}
-
-          {history
-            .filter((c) => c.id !== sessionId)
-            .map((convo) => (
-              <div key={convo.id} className="px-2 mb-0.5 group flex items-start">
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => { loadConversation(convo.id); clearThoughts(); }}
-                  onKeyDown={(e) => { if (e.key === "Enter") { loadConversation(convo.id); clearThoughts(); } }}
-                  className="flex-1 min-w-0 px-2 py-2 rounded-lg hover:bg-muted/60 transition-colors cursor-pointer flex items-start gap-2"
-                >
-                  <MessageSquare className="w-3 h-3 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-foreground/80 truncate">{convo.title}</p>
-                    <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1 mt-0.5">
-                      <Clock className="w-2.5 h-2.5" />
-                      {new Date(convo.updatedAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => deleteConversation(convo.id)}
-                  className="opacity-0 group-hover:opacity-100 w-5 h-5 mt-2 flex items-center justify-center text-muted-foreground hover:text-destructive transition-all flex-shrink-0"
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
-
-          {history.filter((c) => c.id !== sessionId).length === 0 && messages.length === 0 && (
-            <div className="px-4 py-6 text-center">
-              <p className="text-[11px] text-muted-foreground/60">No conversations yet</p>
-            </div>
+    <div className="h-[calc(100vh-4rem)] flex flex-col">
+      {/* Top bar — history toggle + new chat */}
+      <div className="flex items-center justify-between px-6 py-2 border-b border-border/50">
+        <div className="flex items-center gap-2">
+          {pastConvos.length > 0 && (
+            <button
+              onClick={() => setHistoryOpen(!historyOpen)}
+              className={cn(
+                "flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs transition-colors",
+                historyOpen
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              <History className="w-3.5 h-3.5" />
+              <span>{pastConvos.length}</span>
+            </button>
           )}
         </div>
+        <button
+          onClick={() => { startNewConversation(); clearThoughts(); setHistoryOpen(false); }}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+        >
+          <Plus className="w-3.5 h-3.5" />
+          New
+        </button>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Chat Panel */}
-        <div className="flex-1 flex flex-col min-w-0">
-          {/* Messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
-            {messages.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-full text-center">
-                <div className="w-16 h-16 rounded-2xl bg-foreground flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-background">A</span>
+      {/* History dropdown */}
+      <AnimatePresence>
+        {historyOpen && (
+          <motion.div
+            className="border-b border-border bg-muted/20 px-6 py-3 overflow-y-auto max-h-48"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="max-w-2xl mx-auto space-y-1">
+              {pastConvos.map((convo) => (
+                <div key={convo.id} className="flex items-center group">
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => { loadConversation(convo.id); clearThoughts(); setHistoryOpen(false); }}
+                    onKeyDown={(e) => { if (e.key === "Enter") { loadConversation(convo.id); clearThoughts(); setHistoryOpen(false); } }}
+                    className="flex-1 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted/60 cursor-pointer transition-colors"
+                  >
+                    <MessageSquare className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                    <span className="text-xs text-foreground/80 truncate">{convo.title}</span>
+                    <span className="text-[10px] text-muted-foreground/50 ml-auto flex-shrink-0">
+                      {new Date(convo.updatedAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => deleteConversation(convo.id)}
+                    className="opacity-0 group-hover:opacity-100 w-6 h-6 flex items-center justify-center text-muted-foreground hover:text-destructive transition-all"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
-                <h2 className="text-lg font-semibold text-foreground mb-2">
-                  Hey, I&apos;m Alex
-                </h2>
-                <p className="text-sm text-muted-foreground max-w-md">
-                  Your COO agent for Bella Casa Furniture. Ask me anything about
-                  revenue, margins, customers, production, or operations.
-                </p>
-              </div>
-            )}
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Messages — centered single column */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-6 py-8">
+          {messages.length === 0 && (
+            <motion.div
+              className="flex flex-col items-center justify-center text-center py-24"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-2xl font-bold text-foreground mb-2 tracking-tight">
+                What do you want to know?
+              </h1>
+              <p className="text-muted-foreground text-sm max-w-sm">
+                Ask about revenue, margins, customers, suppliers, production — anything in your data.
+              </p>
+            </motion.div>
+          )}
+
+          <div className="space-y-5">
             <AnimatePresence mode="popLayout">
               {messages.map((msg) => (
                 <MessageBubble
@@ -209,11 +250,17 @@ function ChatContent() {
                   onEdit={msg.role === "user" ? handleEdit : undefined}
                 />
               ))}
-              {isLoading && <TypingIndicator />}
             </AnimatePresence>
           </div>
 
-          {/* Input */}
+          {/* Inline thinking steps */}
+          {isLoading && <div className="mt-4"><InlineThinking /></div>}
+        </div>
+      </div>
+
+      {/* Input — pinned bottom, centered */}
+      <div className="border-t border-border/50 bg-background">
+        <div className="max-w-2xl mx-auto">
           <ChatInput
             onSend={handleSend}
             onStop={handleStop}
@@ -221,11 +268,6 @@ function ChatContent() {
             editValue={editValue}
             onEditClear={() => setEditValue(null)}
           />
-        </div>
-
-        {/* Thinking Panel */}
-        <div className="hidden lg:block w-80 xl:w-96 border-l border-border p-3">
-          <ThinkingPanel />
         </div>
       </div>
     </div>

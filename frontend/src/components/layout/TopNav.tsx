@@ -24,7 +24,7 @@ export function TopNav() {
 
   return (
     <motion.header
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 bg-background/80 backdrop-blur-xl border border-border/60 rounded-full px-2 py-1.5 shadow-lg shadow-black/5"
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 glass-strong rounded-full px-2 py-1.5"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
@@ -33,11 +33,11 @@ export function TopNav() {
       <Link href="/" className="flex items-center gap-1.5 pl-2 pr-3">
         <span className="relative flex items-center">
           <span className="text-sm font-bold tracking-tight text-foreground">alex</span>
-          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full ml-1" />
+          <span className="w-1.5 h-1.5 bg-success rounded-full ml-1 glow-success" />
         </span>
       </Link>
 
-      <div className="w-px h-4 bg-border/60" />
+      <div className="w-px h-4 bg-border" />
 
       {/* Nav links */}
       <nav className="flex items-center gap-0.5 px-1">
@@ -54,7 +54,7 @@ export function TopNav() {
           >
             {isActive(link.href) && (
               <motion.div
-                className="absolute inset-0 bg-muted rounded-full"
+                className="absolute inset-0 bg-accent rounded-full"
                 layoutId="navActive"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
@@ -64,12 +64,12 @@ export function TopNav() {
         ))}
       </nav>
 
-      <div className="w-px h-4 bg-border/60" />
+      <div className="w-px h-4 bg-border" />
 
-      {/* Center Alex button — triggers floating chat */}
+      {/* Ask button */}
       <button
         onClick={() => window.dispatchEvent(new CustomEvent("toggle-alex"))}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-foreground text-background text-[13px] font-medium hover:bg-foreground/90 transition-colors ml-1"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:bg-primary/90 transition-colors ml-1"
       >
         <MessageSquare className="w-3.5 h-3.5" />
         Ask

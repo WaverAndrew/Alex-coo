@@ -167,7 +167,7 @@ export default function FocusPage() {
               </div>
               <p className="text-sm text-muted-foreground">Metrics Alex is watching for you</p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium hover:bg-foreground/90 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-foreground/90 transition-colors">
               <Plus className="w-4 h-4" />
               Add Metric
             </button>

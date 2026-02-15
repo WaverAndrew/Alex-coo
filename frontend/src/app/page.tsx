@@ -70,7 +70,7 @@ const REVENUE_CHART: ChartConfig = {
   ],
   xKey: "month",
   yKeys: ["revenue"],
-  colors: ["#2563eb"],
+  colors: ["#818cf8"],
 };
 
 const INSIGHTS = [
@@ -78,44 +78,40 @@ const INSIGHTS = [
     id: "1",
     title: "Sofa margins dropping fast",
     text: "Down from 42% to 28% — foam costs from Tessuti Milano up 18% since October",
-    severity: "critical" as const,
     icon: TrendingDown,
-    color: "text-red-600",
-    bg: "bg-red-50",
-    border: "border-red-200",
+    glowColor: "bg-destructive",
+    glowClass: "glow-destructive",
+    iconColor: "text-destructive",
     action: "Analyze sofa margins in detail",
   },
   {
     id: "2",
     title: "Rossi Interiors gone quiet",
     text: "Our top customer (12% of revenue) hasn't ordered since November — 67 days silence",
-    severity: "critical" as const,
     icon: Users,
-    color: "text-red-600",
-    bg: "bg-red-50",
-    border: "border-red-200",
+    glowColor: "bg-destructive",
+    glowClass: "glow-destructive",
+    iconColor: "text-destructive",
     action: "Show Rossi Interiors order history",
   },
   {
     id: "3",
     title: "Online channel surging",
     text: "Now at 36% of revenue, up from 15% pre-relaunch. Strong organic growth",
-    severity: "positive" as const,
     icon: TrendingUp,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    glowColor: "bg-success",
+    glowClass: "glow-success",
+    iconColor: "text-success",
     action: "Break down online channel performance",
   },
   {
     id: "4",
     title: "Showroom 3 needs attention",
     text: "Highest discounts (12% avg), lowest ratings (3.4/5), weakest revenue",
-    severity: "warning" as const,
     icon: AlertTriangle,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
+    glowColor: "bg-warning",
+    glowClass: "glow-warning",
+    iconColor: "text-warning",
     action: "Compare all three showrooms",
   },
 ];
@@ -143,17 +139,17 @@ export default function HubPage() {
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
-        {/* Hero greeting */}
+        {/* Hero greeting — serif for elegance */}
         <motion.div
-          className="mb-10"
+          className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">
+          <h1 className="text-4xl font-display italic text-foreground tracking-tight">
             {getGreeting()}
           </h1>
-          <p className="text-muted-foreground mt-1.5 text-lg">
+          <p className="text-muted-foreground mt-2 text-base">
             Bella Casa Furniture
           </p>
         </motion.div>
@@ -196,16 +192,18 @@ export default function HubPage() {
                   transition={{ duration: 0.3, delay: 0.4 + idx * 0.08 }}
                 >
                   <Link href={`/chat?q=${encodeURIComponent(insight.action)}`}>
-                    <div className={`group rounded-xl border p-4 cursor-pointer transition-all duration-200 hover:shadow-md ${insight.bg} ${insight.border}`}>
-                      <div className="flex items-start gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${insight.bg}`}>
-                          <Icon className={`w-4 h-4 ${insight.color}`} />
+                    <div className="group glass rounded-xl p-4 cursor-pointer transition-all duration-300 overflow-hidden relative">
+                      {/* Glowing left border indicator */}
+                      <div className={`absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl ${insight.glowColor} ${insight.glowClass}`} />
+                      <div className="flex items-start gap-3 pl-2">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-accent`}>
+                          <Icon className={`w-4 h-4 ${insight.iconColor}`} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-semibold text-foreground mb-0.5">{insight.title}</h3>
                           <p className="text-xs text-muted-foreground leading-relaxed">{insight.text}</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-foreground/60 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />
                       </div>
                     </div>
                   </Link>

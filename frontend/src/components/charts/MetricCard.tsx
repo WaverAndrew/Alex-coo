@@ -104,7 +104,7 @@ export function MetricCard({
       : "bg-muted/50";
 
   const sparkColor =
-    trend === "up" ? "#10b981" : trend === "down" ? "#ef4444" : "#94a3b8";
+    trend === "up" ? "#34d399" : trend === "down" ? "#f87171" : "#7c859b";
 
   const TrendIcon =
     trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;

@@ -23,15 +23,15 @@ export function AnimatedBackground() {
     function init() {
       resize();
       particles = [];
-      const count = Math.floor((canvas!.width * canvas!.height) / 16000);
+      const count = Math.floor((canvas!.width * canvas!.height) / 18000);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas!.width,
           y: Math.random() * canvas!.height,
-          r: Math.random() * 1.8 + 0.8,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          o: Math.random() * 0.18 + 0.08,
+          r: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          o: Math.random() * 0.25 + 0.08,
         });
       }
     }
@@ -50,7 +50,7 @@ export function AnimatedBackground() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(148, 163, 184, ${p.o})`;
+        ctx.fillStyle = `rgba(129, 140, 248, ${p.o * 0.6})`;
         ctx.fill();
       }
 
@@ -59,12 +59,12 @@ export function AnimatedBackground() {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
+          if (dist < 160) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(148, 163, 184, ${0.1 * (1 - dist / 140)})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(129, 140, 248, ${0.08 * (1 - dist / 160)})`;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
@@ -83,7 +83,6 @@ export function AnimatedBackground() {
     };
   }, []);
 
-  // Render as absolute within the parent, not fixed — avoids z-index wars with body bg
   return (
     <canvas
       ref={canvasRef}

@@ -27,15 +27,16 @@ const SupplyChainMap = dynamic(
   { ssr: false }
 );
 
-const DEFAULT_COLORS = ["#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
+const DEFAULT_COLORS = ["#818cf8", "#22d3ee", "#34d399", "#fbbf24", "#c084fc", "#fb7185"];
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #e2e8f0",
-  borderRadius: "8px",
-  color: "#0f172a",
+  backgroundColor: "rgba(19, 25, 40, 0.95)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  borderRadius: "10px",
+  color: "#e8ecf4",
   fontSize: "12px",
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+  backdropFilter: "blur(12px)",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,15 +69,15 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
   };
 
   const commonAxisProps = {
-    stroke: "#94a3b8",
+    stroke: "#7c859b",
     fontSize: 11,
     tickLine: false,
-    axisLine: { stroke: "#e2e8f0" },
+    axisLine: { stroke: "rgba(255, 255, 255, 0.06)" },
   };
 
   const gridProps = {
     strokeDasharray: "3 3",
-    stroke: "#f1f5f9",
+    stroke: "rgba(255, 255, 255, 0.04)",
     vertical: false,
   };
 
@@ -90,7 +91,7 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
               <YAxis {...commonAxisProps} tickFormatter={formatTick} />
               <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} cursor={{ fill: "rgba(0, 0, 0, 0.03)" }} />
-              <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
+              <Legend wrapperStyle={{ fontSize: "12px", color: "#7c859b" }} />
               {config.yKeys.map((key, idx) => (
                 <Bar
                   key={key}
@@ -113,7 +114,7 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
               <YAxis {...commonAxisProps} tickFormatter={formatTick} />
               <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
-              <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
+              <Legend wrapperStyle={{ fontSize: "12px", color: "#7c859b" }} />
               {config.yKeys.map((key, idx) => (
                 <Line
                   key={key}
@@ -147,7 +148,7 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
               <XAxis dataKey={config.xKey} {...commonAxisProps} />
               <YAxis {...commonAxisProps} tickFormatter={formatTick} />
               <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
-              <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
+              <Legend wrapperStyle={{ fontSize: "12px", color: "#7c859b" }} />
               {config.yKeys.map((key, idx) => (
                 <Area
                   key={key}
@@ -185,7 +186,7 @@ export function ChartRenderer({ config, height = 300, className }: ChartRenderer
                 ))}
               </Pie>
               <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatTooltipValue} />
-              <Legend wrapperStyle={{ fontSize: "12px", color: "#64748b" }} />
+              <Legend wrapperStyle={{ fontSize: "12px", color: "#7c859b" }} />
             </PieChart>
           </ResponsiveContainer>
         );

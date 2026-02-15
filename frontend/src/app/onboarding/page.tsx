@@ -52,7 +52,7 @@ export default function OnboardingPage() {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-colors ${
                   idx <= currentIdx
-                    ? "bg-foreground text-background"
+                    ? "bg-primary text-primary-foreground"
                     : "bg-accent/50 text-muted-foreground border border-border/50"
                 }`}
               >
@@ -97,7 +97,7 @@ export default function OnboardingPage() {
                 </p>
                 <button
                   onClick={() => setCurrentStep("data")}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-foreground text-background font-medium text-sm hover:bg-foreground/90 transition-colors shadow-lg shadow-black/10"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium text-sm hover:bg-foreground/90 transition-colors shadow-lg shadow-black/10"
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4" />
@@ -188,7 +188,7 @@ export default function OnboardingPage() {
                   </button>
                   <button
                     onClick={() => router.push("/chat")}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:bg-foreground/90 transition-colors shadow-lg shadow-black/10"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-foreground/90 transition-colors shadow-lg shadow-black/10"
                   >
                     Chat with Alex
                     <ArrowRight className="w-4 h-4" />

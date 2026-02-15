@@ -128,7 +128,7 @@ export function ChatInput({ onSend, onStop, isLoading, editValue, onEditClear }:
             className={cn(
               "flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200",
               input.trim() && !isLoading
-                ? "bg-foreground text-background hover:bg-foreground/90"
+                ? "bg-primary text-primary-foreground hover:bg-foreground/90"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             )}
           >

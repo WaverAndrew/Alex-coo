@@ -192,7 +192,7 @@ export default function DeepDiveDetailPage() {
                 )}
                 <div className={cn(
                   "max-w-[85%] rounded-xl px-3 py-2",
-                  fu.role === "user" ? "bg-foreground text-background text-sm" : "bg-muted/30"
+                  fu.role === "user" ? "bg-primary text-primary-foreground text-sm" : "bg-muted/30"
                 )}>
                   {fu.role === "assistant" ? (
                     <>
@@ -238,7 +238,7 @@ export default function DeepDiveDetailPage() {
               disabled={!input.trim() || loading}
               className={cn(
                 "flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all",
-                input.trim() && !loading ? "bg-foreground text-background" : "text-muted-foreground/30"
+                input.trim() && !loading ? "bg-primary text-primary-foreground" : "text-muted-foreground/30"
               )}
             >
               <Send className="w-3.5 h-3.5" />

@@ -214,7 +214,7 @@ export function FloatingChatBar() {
                   )}
                   <div className={cn(
                     "max-w-[85%] rounded-xl px-3 py-2",
-                    msg.role === "user" ? "bg-foreground text-background text-[13px]" : "bg-muted/40 text-foreground"
+                    msg.role === "user" ? "bg-primary text-primary-foreground text-[13px]" : "bg-muted/40 text-foreground"
                   )}>
                     {msg.role === "assistant" ? (
                       <Markdown content={msg.content} className="text-[13px]" />
@@ -277,7 +277,7 @@ export function FloatingChatBar() {
                   disabled={!input.trim() || isLoading}
                   className={cn(
                     "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-                    input.trim() && !isLoading ? "bg-foreground text-background" : "text-muted-foreground/30"
+                    input.trim() && !isLoading ? "bg-primary text-primary-foreground" : "text-muted-foreground/30"
                   )}
                 >
                   <Send className="w-3.5 h-3.5" />
@@ -305,14 +305,14 @@ export function FloatingChatBar() {
                   className="flex-1 text-sm bg-transparent outline-none text-foreground placeholder:text-muted-foreground/60" />
                 <button onClick={() => handleSend()} disabled={!input.trim()}
                   className={cn("flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all",
-                    input.trim() ? "bg-foreground text-background" : "text-muted-foreground/40")}>
+                    input.trim() ? "bg-primary text-primary-foreground" : "text-muted-foreground/40")}>
                   <Send className="w-3.5 h-3.5" />
                 </button>
               </motion.div>
             ) : (
               <motion.button key="collapsed"
                 onClick={() => { setOpen(true); setTimeout(() => inputRef.current?.focus(), 100); }}
-                className="flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-2.5 shadow-lg shadow-black/10 hover:shadow-xl transition-all"
+                className="flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-5 py-2.5 shadow-lg shadow-black/10 hover:shadow-xl transition-all"
                 initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <MessageSquare className="w-4 h-4" />
@@ -328,7 +328,7 @@ export function FloatingChatBar() {
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
           <motion.button
             onClick={() => { setOpen(!open); if (!open) setTimeout(() => inputRef.current?.focus(), 200); }}
-            className="flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-2.5 shadow-lg shadow-black/10 hover:shadow-xl transition-all"
+            className="flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-5 py-2.5 shadow-lg shadow-black/10 hover:shadow-xl transition-all"
             initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
           >

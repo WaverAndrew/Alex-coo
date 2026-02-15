@@ -55,8 +55,8 @@ export function MessageBubble({ message, onEdit }: MessageBubbleProps) {
     >
       {!isUser && (
         <div className="flex-shrink-0 mt-1">
-          <div className="w-7 h-7 rounded-lg bg-foreground flex items-center justify-center">
-            <Brain className="w-3.5 h-3.5 text-background" />
+          <div className="w-7 h-7 rounded-lg bg-primary/20 flex items-center justify-center">
+            <Brain className="w-3.5 h-3.5 text-primary" />
           </div>
         </div>
       )}
@@ -76,12 +76,12 @@ export function MessageBubble({ message, onEdit }: MessageBubbleProps) {
         className={cn(
           "max-w-[80%] rounded-xl px-4 py-3",
           isUser
-            ? "bg-foreground text-background"
-            : "bg-muted/50"
+            ? "bg-primary text-primary-foreground"
+            : "glass"
         )}
       >
         {isUser ? (
-          <p className="text-sm text-background">{message.content}</p>
+          <p className="text-sm text-primary-foreground">{message.content}</p>
         ) : (
           <Markdown content={message.content} />
         )}
@@ -144,7 +144,7 @@ export function MessageBubble({ message, onEdit }: MessageBubbleProps) {
         <p
           className={cn(
             "text-[10px] mt-2",
-            isUser ? "text-background/60 text-right" : "text-muted-foreground"
+            isUser ? "text-primary-foreground/60 text-right" : "text-muted-foreground"
           )}
         >
           {message.timestamp.toLocaleTimeString([], {

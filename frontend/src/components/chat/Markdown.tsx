@@ -146,10 +146,10 @@ function parseBlocks(content: string): BlockType[] {
 // ---------------------------------------------------------------------------
 
 const CALLOUT_STYLES = {
-  warning: { bg: "bg-amber-50", border: "border-amber-200", icon: AlertTriangle, iconColor: "text-amber-600" },
-  insight: { bg: "bg-blue-50", border: "border-blue-200", icon: Lightbulb, iconColor: "text-blue-600" },
-  action: { bg: "bg-violet-50", border: "border-violet-200", icon: ArrowRight, iconColor: "text-violet-600" },
-  positive: { bg: "bg-emerald-50", border: "border-emerald-200", icon: TrendingUp, iconColor: "text-emerald-600" },
+  warning: { bg: "bg-warning/5", border: "border-warning/20", icon: AlertTriangle, iconColor: "text-warning" },
+  insight: { bg: "bg-primary/5", border: "border-primary/20", icon: Lightbulb, iconColor: "text-primary" },
+  action: { bg: "bg-chart-5/5", border: "border-chart-5/20", icon: ArrowRight, iconColor: "text-chart-5" },
+  positive: { bg: "bg-success/5", border: "border-success/20", icon: TrendingUp, iconColor: "text-success" },
 };
 
 export function Markdown({ content, className = "" }: { content: string; className?: string }) {

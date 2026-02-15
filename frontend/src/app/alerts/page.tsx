@@ -82,9 +82,9 @@ const DEMO_ALERTS: AlertItem[] = [
 ];
 
 const SEVERITY_CONFIG = {
-  critical: { color: "text-red-600", bg: "bg-red-50", border: "border-red-200", dot: "bg-red-500" },
-  warning: { color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200", dot: "bg-amber-500" },
-  info: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200", dot: "bg-blue-500" },
+  critical: { color: "text-destructive", bg: "bg-destructive/5", border: "border-destructive/20", dot: "bg-destructive glow-destructive" },
+  warning: { color: "text-warning", bg: "bg-warning/5", border: "border-warning/20", dot: "bg-warning glow-warning" },
+  info: { color: "text-primary", bg: "bg-primary/5", border: "border-primary/20", dot: "bg-primary glow-primary" },
 };
 
 export default function AlertsPage() {
@@ -167,7 +167,7 @@ export default function AlertsPage() {
           {/* Critical */}
           {critical.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-red-600 mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-destructive mb-3">
                 Needs attention ({critical.length})
               </h2>
               <div className="space-y-3">
@@ -179,7 +179,7 @@ export default function AlertsPage() {
           {/* Warning */}
           {warning.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-amber-600 mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-warning mb-3">
                 Watch closely ({warning.length})
               </h2>
               <div className="space-y-3">
@@ -191,7 +191,7 @@ export default function AlertsPage() {
           {/* Info */}
           {info.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-blue-600 mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
                 Worth knowing ({info.length})
               </h2>
               <div className="space-y-3">

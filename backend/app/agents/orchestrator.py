@@ -19,6 +19,7 @@ import anthropic
 
 from backend.app.agents.analyst import AnalystAgent, AnalysisResult, ChartConfig
 from backend.app.agents.dashboard_builder import DashboardBuilder
+from backend.app.agents.deep_dive_agent import DeepDiveAgent
 from backend.app.config import Settings
 from backend.app.data.warehouse import DuckDBWarehouse
 from backend.app.memory.store import MemoryStore
@@ -37,6 +38,7 @@ class Intent:
     FOCUS = "focus"
     FORECAST = "forecast"
     CHITCHAT = "chitchat"
+    DEEP_DIVE = "deep_dive"
 
 
 _INTENT_PROMPT = """\
@@ -85,6 +87,17 @@ _FOCUS_PATTERNS = [
     r"\bfocus\s+on\b",
 ]
 
+_DEEP_DIVE_PATTERNS = [
+    r"\bdeep\s*dive\b",
+    r"\bfull\s+analysis\b",
+    r"\bthorough(ly)?\s+(investigate|analysis|research)\b",
+    r"\bdetailed\s+report\b",
+    r"\bcomprehensive\s+(analysis|report|study)\b",
+    r"\binvestigate\s+.{5,}\s+(in\s+depth|thoroughly)\b",
+    r"\bresearch\s+.{5,}\s+(in\s+depth|thoroughly)\b",
+    r"\brun\s+a\s+(regression|statistical|ml)\b",
+]
+
 
 def _quick_classify(message: str) -> str | None:
     """Try regex-based classification for obvious cases. Returns None if unsure."""
@@ -101,6 +114,10 @@ def _quick_classify(message: str) -> str | None:
     for pattern in _FOCUS_PATTERNS:
         if re.search(pattern, lower):
             return Intent.FOCUS
+
+    for pattern in _DEEP_DIVE_PATTERNS:
+        if re.search(pattern, lower):
+            return Intent.DEEP_DIVE
 
     return None
 
@@ -280,6 +297,9 @@ class Orchestrator:
 
             elif intent == Intent.DASHBOARD:
                 result = await self._handle_dashboard(message, session_id)
+
+            elif intent == Intent.DEEP_DIVE:
+                result = await self._handle_deep_dive(message, session_id)
 
             elif intent == Intent.FOCUS:
                 result = await self._handle_analysis(message, session_id)
@@ -483,6 +503,64 @@ class Orchestrator:
             "chart_configs": new_charts,
             "dashboard_update": dashboard_update,
             "confidence": result.confidence,
+        }
+
+    async def _handle_deep_dive(
+        self, message: str, session_id: str,
+    ) -> dict[str, Any]:
+        """Kick off a background deep dive and return immediately."""
+        import uuid
+        dive_id = f"dive-{uuid.uuid4().hex[:8]}"
+
+        # Import here to access the in-memory store
+        from backend.app.api.routes.deep_dives import _active_dives
+
+        _active_dives[dive_id] = {
+            "id": dive_id,
+            "topic": message,
+            "status": "processing",
+            "progress": 5,
+            "title": None,
+            "content": None,
+            "charts": [],
+        }
+
+        agent = DeepDiveAgent(
+            warehouse=self.warehouse,
+            broadcaster=self.broadcaster,
+            settings=self.settings,
+        )
+
+        import asyncio
+        async def _run():
+            try:
+                result = await agent.run(message, dive_id)
+                _active_dives[dive_id].update({
+                    "status": "complete",
+                    "progress": 100,
+                    "title": result.get("title"),
+                    "content": result.get("content", ""),
+                    "charts": result.get("charts", []),
+                })
+            except Exception as exc:
+                _active_dives[dive_id].update({
+                    "status": "error",
+                    "content": f"Analysis failed: {str(exc)[:500]}",
+                })
+
+        asyncio.create_task(_run())
+
+        return {
+            "session_id": session_id,
+            "content": (
+                f"I'm starting a deep dive analysis on that topic. "
+                f"This will take 2-3 minutes — I'm running multiple queries, "
+                f"cross-referencing data, and building a comprehensive report.\n\n"
+                f"Check the **Deep Dives** page to see the progress and final report."
+            ),
+            "chart_configs": [],
+            "confidence": "high",
+            "deep_dive_id": dive_id,
         }
 
     # ------------------------------------------------------------------

@@ -183,6 +183,36 @@ export async function getCompanyProfile(): Promise<CompanyProfile> {
   return fetchAPI<CompanyProfile>("/api/company");
 }
 
+// ---------- Deep Dives ----------
+
+export interface DeepDiveStatusResponse {
+  id: string;
+  topic: string;
+  status: "processing" | "complete" | "error" | "not_found";
+  progress: number;
+  title: string | null;
+  content: string | null;
+  charts: Array<{
+    type: string;
+    title: string;
+    data: Record<string, unknown>[];
+    xKey: string;
+    yKeys: string[];
+    colors?: string[];
+  }>;
+}
+
+export async function createDeepDive(topic: string): Promise<DeepDiveStatusResponse> {
+  return fetchAPI<DeepDiveStatusResponse>("/api/deep-dives", {
+    method: "POST",
+    body: JSON.stringify({ topic }),
+  });
+}
+
+export async function getDeepDiveStatus(id: string): Promise<DeepDiveStatusResponse> {
+  return fetchAPI<DeepDiveStatusResponse>(`/api/deep-dives/${encodeURIComponent(id)}`);
+}
+
 // ---------- Demo Data ----------
 
 export async function loadDemoData(): Promise<{ success: boolean; message: string }> {

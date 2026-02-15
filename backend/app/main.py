@@ -17,6 +17,7 @@ from backend.app.api.routes.data import router as data_router
 from backend.app.api.routes.dashboards import router as dashboards_router
 from backend.app.api.routes.focus import router as focus_router
 from backend.app.api.routes.company import router as company_router
+from backend.app.api.routes.deep_dives import router as deep_dives_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -87,6 +88,7 @@ app.include_router(data_router)
 app.include_router(dashboards_router)
 app.include_router(focus_router)
 app.include_router(company_router)
+app.include_router(deep_dives_router)
 
 
 # ---------------------------------------------------------------------------

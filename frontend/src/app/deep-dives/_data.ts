@@ -124,4 +124,120 @@ We should schedule an immediate outreach to Rossi Interiors and diversify the to
       "What's our customer acquisition cost for B2B?",
     ],
   },
+  {
+    id: "dd-4",
+    title: "Discount-to-Revenue Regression: Optimal Pricing Strategy",
+    summary: "Linear regression across 3,491 orders reveals the optimal discount threshold per channel. Showroom 3 is 4.2% past the inflection point.",
+    fullContent: `## Executive Summary
+
+A linear regression analysis across **3,491 sales orders** reveals a statistically significant negative relationship between discount percentage and order revenue. Every **1% increase in discount** reduces average order value by **EUR 28.40** (p < 0.001, R² = 0.34). However, the effect varies dramatically by channel.
+
+## Statistical Model
+
+We ran an OLS regression: \`revenue ~ discount_pct + channel + discount_pct:channel\`
+
+**Model fit:** R² = **0.34**, Adjusted R² = **0.33**, F-statistic = **184.7** (p < 0.001)
+
+Key coefficients:
+- **Base effect:** -28.40 EUR per 1% discount (95% CI: [-31.2, -25.6])
+- **Showroom 1 interaction:** +4.10 (discounts slightly less harmful here)
+- **Showroom 3 interaction:** -12.80 (discounts are *more* harmful — each 1% costs extra)
+- **Online interaction:** +8.30 (online customers are more discount-responsive)
+
+## Key Findings
+
+**1. Showroom 3 is past the inflection point**
+
+At **11.78% average discount**, Showroom 3 has crossed the optimal discount threshold of **7.5%**. Beyond this point, additional discounting destroys more margin than it generates in volume. They're **4.28 percentage points** past the inflection.
+
+**2. Online has a higher optimal threshold**
+
+The online channel shows a flatter discount-revenue curve, with an optimal range of **3-6%**. Currently at **3.1%**, there's actually room for tactical promotions online without damaging the brand.
+
+**3. Showroom 1 is the benchmark**
+
+At **4.96% average discount** and the lowest sensitivity coefficient, Showroom 1 demonstrates that strong conversion can be achieved with minimal discounting. The product mix and sales team quality are the differentiators, not price.
+
+**4. Diminishing returns after 8%**
+
+Across all channels, the regression shows sharply diminishing returns after the **8% discount mark**. Orders with >8% discount have **23% lower average revenue** but only **7% higher volume** — a net negative.
+
+We should immediately cap Showroom 3 discounts at 8% maximum. This would recover approximately **EUR 62K annually** in margin with minimal volume impact based on our elasticity estimates.
+
+## Risk Factors
+
+- The regression assumes linear relationships; actual response curves may be non-linear at extreme values
+- Seasonal effects (Q4 holiday pricing) may skew the overall coefficient
+- Showroom 3's high discounts may reflect a fundamentally different customer base requiring separate strategy`,
+    charts: [
+      {
+        type: "line",
+        title: "Discount % vs Average Order Revenue (Regression)",
+        data: [
+          { discount: "0-2%", revenue: 2890, predicted: 2850 },
+          { discount: "2-4%", revenue: 2720, predicted: 2790 },
+          { discount: "4-6%", revenue: 2650, predicted: 2680 },
+          { discount: "6-8%", revenue: 2510, predicted: 2570 },
+          { discount: "8-10%", revenue: 2280, predicted: 2460 },
+          { discount: "10-12%", revenue: 2050, predicted: 2350 },
+          { discount: "12-14%", revenue: 1780, predicted: 2240 },
+          { discount: "14%+", revenue: 1520, predicted: 2130 },
+        ],
+        xKey: "discount",
+        yKeys: ["revenue", "predicted"],
+        colors: ["#818cf8", "#34d399"],
+      },
+      {
+        type: "bar",
+        title: "Regression Coefficient by Channel (EUR per 1% discount)",
+        data: [
+          { channel: "Showroom 1", coefficient: -24.3 },
+          { channel: "Showroom 2", coefficient: -28.4 },
+          { channel: "Showroom 3", coefficient: -41.2 },
+          { channel: "Online", coefficient: -20.1 },
+          { channel: "Wholesale", coefficient: -31.5 },
+        ],
+        xKey: "channel",
+        yKeys: ["coefficient"],
+        colors: ["#f87171"],
+      },
+      {
+        type: "area",
+        title: "Optimal Discount Zone — Margin vs Volume Tradeoff",
+        data: [
+          { discount: "0%", margin_index: 100, volume_index: 72 },
+          { discount: "2%", margin_index: 96, volume_index: 78 },
+          { discount: "4%", margin_index: 91, volume_index: 85 },
+          { discount: "6%", margin_index: 85, volume_index: 91 },
+          { discount: "8%", margin_index: 77, volume_index: 95 },
+          { discount: "10%", margin_index: 68, volume_index: 97 },
+          { discount: "12%", margin_index: 58, volume_index: 98 },
+          { discount: "14%", margin_index: 47, volume_index: 99 },
+        ],
+        xKey: "discount",
+        yKeys: ["margin_index", "volume_index"],
+        colors: ["#818cf8", "#22d3ee"],
+      },
+      {
+        type: "bar",
+        title: "Current vs Optimal Discount Rate by Store",
+        data: [
+          { store: "Showroom 1", current: 4.96, optimal: 5.0 },
+          { store: "Showroom 2", current: 6.98, optimal: 6.5 },
+          { store: "Showroom 3", current: 11.78, optimal: 7.5 },
+          { store: "Online", current: 3.10, optimal: 5.0 },
+        ],
+        xKey: "store",
+        yKeys: ["current", "optimal"],
+        colors: ["#f87171", "#34d399"],
+      },
+    ],
+    createdAt: "2025-01-31",
+    followUpSuggestions: [
+      "What would capping Showroom 3 at 8% do to revenue?",
+      "Run the same regression by product category",
+      "How does seasonality affect the discount sensitivity?",
+      "Show me the residual plot for this regression",
+    ],
+  },
 ];

@@ -53,11 +53,20 @@ async def lifespan(app: FastAPI):
     app.state.settings = settings
     app.state.broadcaster = broadcaster
 
+    # Telegram bot (if configured)
+    from backend.app.integrations.telegram_bot import start_telegram_polling, stop_telegram_polling
+    await start_telegram_polling(warehouse, memory, broadcaster)
+
+    # WhatsApp webhook router
+    from backend.app.integrations.whatsapp import router as whatsapp_router
+    app.include_router(whatsapp_router)
+
     logger.info("Backend ready on %s:%s", settings.HOST, settings.PORT)
 
     yield
 
     # ---- shutdown ----
+    await stop_telegram_polling()
     warehouse.close()
     logger.info("Backend shut down")
 

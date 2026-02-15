@@ -18,5 +18,13 @@ class Settings(BaseSettings):
     PORT: int = 8000
     CORS_ORIGINS: list[str] = ["http://localhost:3000"]
 
+    # Telegram bot (optional)
+    TELEGRAM_BOT_TOKEN: str = ""
+
+    # WhatsApp Business API (optional)
+    WHATSAPP_TOKEN: str = ""
+    WHATSAPP_VERIFY_TOKEN: str = ""
+    WHATSAPP_PHONE_NUMBER_ID: str = ""
+
 
 settings = Settings()

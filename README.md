@@ -24,209 +24,197 @@ What if every SME could have a world-class operations team — a data scientist,
 
 **That's Alex.**
 
-Alex is an AI-native COO agent that connects directly to a company's data and operates as a knowledgeable business partner. Not a chatbot that answers questions. Not a dashboard you have to learn. A coworker who:
+Alex is an AI-native COO agent that connects directly to a company's data and operates as a knowledgeable business partner. Not a chatbot. Not a dashboard. A coworker who knows every number, flags problems before they escalate, runs regressions on demand, and builds dashboards you edit by talking to them.
 
-- **Knows every number in the business** — revenue, margins, customers, suppliers, inventory, production
-- **Proactively flags problems** — before they become crises
-- **Runs deep analyses on demand** — regression, trend analysis, cross-referencing
-- **Builds dashboards you can edit by talking** — "add a margin chart" and it appears
-- **Reaches you where you are** — web app, Telegram, WhatsApp
+**Claude doesn't just answer questions. It creates real economic value.**
 
-Alex doesn't replace human judgment. Alex gives SME owners the same quality of information that Fortune 500 executives take for granted — so they can make better decisions, faster.
+---
 
-## The Demo: Bella Casa Furniture
+## Architecture
 
-For this hackathon, Alex is deployed as the COO of **Bella Casa Furniture**, an Italian furniture manufacturer and retailer. 18 months of synthetic data across 12 interconnected tables, with 5 real business stories embedded in the data for Alex to discover:
+### System Overview
 
-| Story | What Alex Finds |
-|-------|----------------|
-| 🔴 **Sofa Margin Squeeze** | Foam supplier raised prices 18% → sofa margins dropped from 42% to 28% |
-| 📈 **Online Channel Surge** | Website relaunch drove online from 15% to 36% of revenue |
-| ⚠️ **Showroom 3 Underperformance** | Highest discounts (12%), lowest ratings (3.4/5), weakest revenue |
-| 📊 **Seasonal Bed Boom** | 2.5x sales spike in Oct-Nov — needs production planning |
-| 🚨 **VIP Concentration Risk** | Top customer (12% of revenue) hasn't ordered in 67 days |
+```
+                         ┌──────────────┐
+                         │   Frontend   │
+                         │  Next.js 16  │
+                         └──────┬───────┘
+                                │ HTTP + WebSocket
+                         ┌──────▼───────┐        ┌─────────────┐
+  Telegram ──────────────►              │        │  DuckDB     │
+                         │  Orchestrator ├───────►│  Warehouse  │
+  WhatsApp ──────────────►              │        │  (in-memory)│
+                         └──┬───┬───┬───┘        └─────────────┘
+                            │   │   │
+               ┌────────────┘   │   └────────────┐
+               ▼                ▼                 ▼
+        ┌─────────────┐  ┌───────────┐  ┌──────────────┐
+        │  Analyst     │  │ Deep Dive │  │  Dashboard   │
+        │  Agent       │  │ Agent     │  │  Builder     │
+        │  (realtime)  │  │ (background)│  │  + Monitor  │
+        └──────┬───────┘  └─────┬─────┘  └──────────────┘
+               │                │
+               ▼                ▼
+        ┌─────────────────────────────┐
+        │    Claude API (tool-use)     │
+        │    execute_sql              │
+        │    recommend_chart          │
+        └─────────────────────────────┘
+```
 
-Alex discovers all of these through natural conversation — no configuration, no training, no setup beyond connecting the data.
+### Agent System
+
+The core of Alex is a **multi-agent orchestration layer** built on Claude's tool-use API. Every user message — whether from the web app, Telegram, or WhatsApp — flows through the same pipeline.
+
+#### Orchestrator (`orchestrator.py`)
+The central dispatcher. Receives every message and:
+1. **Classifies intent** — hybrid approach: fast regex patterns for obvious cases (greetings, "create a dashboard"), Claude API call for ambiguous messages. Intent categories: `ANALYSIS`, `DASHBOARD`, `DEEP_DIVE`, `FOCUS`, `FORECAST`, `CHITCHAT`
+2. **Injects context** — conversation history, company profile, active focus items, and (if on a dashboard page) the current dashboard state with all its charts
+3. **Routes to the right agent** — each intent has a specialized handler
+4. **Persists state** — saves conversation turns, broadcasts thought events via WebSocket
+
+#### Analyst Agent (`analyst.py`)
+The real-time analysis brain. Runs Claude in a **tool-use loop** (max 10 iterations):
+
+- **`execute_sql`** — writes DuckDB SQL, executes against the warehouse, gets results as JSON. If the query fails, the error is fed back to Claude for self-correction.
+- **`recommend_chart`** — produces Recharts-compatible chart configs (bar, line, area, pie, geo, metric). Maps snake_case tool outputs to camelCase frontend format.
+
+Each iteration broadcasts `ThoughtEvent`s over WebSocket — thinking, executing_sql, found_insight, generating_chart — so the frontend can show live reasoning steps.
+
+Returns: narrative markdown + chart configs + confidence level + all SQL queries executed.
+
+#### Deep Dive Agent (`deep_dive_agent.py`)
+Background research agent for comprehensive analyses. Runs **asynchronously** (2-3 minutes) with a 5-phase pipeline:
+
+| Phase | What happens | Duration |
+|-------|-------------|----------|
+| **Plan** | Claude designs 8-15 SQL queries covering multiple data angles | ~5s |
+| **Gather** | Executes each query sequentially, broadcasting progress | ~60-90s |
+| **Analyze** | Feeds ALL gathered data back to Claude for cross-referencing | ~15s |
+| **Visualize** | Generates 4-8 charts via tool-use loop | ~20s |
+| **Synthesize** | Produces structured report: Executive Summary, Findings, Statistical Analysis, Recommendations, Risk Factors | ~30s |
+
+Progress events stream in real-time via WebSocket. The frontend polls `GET /api/deep-dives/{id}` for completion status.
+
+#### Persona (`persona.py`)
+Builds the system prompt that defines Alex's character. Dynamically assembles 7 sections:
+- Core personality (COO who's been with the company 3 years, never breaks character)
+- Company context (name, industry, from the profile store)
+- Full database schema (all tables + columns + types — so Claude knows what data exists)
+- Active focus items and their current status
+- Recent conversation history (last 8 turns)
+- Tool usage instructions with DuckDB-specific syntax hints
+- Output format rules optimized for the rich frontend renderer (bold metrics → pills, callout triggers for warnings/actions/insights)
+
+#### Dashboard Builder (`dashboard_builder.py`)
+Wraps dashboard persistence. When the orchestrator detects `DASHBOARD` intent, the analyst runs first, then charts are saved as a named dashboard.
+
+When the user is **on a dashboard page**, the orchestrator detects dashboard context and routes to `_handle_dashboard_edit` — which injects the current chart state into the prompt so Claude can modify specific charts.
+
+#### Monitor Agent (`monitor.py`)
+Background metric watcher. Iterates active focus items, runs each item's SQL query, compares against warning/alert thresholds (respecting direction: higher_is_better vs lower_is_better), updates status, and broadcasts alerts.
+
+### Data Layer
+
+#### DuckDB Warehouse (`warehouse.py`)
+In-memory analytical database. On startup, scans `backend/data/` and creates a table for each CSV using `read_csv_auto`. Provides:
+- `execute_query(sql)` → list of dicts
+- `get_schema()` → all tables with column names and types
+- `get_table_sample(name, limit)` → sample rows
+- `get_table_stats(name)` → row count, min/max/avg per column
+
+#### Memory Store (`store.py`)
+SQLite-backed persistence via SQLModel. Stores:
+- **Conversation turns** — role, content, chart configs, timestamps (keyed by session_id)
+- **Dashboards** — title, description, chart configs, pinned status
+- **Focus items** — metric name, SQL query, thresholds, direction, current status
+- **Company profile** — name, industry, description, key metrics
+- **Reports** — saved analysis outputs
+
+#### Synthetic Data Generator (`generate_data/`)
+Generates 12 interconnected CSV tables for Bella Casa Furniture (Italian furniture manufacturer). 14,000+ rows with 5 embedded business stories that emerge naturally from the data:
+
+1. **Sofa Margin Squeeze** — foam supplier price hike 18%, margins 42%→28%
+2. **Online Channel Surge** — website relaunch, online share 15%→36%
+3. **Showroom 3 Underperformance** — highest discounts, lowest ratings
+4. **Seasonal Bed Boom** — 2.5x Oct-Nov spike
+5. **VIP Concentration Risk** — top customer = 12% revenue, gone silent
+
+### Real-Time Communication
+
+#### Thought Stream (`thought_stream.py`)
+WebSocket broadcaster. Manages connected clients and broadcasts `ThoughtEvent`s:
+- `thinking` — agent is reasoning
+- `executing_sql` — running a query (includes SQL in metadata)
+- `found_insight` — discovered something notable
+- `generating_chart` — building a visualization
+- `deep_dive_progress` — background research phase updates
+
+Two WebSocket endpoints:
+- `/ws/thoughts` — persistent connection for thought stream
+- `/ws/chat` — per-message connection that sends thoughts + final response, used by the frontend chat
+
+### Messaging Integrations
+
+#### Telegram (`integrations/telegram_bot.py`)
+Full bot via `python-telegram-bot`. Starts in polling mode on app startup if `TELEGRAM_BOT_TOKEN` is set. All messages route through the Orchestrator — same agent, same data, same quality. Charts summarized as text with a link to the web app.
+
+#### WhatsApp (`integrations/whatsapp.py`)
+Webhook handler for Meta WhatsApp Business API. `GET /api/whatsapp/webhook` for verification, `POST` for incoming messages. Infrastructure-ready — set token + phone ID to activate.
+
+### Frontend
+
+Next.js 16 App Router with a premium dark theme:
+
+- **Hub** — metric cards with animated count-up, insight cards with glowing status indicators, revenue chart, animated particle background, serif greeting typography
+- **Chat** — centered single-column layout, inline thinking steps (no side panel), history as a collapsible dropdown, stop/edit buttons on messages, rich markdown rendering with callout cards and metric pills
+- **Dashboards** — editable chart grids, per-chart edit/delete on hover, right-side slide panel for conversational editing, context-aware floating chat bar
+- **Deep Dives** — full document pages with charts, rich analysis, and inline follow-up threads
+- **Alerts** — severity-grouped clickable cards that open focused chat analyses
+
+State managed with Zustand stores. Chat history, dashboards, and deep dives all persist to localStorage.
+
+---
 
 ## Features
 
-### 🧠 Conversational Analytics
-Ask Alex anything in natural language. It writes SQL, queries the data warehouse, interprets results, and responds with insights — not raw data.
-
-```
-You: "How's revenue trending?"
-Alex: "Revenue in January hit EUR 1.48M, up 12% from December..."
-      [renders an interactive line chart inline]
-```
-
-### 📊 Rich Visual Response
-Alex's responses aren't just text. The UI renders:
-- **Metric pills** — bold numbers highlighted as interactive elements
-- **Colored callout cards** — warnings (amber), insights (blue), actions (purple), positive signals (green)
-- **Inline charts** — bar, line, area, pie, donut, geographic maps
-- **Every response** has a "Save as Dashboard" or "Save as Deep Dive" button
-
-### 🗺️ Supply Chain Map
-Ask about supply chain status and Alex generates a **Palantir-style geographic map** of Italy showing all supplier locations, delivery status (on-time/delayed/critical), and supply route lines to HQ.
-
-### 📋 Interactive Dashboards
-- **Create from chat**: "Build a dashboard of our showroom performance" → saved to dashboards
-- **Edit in-place**: Open a dashboard, click "Edit this dashboard" → right panel slides in for conversational editing
-- **Per-chart controls**: Hover any chart to edit or delete it individually
-- **Persistent**: All changes saved to localStorage, survive page reloads
-
-### 🔬 Deep Dive Research Agent
-Not every question deserves a quick answer. When you need depth:
-
-```
-You: "Do a deep dive on our discount strategy"
-Alex: "Starting analysis — check Deep Dives in ~3 minutes"
-```
-
-The Deep Dive Agent runs a **5-phase background pipeline**:
-1. **Plan** — designs 8-15 SQL queries across multiple data angles
-2. **Gather** — executes queries with live progress updates
-3. **Analyze** — cross-references all findings
-4. **Visualize** — generates 4-8 charts
-5. **Synthesize** — produces a structured report with executive summary, statistical analysis, recommendations, and risk factors
-
-The sample deep dive includes a **linear regression analysis** (discount % vs revenue, R²=0.34, per-channel coefficients).
-
-### 🚨 Proactive Alerts
-Alex watches your business metrics and surfaces issues before they escalate:
-- **Critical**: "Rossi Interiors hasn't ordered in 67 days — they're 12% of revenue"
-- **Warning**: "Sofa margins at 28%, down from 42%"
-- **Info**: "Online channel growing faster than fulfillment capacity"
-
-Each alert is clickable → opens a focused analysis in chat.
-
-### 🔍 Agent Interpretability
-Every response shows Alex's reasoning process:
-- 🧠 Thinking steps
-- 💾 SQL queries executed (expandable)
-- 💡 Insights found
-- 📊 Charts generated
-
-In the chat, these appear inline. In the dashboard editor, they show in the right panel.
-
-### 💬 Messaging Integrations
-Alex meets you where you are:
-- **Telegram**: Full bot integration — same agent, same data, same quality
-- **WhatsApp**: Business API webhook ready — configure and go
-- **Web app**: Premium dark UI with glassmorphism, particles, serif typography
-
-### 🏗️ Technical Architecture
-
-```
-┌─────────────────────────────────────────────────────┐
-│  Frontend (Next.js 16 + Tailwind + Recharts)        │
-│  ├── Hub — metrics, insights, revenue chart          │
-│  ├── Chat — centered single-column, inline thinking  │
-│  ├── Dashboards — editable chart grids               │
-│  ├── Deep Dives — full document reports              │
-│  └── Alerts — clickable insight cards                │
-├─────────────────────────────────────────────────────┤
-│  Backend (FastAPI + DuckDB + Claude API)             │
-│  ├── Orchestrator — intent classification + routing   │
-│  ├── AnalystAgent — Claude tool-use loop (SQL+charts)│
-│  ├── DeepDiveAgent — 5-phase background research     │
-│  ├── Persona — Alex's COO character + context        │
-│  ├── ThoughtBroadcaster — real-time WebSocket events │
-│  └── Integrations — Telegram bot + WhatsApp webhook  │
-├─────────────────────────────────────────────────────┤
-│  Data Layer                                          │
-│  ├── DuckDB in-memory warehouse (12 tables)          │
-│  ├── SQLite memory store (conversations, dashboards) │
-│  └── Synthetic data generator (Bella Casa Furniture) │
-└─────────────────────────────────────────────────────┘
-```
+- Conversational analytics with inline charts (bar, line, area, pie, geo map)
+- Rich response rendering — metric pills, warning/insight/action callout cards
+- Palantir-style supply chain geographic map
+- Interactive dashboards — create from chat, edit by talking, per-chart controls
+- Deep Dive research agent — 5-phase background pipeline with ML analysis
+- Proactive alerts with severity grouping
+- Agent interpretability — live reasoning steps visible during processing
+- Chat history with session management
+- Stop generation and edit/resend on messages
+- Save any response as Dashboard or Deep Dive
+- Telegram bot integration
+- WhatsApp Business API integration
+- Animated particle background
+- Premium dark glassmorphism UI
 
 ## Quick Start
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- Anthropic API key
-
-### 1. Clone and setup
 ```bash
 git clone https://github.com/WaverAndrew/Alex-coo.git
 cd Alex-coo
-```
 
-### 2. Backend
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
+# Backend
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
-
-# Generate demo data
 python -m backend.generate_data.main
-
-# Configure
-cp backend/.env.example backend/.env
-# Edit backend/.env and add your ANTHROPIC_API_KEY
-
-# Start
+cp backend/.env.example backend/.env  # add ANTHROPIC_API_KEY
 uvicorn backend.app.main:app --reload
+
+# Frontend (new terminal)
+cd frontend && npm install && npm run dev
 ```
 
-### 3. Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### 4. Open
-Navigate to `http://localhost:3000`
-
-### Optional: Telegram Bot
-1. Create a bot via @BotFather on Telegram
-2. Add `TELEGRAM_BOT_TOKEN=your-token` to `backend/.env`
-3. Restart backend — bot starts automatically
-
-## Data Model
-
-12 interconnected tables covering a complete manufacturing + retail operation:
-
-| Table | Rows | Description |
-|-------|------|-------------|
-| `suppliers` | 8 | Italian suppliers with geo coordinates |
-| `materials` | 25 | Raw materials with costs and reorder points |
-| `products` | 18 | Furniture products (sofas, beds, tables, chairs, storage) |
-| `bill_of_materials` | 71 | Product → material mappings |
-| `customers` | 800 | B2B and B2C customers across channels |
-| `purchase_orders` | 1,200 | Supplier procurement |
-| `production_orders` | 596 | Manufacturing runs |
-| `sales_orders` | 3,491 | Revenue transactions |
-| `order_line_items` | 7,805 | Individual product lines |
-| `inventory_snapshots` | 450 | Stock levels over time |
-| `daily_metrics` | 581 | Aggregated business KPIs |
-| `supplier_performance` | 151 | Monthly supplier scorecards |
-
-## Why Claude?
-
-Alex is built entirely on Claude's capabilities:
-
-- **Tool use** — Alex writes and executes SQL queries, generates chart configurations, and manages multi-step analysis through Claude's native tool-use API
-- **Persona consistency** — Claude maintains Alex's COO character across thousands of interactions without breaking
-- **Reasoning depth** — The deep dive agent leverages Claude's ability to plan research strategies, cross-reference data from 10+ queries, and synthesize structured reports
-- **Intent understanding** — Natural language is classified into analysis, dashboard creation, deep dives, monitoring, or chitchat without rigid command syntax
-
-The entire agent pipeline — from understanding a question to writing SQL to interpreting results to generating charts to crafting a narrative — is a single Claude tool-use loop. No fine-tuning. No RAG. No vector databases. Just Claude + SQL + good prompting.
-
-## The Vision
-
-Alex is a demo, but the thesis is real. Every SME in Europe — every restaurant tracking ingredients, every manufacturer managing suppliers, every retailer analyzing customers — could have an Alex.
-
-The cost? A few euros per conversation. The value? Decisions backed by data instead of intuition. Problems caught in days instead of months. Growth opportunities identified instead of missed.
-
-**Claude doesn't just answer questions. It creates economic value.**
+Open `http://localhost:3000`
 
 ---
 
 <p align="center">
   <sub>Built for the Anthropic Hackathon 2025 by <a href="https://github.com/WaverAndrew">@WaverAndrew</a></sub><br/>
-  <sub>Powered by Claude Opus 4.6 · claude-sonnet-4-5-20250929</sub>
+  <sub>Powered by Claude · claude-sonnet-4-5-20250929 · claude-opus-4-6</sub>
 </p>

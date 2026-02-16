@@ -12,6 +12,7 @@ class Settings(BaseSettings):
 
     ANTHROPIC_API_KEY: str = ""
     MODEL_NAME: str = "claude-sonnet-4-5-20250929"
+    FAST_MODEL_NAME: str = "claude-haiku-4-5-20251001"
     DB_PATH: str = ":memory:"
     DATA_DIR: str = "backend/data"
     HOST: str = "0.0.0.0"

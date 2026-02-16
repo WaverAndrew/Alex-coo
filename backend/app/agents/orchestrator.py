@@ -236,6 +236,7 @@ class Orchestrator:
         # Anthropic client for intent classification
         self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
         self.model = settings.MODEL_NAME
+        self.fast_model = settings.FAST_MODEL_NAME
 
     # ------------------------------------------------------------------
     # Public interface
@@ -278,7 +279,7 @@ class Orchestrator:
             intent = Intent.DASHBOARD
             logger.info("Dashboard context detected — routing to dashboard edit (message: %s)", message[:80])
         else:
-            intent = await classify_intent(message, self.client, self.model)
+            intent = await classify_intent(message, self.client, self.fast_model)
             logger.info("Intent classified: %s (message: %s)", intent, message[:80])
 
         await self._broadcast(

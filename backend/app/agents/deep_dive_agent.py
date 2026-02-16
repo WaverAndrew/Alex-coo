@@ -76,6 +76,7 @@ class DeepDiveAgent:
         self.broadcaster = broadcaster
         self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
         self.model = settings.MODEL_NAME
+        self.fast_model = settings.FAST_MODEL_NAME
         self.schema = warehouse.get_schema()
 
     async def run(self, topic: str, dive_id: str) -> dict[str, Any]:
@@ -138,7 +139,7 @@ class DeepDiveAgent:
 
         response = await asyncio.to_thread(
             self.client.messages.create,
-            model=self.model,
+            model=self.fast_model,
             max_tokens=4096,
             system=f"{DEEP_DIVE_SYSTEM}\n\nDATABASE SCHEMA:\n{schema_text}",
             messages=[{

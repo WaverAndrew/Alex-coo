@@ -98,7 +98,7 @@ Progress events stream in real-time via WebSocket. The frontend polls `GET /api/
 
 #### Persona (`persona.py`)
 Builds the system prompt that defines Alex's character. Dynamically assembles 7 sections:
-- Core personality (COO who's been with the company 3 years, never breaks character)
+- Core personality (COO who's been with the company 3 years)
 - Company context (name, industry, from the profile store)
 - Full database schema (all tables + columns + types — so Claude knows what data exists)
 - Active focus items and their current status
@@ -131,14 +131,6 @@ SQLite-backed persistence via SQLModel. Stores:
 - **Company profile** — name, industry, description, key metrics
 - **Reports** — saved analysis outputs
 
-#### Synthetic Data Generator (`generate_data/`)
-Generates 12 interconnected CSV tables for Bella Casa Furniture (Italian furniture manufacturer). 14,000+ rows with 5 embedded business stories that emerge naturally from the data:
-
-1. **Sofa Margin Squeeze** — foam supplier price hike 18%, margins 42%→28%
-2. **Online Channel Surge** — website relaunch, online share 15%→36%
-3. **Showroom 3 Underperformance** — highest discounts, lowest ratings
-4. **Seasonal Bed Boom** — 2.5x Oct-Nov spike
-5. **VIP Concentration Risk** — top customer = 12% revenue, gone silent
 
 ### Real-Time Communication
 
